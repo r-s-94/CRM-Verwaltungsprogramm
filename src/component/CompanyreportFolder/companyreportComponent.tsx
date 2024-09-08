@@ -33,10 +33,10 @@ export default function CompanyreportComponent() {
     data: number[];
   }
 
-  interface OrderBilanzDatatype {
+  /*interface OrderBilanzDatatype {
     month: string;
     totalSum: number;
-  }
+  }*/
 
   interface SupabaseOrderDatatype {
     Bestehldatum: string;
