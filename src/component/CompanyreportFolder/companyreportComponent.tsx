@@ -64,11 +64,9 @@ export default function CompanyreportComponent() {
 
   let supabaseOrderArray: SupabaseOrderDatatype[] = [];
 
-  const [orderBilanzArray, setOrderBilanzArray] = useState<
+  /*const [orderBilanzArray, setOrderBilanzArray] = useState<
     OrderBilanzDatatype[]
-  >([]);
-
-  const companyYearReportArray: string[] = [
+  >([])*/ const companyYearReportArray: string[] = [
     "01",
     "02",
     "03",
