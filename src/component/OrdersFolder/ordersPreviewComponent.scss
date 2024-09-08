@@ -1,0 +1,415 @@
+$delete-button-color: #dd0000;
+$delete-button-hover-color: #ff0000;
+$action-button-color: #fdfd00;
+$action-button-hover-color: #ffff60;
+$border-color: #bdbdbd;
+
+@mixin full-size {
+  width: 100%;
+  height: 100%;
+}
+
+@mixin center-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin column-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin column-flex-left-site {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+}
+
+.new-employee {
+  &__popup-message-div {
+    @include column-flex();
+
+    &--text {
+      font-size: 1.3rem;
+    }
+
+    &--close-button {
+      background-color: $action-button-color;
+
+      &--close-icon {
+        width: 2rem;
+        height: auto;
+        background-color: $action-button-color;
+      }
+
+      &--close-icon:hover {
+        background-color: $action-button-hover-color;
+      }
+    }
+
+    &--close-button:hover {
+      background-color: $action-button-hover-color;
+    }
+  }
+
+  &__form {
+    @include full-size();
+    @include column-flex();
+
+    &--close-button {
+      @include center-flex();
+      position: absolute;
+      margin-bottom: 30rem;
+      margin-left: 35rem;
+      background-color: $delete-button-color;
+      border-radius: 0.3rem;
+      border: 1.5px solid $border-color;
+
+      &--close-icon {
+        width: 2rem;
+        height: auto;
+        background-color: $delete-button-color;
+      }
+
+      &--close-icon:hover {
+        background-color: $delete-button-hover-color;
+      }
+    }
+
+    &--close-button:hover {
+      background-color: $delete-button-hover-color;
+    }
+
+    &--label-and-input-container {
+      margin-top: 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      column-gap: 10rem;
+
+      &--label-section {
+        margin-top: 1rem;
+        @include column-flex-left-site();
+        row-gap: 2.3rem;
+        padding-left: 0;
+      }
+
+      .label {
+        padding: 0;
+        margin: 0;
+        font-size: 1.3rem;
+      }
+
+      &--input-section {
+        margin-top: 1rem;
+        @include column-flex-left-site();
+        row-gap: 2.1rem;
+      }
+
+      .input {
+        width: 10rem;
+        height: 1.3rem;
+        font-size: 1rem;
+      }
+    }
+
+    &--add-button {
+      background-color: $action-button-color;
+      margin-top: 5rem;
+      border-radius: 0.3rem;
+      border: 2px solid $border-color;
+
+      &--add-icon {
+        background-color: $action-button-color;
+        width: 2.3rem;
+        height: auto;
+      }
+
+      &--add-icon:hover {
+        background-color: $action-button-hover-color;
+      }
+    }
+
+    &--add-button:hover {
+      background-color: $action-button-hover-color;
+    }
+  }
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+//
+
+$edit-button-color: lime;
+$edit-button-hover-color: limegreen;
+$delete-button-color: #dd0000;
+$delete-button-hover-color: #ff0000;
+$close-button-color: lime;
+$close-button-hover-color: limegreen;
+$icon-color: white;
+$icon-hover-color: black;
+$menu-button-color-two: #f96b00;
+
+@mixin center-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin column-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin full-size {
+  width: 100%;
+  height: 100%;
+}
+
+.orders-preview {
+  @include full-size();
+  overflow: auto;
+  margin-top: 2.5rem;
+
+  &__popup-message-div {
+    &--text {
+      font-size: 1.5rem;
+    }
+
+    &--button-div {
+      width: 100%;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
+      &--delete-button {
+        background-color: $delete-button-color;
+
+        &--delete-icon {
+          width: 1.7rem;
+          height: auto;
+          border: none;
+          background-color: $delete-button-color;
+          color: $icon-color;
+        }
+
+        &--delete-icon:hover {
+          background-color: $delete-button-hover-color;
+          color: $icon-hover-color;
+        }
+      }
+
+      &--delete-button:hover {
+        background-color: $delete-button-hover-color;
+      }
+
+      &--close-button {
+        background-color: $close-button-color;
+
+        &--close-icon {
+          width: 2rem;
+          height: auto;
+        }
+
+        &--close-icon:hover {
+          background-color: $close-button-hover-color;
+        }
+      }
+
+      &--close-button:hover {
+        background-color: $close-button-hover-color;
+      }
+    }
+  }
+
+  &__single-order-div {
+    @include full-size();
+    @include column-flex();
+
+    &--close-button {
+      position: absolute;
+      margin-bottom: 40rem;
+      margin-left: 80%;
+      background-color: $delete-button-color;
+
+      &--close-icon {
+        width: 2rem;
+        height: auto;
+        background-color: $delete-button-color;
+      }
+
+      &--close-icon:hover {
+        background-color: $delete-button-hover-color;
+      }
+    }
+
+    &--close-button:hover {
+      background-color: $delete-button-hover-color;
+    }
+
+    &--tabel {
+      width: 100%;
+      border-collapse: collapse;
+
+      &--tr {
+        &--th {
+          font-size: 1.2rem;
+        }
+
+        &--td {
+          font-size: 1.1rem;
+
+          &--button-div {
+            @include column-flex();
+            row-gap: 1rem;
+            margin-left: 0.5rem;
+
+            &--edit-button {
+              background-color: $menu-button-color-two;
+
+              &--edit-icon {
+                width: 2rem;
+                height: auto;
+              }
+            }
+
+            &--delete-button {
+              background-color: $delete-button-color;
+              border-color: white;
+              border-radius: 0.3rem;
+
+              &--delete-icon {
+                width: 2rem;
+                height: auto;
+                background-color: $delete-button-color;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__tabel {
+    width: 100%;
+    border-collapse: collapse;
+
+    &--tr {
+      &--th {
+        position: sticky;
+        top: 0;
+        background-color: #f8f8f8;
+        font-size: 1.3rem;
+      }
+
+      &--td {
+        padding: 0.5rem 0;
+        font-size: 1.1rem;
+
+        &--button-div {
+          @include column-flex();
+          row-gap: 1rem;
+
+          &--detail-button {
+            border-radius: 0.3rem;
+            border-color: white;
+
+            &--detail-icon {
+              width: 2rem;
+              height: auto;
+            }
+
+            &--detail-icon:hover {
+              color: $icon-hover-color;
+            }
+          }
+
+          &--detail-button:hover {
+          }
+
+          &--edit-button {
+            background-color: $menu-button-color-two;
+            border-radius: 0.3rem;
+            border-color: white;
+
+            &--edit-icon {
+              width: 2rem;
+              height: auto;
+              color: $icon-color;
+            }
+
+            &--edit-icon:hover {
+              color: $icon-hover-color;
+            }
+          }
+
+          &--edit-button:hover {
+            background-color: $menu-button-color-two;
+          }
+
+          &--delete-button {
+            @include center-flex();
+            font-size: 0.5rem;
+            background-color: $delete-button-color;
+            border-color: white;
+            border-radius: 0.3rem;
+
+            &--delete-icon {
+              width: 2rem;
+              height: auto;
+              color: $icon-color;
+            }
+
+            &--delete-icon:hover {
+              color: $icon-hover-color;
+            }
+          }
+
+          &--delete-button:hover {
+            background-color: $delete-button-hover-color;
+          }
+        }
+      }
+    }
+  }
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  /*background-color: #dddddd;*/
+  /*background-color: #b3e5fc;*/
+  background-color: #cae0ed;
+}
+
+.payment-check-green {
+  background-color: #52b642;
+}
+
+.payment-check-yellow {
+  background-color: yellow;
+}
+
+.payment-check-red {
+  background-color: #bb0000;
+}
+
+.button {
+  @include column-flex();
+}
+
+.button:hover {
+  cursor: pointer;
+}

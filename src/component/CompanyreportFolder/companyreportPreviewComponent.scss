@@ -1,0 +1,57 @@
+.companyreport-preview-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 1485px;
+  height: 100%;
+
+  &__button-div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: 3rem;
+
+    &--button {
+      font-size: 1rem;
+      background-color: white;
+      //color: #66d3f4;
+      //color: #d4a200;
+      color: #ae8625;
+      padding: 0.3rem 1rem;
+      border: 0.1rem solid gray;
+      border-radius: 0.1rem;
+    }
+  }
+
+  &__table {
+    margin-top: 10rem;
+    border-collapse: collapse;
+    width: 100%;
+    &--tr {
+      &--th {
+        font-size: 1.5rem;
+        width: 20rem;
+      }
+
+      &--td {
+        font-size: 1.3rem;
+      }
+    }
+  }
+
+  &__month-sum-div {
+    margin-top: 1rem;
+
+    &--chart {
+      width: 1000px;
+    }
+  }
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: #f3f5f6;
+}

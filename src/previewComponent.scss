@@ -1,0 +1,82 @@
+$main-background-color: #f8f8f8;
+/*background-color: #f3f5f6;*/
+
+@mixin flex-direction {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin column-direction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin column-direction-flex-start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@mixin null-distance {
+  margin: 0;
+  padding: 0;
+}
+
+@mixin height {
+  height: 93vh;
+}
+
+.preview-component {
+  @include null-distance();
+  display: grid;
+  grid-template-columns: 20% 80%;
+  width: 100%;
+
+  &__navbar {
+    @include column-direction();
+    @include height();
+    gap: 2rem;
+    background-color: $main-background-color;
+    border-top-left-radius: 0.3rem;
+    border-bottom-left-radius: 0.3rem;
+    border-right: 1px solid #e5e5e5;
+  }
+
+  &__div {
+    @include column-direction-flex-start();
+    @include height();
+    background-color: $main-background-color;
+    border-top-right-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+.button {
+  @include flex-direction();
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid rgb(0, 0, 0);
+  font-size: 2rem;
+  padding: 0.1rem 0.5rem;
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: #ddd;
+}
+
+.employee-icon,
+.client-icon,
+.order-icon,
+.company-report-icon {
+  width: 3rem;
+  height: auto;
+}

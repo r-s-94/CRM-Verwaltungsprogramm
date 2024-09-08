@@ -1,0 +1,45 @@
+$action-button-color: #fdfd00;
+$action-button-hover-color: #ffff60;
+
+@mixin flex-direction {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin full-size {
+  width: 100%;
+  height: 100%;
+}
+
+.client {
+  @include full-size();
+  @include flex-direction();
+
+  &__headline {
+    margin-top: 2.5rem;
+  }
+
+  &__create-client-button {
+    @include flex-direction();
+    background-color: $action-button-color;
+    border-radius: 0.3rem;
+
+    &--new-client-icon {
+      width: 2rem;
+      height: auto;
+    }
+
+    &--newClient-icon:hover {
+      background-color: $action-button-hover-color;
+    }
+  }
+
+  &__create-client-button:hover {
+    background-color: $action-button-hover-color;
+  }
+}
+
+.button {
+  cursor: pointer;
+}

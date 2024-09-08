@@ -1,0 +1,162 @@
+$edit-button-color: lime;
+$edit-button-hover-color: limegreen;
+$delete-button-color: #dd0000;
+$delete-button-hover-color: #ff0000;
+$close-button-color: lime;
+$close-button-hover-color: limegreen;
+$icon-color: white;
+$icon-hover-color: black;
+$menu-button-color-two: #f96b00;
+
+@mixin center-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin column-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin full-size {
+  width: 100%;
+  height: 100%;
+}
+
+.employees-preview {
+  @include full-size();
+  overflow: auto;
+  margin-top: 2.5rem;
+
+  &__popup-message-div {
+    &--text {
+      font-size: 1.5rem;
+    }
+
+    &--button-div {
+      width: 100%;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
+      &--delete-button {
+        background-color: $delete-button-color;
+
+        &--delete-icon {
+          width: 1.7rem;
+          height: auto;
+          border: none;
+          background-color: $delete-button-color;
+          color: $icon-color;
+        }
+
+        &--delete-icon:hover {
+          background-color: $delete-button-hover-color;
+          color: $icon-hover-color;
+        }
+      }
+
+      &--delete-button:hover {
+        background-color: $delete-button-hover-color;
+      }
+
+      &--close-button {
+        background-color: $close-button-color;
+
+        &--close-icon {
+          width: 2rem;
+          height: auto;
+        }
+
+        &--close-icon:hover {
+          background-color: $close-button-hover-color;
+        }
+      }
+
+      &--close-button:hover {
+        background-color: $close-button-hover-color;
+      }
+    }
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+
+    &--tr {
+      &--th {
+        position: sticky;
+        top: 0;
+        background-color: #f8f8f8;
+        font-size: 1.3rem;
+      }
+
+      &--td {
+        padding: 0.5rem 0;
+        font-size: 1.1rem;
+
+        &--button-div {
+          @include column-flex();
+          row-gap: 1rem;
+
+          &--edit-button {
+            background-color: $menu-button-color-two;
+            border-radius: 0.3rem;
+            border-color: white;
+
+            &--edit-icon {
+              width: 2rem;
+              height: auto;
+              color: $icon-color;
+            }
+
+            &--edit-icon:hover {
+              color: $icon-hover-color;
+            }
+          }
+
+          &--edit-button:hover {
+            background-color: $menu-button-color-two;
+          }
+
+          &--delete-button {
+            @include center-flex();
+            font-size: 0.5rem;
+            background-color: $delete-button-color;
+            border-color: white;
+            border-radius: 0.3rem;
+
+            &--delete-icon {
+              width: 2rem;
+              height: auto;
+              color: $icon-color;
+            }
+
+            &--delete-icon:hover {
+              color: $icon-hover-color;
+            }
+          }
+
+          &--delete-button:hover {
+            background-color: $delete-button-hover-color;
+          }
+        }
+      }
+    }
+  }
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  /*background-color: #dddddd;*/
+  /*background-color: #b3e5fc;*/
+  background-color: #cae0ed;
+}
