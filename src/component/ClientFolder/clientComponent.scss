@@ -12,18 +12,29 @@ $action-button-hover-color: #ffff60;
   height: 100%;
 }
 
+@mixin center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .client {
   @include full-size();
   @include flex-direction();
 
   &__headline {
     margin-top: 2.5rem;
+    font-size: 2rem;
   }
 
   &__create-client-button {
-    @include flex-direction();
+    @include center-content();
     background-color: $action-button-color;
     border-radius: 0.3rem;
+    font-size: 1.3rem;
+    padding: 0.3rem 1.5rem;
+    column-gap: 0.5rem;
+    border: 1px solid black;
 
     &--new-client-icon {
       width: 2rem;

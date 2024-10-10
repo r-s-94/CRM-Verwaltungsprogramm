@@ -10,10 +10,14 @@ $menu-button-color-two: #f96b00;
 
   &__menu-icon {
     width: 2.3rem;
-    height: auto;
-    background-color: $menu-button-color;
+    height: 2.5rem;
     border: 1px solid gray;
     border-radius: 0.3rem;
+    background-color: $menu-button-color;
+  }
+
+  &__menu-icon:hover {
+    background-color: $menu-button-color-two;
   }
 }
 

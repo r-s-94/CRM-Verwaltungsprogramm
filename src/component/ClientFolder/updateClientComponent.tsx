@@ -156,8 +156,24 @@ export default function UpdateClientComponent({
             </p>
             <button
               onClick={closeUpdateClientMessagePopUp}
-              className="update-client__popup-message-div--close-button button"
-            ></button>
+              className="update-client__popup-message-div--close-button"
+            >
+              Okay Fenster schließen
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="update-client__popup-message-div--close-button--close-icon"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
           </div>
         </PopUpComponent>
       )}
@@ -279,8 +295,9 @@ export default function UpdateClientComponent({
 
             <button
               onClick={updateClient}
-              className="update-client__form--edit-button button"
+              className="update-client__form--edit-button"
             >
+              Auftraggeber bearbeiten
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"

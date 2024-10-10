@@ -88,8 +88,9 @@ export default function NewEmployeeComponent({
             </p>
             <button
               onClick={closeNewEmployeeMessagePopUp}
-              className="new-employee__popup-message-div--close-button button"
+              className="new-employee__popup-message-div--close-button"
             >
+              Okay Fenster schließen
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -113,7 +114,7 @@ export default function NewEmployeeComponent({
           <div className="new-employee__form">
             <button
               onClick={closeNewEmployeeForm}
-              className="new-employee__form--close-button button"
+              className="new-employee__form--close-button"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -211,8 +212,9 @@ export default function NewEmployeeComponent({
 
             <button
               onClick={addEmployeeToTable}
-              className="new-employee__form--add-button button"
+              className="new-employee__form--add-button"
             >
+              Mitarbeiter erstellen
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"

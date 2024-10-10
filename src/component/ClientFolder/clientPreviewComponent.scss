@@ -43,41 +43,43 @@ $menu-button-color-two: #f96b00;
       align-items: center;
 
       &--delete-button {
-        background-color: $delete-button-color;
+        @include center-flex();
+        font-size: 1.1rem;
+        padding: 0.5rem 1rem;
+        column-gap: 0.5rem;
+        border: 1px solid black;
+        border-radius: 0.2rem;
+        background-color: $delete-button-hover-color;
 
         &--delete-icon {
           width: 1.7rem;
           height: auto;
           border: none;
-          background-color: $delete-button-color;
-          color: $icon-color;
-        }
-
-        &--delete-icon:hover {
-          background-color: $delete-button-hover-color;
-          color: $icon-hover-color;
         }
       }
 
       &--delete-button:hover {
-        background-color: $delete-button-hover-color;
+        background-color: $delete-button-color;
+        cursor: pointer;
       }
 
       &--close-button {
-        background-color: $close-button-color;
+        @include center-flex();
+        padding: 0.3rem 1rem;
+        column-gap: 0.5rem;
+        font-size: 1rem;
+        border: 1px solid black;
+        border-radius: 0.2rem;
 
         &--close-icon {
           width: 2rem;
           height: auto;
         }
-
-        &--close-icon:hover {
-          background-color: $close-button-hover-color;
-        }
       }
 
       &--close-button:hover {
-        background-color: $close-button-hover-color;
+        background-color: #dbdbdb;
+        cursor: pointer;
       }
     }
   }
@@ -85,63 +87,60 @@ $menu-button-color-two: #f96b00;
   &__table {
     width: 100%;
     border-collapse: collapse;
+    background-color: white;
 
     &--tr {
       &--th {
         position: sticky;
         top: 0;
-        background-color: #f8f8f8;
-        font-size: 1.3rem;
+        font-size: 1.5rem;
+        padding: 1rem;
       }
 
       &--td {
-        padding: 0.5rem 0;
-        font-size: 1.1rem;
+        padding: 0.5rem;
+
+        &--first-name,
+        &--last-name,
+        &--address,
+        &--mail {
+          text-align: left;
+          font-size: 1.3rem;
+        }
+
+        &--age {
+          text-align: right;
+          font-size: 1.3rem;
+        }
 
         &--button-div {
           @include column-flex();
-          row-gap: 1rem;
+          row-gap: 2rem;
 
           &--edit-button {
             background-color: $menu-button-color-two;
             border-radius: 0.3rem;
-            border-color: white;
+            border: 1px solid black;
+            padding: 0.3rem 0.5rem;
 
             &--edit-icon {
               width: 2rem;
               height: auto;
-              color: $icon-color;
             }
-
-            &--edit-icon:hover {
-              color: $icon-hover-color;
-            }
-          }
-
-          &--edit-button:hover {
-            background-color: $menu-button-color-two;
           }
 
           &--delete-button {
             @include center-flex();
             font-size: 0.5rem;
             background-color: $delete-button-color;
-            border-color: white;
+            border: 1px solid black;
             border-radius: 0.3rem;
+            padding: 0.3rem 0.5rem;
 
             &--delete-icon {
               width: 2rem;
               height: auto;
-              color: $icon-color;
             }
-
-            &--delete-icon:hover {
-              color: $icon-hover-color;
-            }
-          }
-
-          &--delete-button:hover {
-            background-color: $delete-button-hover-color;
           }
         }
       }

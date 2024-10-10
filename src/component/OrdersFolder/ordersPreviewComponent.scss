@@ -29,121 +29,6 @@ $border-color: #bdbdbd;
   align-items: start;
 }
 
-.new-employee {
-  &__popup-message-div {
-    @include column-flex();
-
-    &--text {
-      font-size: 1.3rem;
-    }
-
-    &--close-button {
-      background-color: $action-button-color;
-
-      &--close-icon {
-        width: 2rem;
-        height: auto;
-        background-color: $action-button-color;
-      }
-
-      &--close-icon:hover {
-        background-color: $action-button-hover-color;
-      }
-    }
-
-    &--close-button:hover {
-      background-color: $action-button-hover-color;
-    }
-  }
-
-  &__form {
-    @include full-size();
-    @include column-flex();
-
-    &--close-button {
-      @include center-flex();
-      position: absolute;
-      margin-bottom: 30rem;
-      margin-left: 35rem;
-      background-color: $delete-button-color;
-      border-radius: 0.3rem;
-      border: 1.5px solid $border-color;
-
-      &--close-icon {
-        width: 2rem;
-        height: auto;
-        background-color: $delete-button-color;
-      }
-
-      &--close-icon:hover {
-        background-color: $delete-button-hover-color;
-      }
-    }
-
-    &--close-button:hover {
-      background-color: $delete-button-hover-color;
-    }
-
-    &--label-and-input-container {
-      margin-top: 3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      column-gap: 10rem;
-
-      &--label-section {
-        margin-top: 1rem;
-        @include column-flex-left-site();
-        row-gap: 2.3rem;
-        padding-left: 0;
-      }
-
-      .label {
-        padding: 0;
-        margin: 0;
-        font-size: 1.3rem;
-      }
-
-      &--input-section {
-        margin-top: 1rem;
-        @include column-flex-left-site();
-        row-gap: 2.1rem;
-      }
-
-      .input {
-        width: 10rem;
-        height: 1.3rem;
-        font-size: 1rem;
-      }
-    }
-
-    &--add-button {
-      background-color: $action-button-color;
-      margin-top: 5rem;
-      border-radius: 0.3rem;
-      border: 2px solid $border-color;
-
-      &--add-icon {
-        background-color: $action-button-color;
-        width: 2.3rem;
-        height: auto;
-      }
-
-      &--add-icon:hover {
-        background-color: $action-button-hover-color;
-      }
-    }
-
-    &--add-button:hover {
-      background-color: $action-button-hover-color;
-    }
-  }
-}
-
-.button:hover {
-  cursor: pointer;
-}
-
 //
 
 $edit-button-color: lime;
@@ -191,41 +76,43 @@ $menu-button-color-two: #f96b00;
       align-items: center;
 
       &--delete-button {
-        background-color: $delete-button-color;
+        @include center-flex();
+        padding: 0.4rem 1rem;
+        font-size: 1.1rem;
+        column-gap: 0.5rem;
+        border: 1px solid black;
+        border-radius: 0.2rem;
+        background-color: $delete-button-hover-color;
 
         &--delete-icon {
-          width: 1.7rem;
+          width: 1.8rem;
           height: auto;
           border: none;
-          background-color: $delete-button-color;
-          color: $icon-color;
-        }
-
-        &--delete-icon:hover {
-          background-color: $delete-button-hover-color;
-          color: $icon-hover-color;
         }
       }
 
       &--delete-button:hover {
-        background-color: $delete-button-hover-color;
+        cursor: pointer;
+        background-color: $delete-button-color;
       }
 
       &--close-button {
-        background-color: $close-button-color;
+        @include center-flex();
+        padding: 0.3rem 1rem;
+        font-size: 1rem;
+        column-gap: 0.5rem;
+        border: 1px solid black;
+        border-radius: 0.2rem;
 
         &--close-icon {
           width: 2rem;
           height: auto;
         }
-
-        &--close-icon:hover {
-          background-color: $close-button-hover-color;
-        }
       }
 
       &--close-button:hover {
-        background-color: $close-button-hover-color;
+        cursor: pointer;
+        background-color: #dbdbdb;
       }
     }
   }
@@ -233,47 +120,72 @@ $menu-button-color-two: #f96b00;
   &__single-order-div {
     @include full-size();
     @include column-flex();
+    row-gap: 5rem;
 
     &--close-button {
       position: absolute;
-      margin-bottom: 40rem;
-      margin-left: 80%;
-      background-color: $delete-button-color;
+      margin-bottom: 43rem;
+      margin-left: 65%;
+      border-radius: 0.2rem;
+      border: 1px solid black;
+      padding: 0.2rem 0.8rem;
 
       &--close-icon {
         width: 2rem;
         height: auto;
-        background-color: $delete-button-color;
-      }
-
-      &--close-icon:hover {
-        background-color: $delete-button-hover-color;
       }
     }
 
     &--close-button:hover {
-      background-color: $delete-button-hover-color;
+      cursor: pointer;
+      background-color: #dbdbdb;
     }
 
-    &--tabel {
-      width: 100%;
+    &--table {
+      width: 50%;
       border-collapse: collapse;
 
       &--tr {
         &--th {
-          font-size: 1.2rem;
+          font-size: 1.4rem;
+          text-align: left;
+          width: 50%;
         }
 
         &--td {
-          font-size: 1.1rem;
+          text-align: left;
+
+          font-size: 1.4rem;
+
+          /*&--client,
+          &--employee,
+          &--buisness,
+          &--service,
+          &--pay-methode,
+          &--payment-status,
+          &--order-note {
+            font-size: 1.3rem;
+          }
+
+          &--order-id,
+          &--service-value,
+          &--service-quantity,
+          &--service-total-sum,
+          &--order-time {
+            font-size: 1.3rem;
+          }*/
 
           &--button-div {
-            @include column-flex();
-            row-gap: 1rem;
-            margin-left: 0.5rem;
+            @include column-flex-left-site();
+            row-gap: 2rem;
+            margin-left: -5rem;
 
             &--edit-button {
+              @include center-flex();
               background-color: $menu-button-color-two;
+              padding: 0.3rem 0.5rem;
+              border-radius: 0.3rem;
+              border: 1px solid black;
 
               &--edit-icon {
                 width: 2rem;
@@ -281,16 +193,25 @@ $menu-button-color-two: #f96b00;
               }
             }
 
+            &--edit-button:hover {
+              background-color: #dbdbdb;
+            }
+
             &--delete-button {
+              @include center-flex();
               background-color: $delete-button-color;
-              border-color: white;
+              border: 1px solid black;
               border-radius: 0.3rem;
+              padding: 0.3rem 0.5rem;
 
               &--delete-icon {
                 width: 2rem;
                 height: auto;
-                background-color: $delete-button-color;
               }
+            }
+
+            &--delete-button:hover {
+              background-color: #dbdbdb;
             }
           }
         }
@@ -298,21 +219,32 @@ $menu-button-color-two: #f96b00;
     }
   }
 
-  &__tabel {
+  &__table {
     width: 100%;
     border-collapse: collapse;
+    background-color: white;
 
     &--tr {
       &--th {
         position: sticky;
         top: 0;
-        background-color: #f8f8f8;
-        font-size: 1.3rem;
+        font-size: 1.5rem;
+        padding: 1rem;
       }
 
       &--td {
         padding: 0.5rem 0;
-        font-size: 1.1rem;
+
+        &--service,
+        &--payment-status {
+          text-align: left;
+          font-size: 1.3rem;
+        }
+
+        &--service-total-sum {
+          text-align: right;
+          font-size: 1.3rem;
+        }
 
         &--button-div {
           @include column-flex();
@@ -320,61 +252,52 @@ $menu-button-color-two: #f96b00;
 
           &--detail-button {
             border-radius: 0.3rem;
-            border-color: white;
+            border: 1px solid black;
+            padding: 0.3rem 0.5rem;
+            background-color: white;
 
             &--detail-icon {
               width: 2rem;
               height: auto;
             }
-
-            &--detail-icon:hover {
-              color: $icon-hover-color;
-            }
           }
 
           &--detail-button:hover {
+            background-color: #dbdbdb;
           }
 
           &--edit-button {
             background-color: $menu-button-color-two;
             border-radius: 0.3rem;
-            border-color: white;
+            border: 1px solid black;
+            padding: 0.3rem 0.5rem;
 
             &--edit-icon {
               width: 2rem;
               height: auto;
-              color: $icon-color;
-            }
-
-            &--edit-icon:hover {
-              color: $icon-hover-color;
             }
           }
 
           &--edit-button:hover {
-            background-color: $menu-button-color-two;
+            background-color: #dbdbdb;
           }
 
           &--delete-button {
             @include center-flex();
             font-size: 0.5rem;
             background-color: $delete-button-color;
-            border-color: white;
+            border: 1px solid black;
             border-radius: 0.3rem;
+            padding: 0.3rem 0.5rem;
 
             &--delete-icon {
               width: 2rem;
               height: auto;
-              color: $icon-color;
-            }
-
-            &--delete-icon:hover {
-              color: $icon-hover-color;
             }
           }
 
           &--delete-button:hover {
-            background-color: $delete-button-hover-color;
+            background-color: #dbdbdb;
           }
         }
       }

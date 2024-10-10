@@ -34,7 +34,7 @@ export default function EmployeesComponent() {
   }
 
   return (
-    <div className="employee-section">
+    <section className="employee-section">
       <NewEmployeeComponent
         showDataUpdate={loadEmployees}
         newEmployeeForm={newEmployeeForm}
@@ -48,10 +48,12 @@ export default function EmployeesComponent() {
       />
 
       <h1 className="employee-section__headline">Mitarbeiter</h1>
+
       <button
         onClick={showNewEmployeeForm}
-        className="employee-section__new-employee-button button"
+        className="employee-section__new-employee-button "
       >
+        Mitarbeiter erstellen
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
@@ -66,6 +68,12 @@ export default function EmployeesComponent() {
         showEmployeesUpdate={loadEmployees}
         setUpdateEmployeeForm={setUpdateEmployeeForm}
       />
-    </div>
+    </section>
   );
+
+  /*
+
+      
+  
+  */
 }

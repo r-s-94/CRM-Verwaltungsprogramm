@@ -38,21 +38,22 @@ $border-color: #bdbdbd;
     }
 
     &--close-button {
-      background-color: $action-button-color;
+      @include center-flex();
+      font-size: 1rem;
+      padding: 0.3rem 1rem;
+      column-gap: 1rem;
+      border: 0.1rem solid gray;
+      border-radius: 0.2rem;
 
       &--close-icon {
         width: 2rem;
         height: auto;
-        background-color: $action-button-color;
-      }
-
-      &--close-icon:hover {
-        background-color: $action-button-hover-color;
       }
     }
 
     &--close-button:hover {
-      background-color: $action-button-hover-color;
+      background-color: #dbdbdb;
+      cursor: pointer;
     }
   }
 
@@ -64,22 +65,19 @@ $border-color: #bdbdbd;
       position: absolute;
       margin-bottom: 30rem;
       margin-left: 30rem;
-      background-color: $delete-button-color;
+      padding: 0.2rem 0.7rem;
       border: 1.5px solid $border-color;
+      border-radius: 0.2rem;
 
       &--close-icon {
         width: 2rem;
         height: auto;
-        background-color: $delete-button-color;
-      }
-
-      &--close-icon:hover {
-        background-color: $delete-button-hover-color;
       }
     }
 
     &--close-button:hover {
-      background-color: $delete-button-hover-color;
+      background-color: #dbdbdb;
+      cursor: pointer;
     }
 
     &--label-and-input-container {
@@ -120,10 +118,14 @@ $border-color: #bdbdbd;
       margin-top: 5rem;
       border-radius: 0.3rem;
       border: 2px solid $border-color;
+      font-size: 1.3rem;
+      @include center-flex();
+      padding: 0.3rem 1rem;
+      column-gap: 1rem;
 
       &--edit-icon {
         background-color: $action-button-color;
-        width: 2.3rem;
+        width: 2rem;
         height: auto;
       }
 
@@ -134,6 +136,7 @@ $border-color: #bdbdbd;
 
     &--edit-button:hover {
       background-color: $action-button-hover-color;
+      cursor: pointer;
     }
   }
 }

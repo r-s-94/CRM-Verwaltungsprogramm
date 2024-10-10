@@ -117,7 +117,7 @@ export default function App() {
   }
 
   return (
-    <>
+    <div>
       <employeesContext.Provider
         value={{
           employeesStorageArray,
@@ -149,7 +149,7 @@ export default function App() {
           </ordersContext.Provider>
         </clientsContext.Provider>
       </employeesContext.Provider>
-    </>
+    </div>
   );
 } /*
  

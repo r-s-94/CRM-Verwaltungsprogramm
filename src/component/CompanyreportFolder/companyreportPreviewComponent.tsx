@@ -60,13 +60,13 @@ export default function CompanyreportPreviewComponent({
           onClick={showTotalYearBilanz}
           className="companyreport-preview-section__button-div--button button"
         >
-          Jahresbilanz {currentYear}
+          Jahresumsatz {currentYear}
         </button>
         <button
           onClick={showMonthBilanz}
           className="companyreport-preview-section__button-div--button button"
         >
-          Monatsbilanz
+          Jahresbilanz
         </button>
       </div>
 
@@ -75,7 +75,7 @@ export default function CompanyreportPreviewComponent({
           <table className="companyreport-preview-section__table">
             <tr className="companyreport-preview-section__table--tr">
               <th className="companyreport-preview-section__table--tr--th">
-                Jahresbilanz {currentYear}
+                Jahresumsatz {currentYear}
               </th>
             </tr>
             <tr className="companyreport-preview-section__table--tr">
@@ -91,7 +91,7 @@ export default function CompanyreportPreviewComponent({
         <div className="companyreport-preview-section__month-sum-div">
           {" "}
           <h2 className="companyreport-preview-section__month-sum-div--headline">
-            Monatsbilanz
+            Jahresbilanz
           </h2>
           <Chart
             options={reactChart.options}

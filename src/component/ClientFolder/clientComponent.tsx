@@ -35,8 +35,9 @@ export default function ClientsComponent() {
       <h1 className="client__headline">Auftraggeber</h1>
       <button
         onClick={showNewClientForm}
-        className="client__create-client-button button"
+        className="client__create-client-button"
       >
+        Auftrageber erstellen
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

@@ -38,21 +38,14 @@ $border-color: #bdbdbd;
     }
 
     &--close-button {
-      background-color: $action-button-color;
+      @include center-flex();
+      font-size: 1.1rem;
+      padding: 0.3rem 0.5rem;
 
       &--close-icon {
         width: 2rem;
         height: auto;
-        background-color: $action-button-color;
       }
-
-      &--close-icon:hover {
-        background-color: $action-button-hover-color;
-      }
-    }
-
-    &--close-button:hover {
-      background-color: $action-button-hover-color;
     }
   }
 
@@ -63,23 +56,15 @@ $border-color: #bdbdbd;
     &--close-button {
       position: absolute;
       margin-bottom: 30rem;
+      border-radius: 0.2rem;
       margin-left: 30rem;
-      background-color: $delete-button-color;
+      padding: 0.2rem 0.8rem;
       border: 1.5px solid $border-color;
 
       &--close-icon {
         width: 2rem;
         height: auto;
-        background-color: $delete-button-color;
       }
-
-      &--close-icon:hover {
-        background-color: $delete-button-hover-color;
-      }
-    }
-
-    &--close-button:hover {
-      background-color: $delete-button-hover-color;
     }
 
     &--label-and-input-container {
@@ -119,11 +104,15 @@ $border-color: #bdbdbd;
       background-color: $action-button-color;
       margin-top: 5rem;
       border-radius: 0.3rem;
+      @include center-flex();
       border: 2px solid $border-color;
+      font-size: 1.2rem;
+      padding: 0.3rem 1rem;
+      column-gap: 0.5rem;
 
       &--edit-icon {
         background-color: $action-button-color;
-        width: 2.3rem;
+        width: 2rem;
         height: auto;
       }
 
@@ -134,6 +123,7 @@ $border-color: #bdbdbd;
 
     &--edit-button:hover {
       background-color: $action-button-hover-color;
+      cursor: pointer;
     }
   }
 }

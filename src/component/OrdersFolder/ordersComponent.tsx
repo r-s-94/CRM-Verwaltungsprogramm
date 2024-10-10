@@ -30,9 +30,9 @@ export default function OrdersComponent() {
       <h1 className="orders__headline">Aufträge</h1>
       <button
         onClick={showNewOrderForm}
-        className="orders__create-order-button button"
+        className="orders__create-order-button"
       >
-        {" "}
+        Auftrag erstellen{" "}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

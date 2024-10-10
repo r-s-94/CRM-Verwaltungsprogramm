@@ -9,30 +9,42 @@
   height: 100%;
 }
 
+@mixin center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .employee-section {
   @include flex-direction();
   @include full-size();
 
   &__headline {
     margin-top: 2.5rem;
+    font-size: 2rem;
   }
 
   &__new-employee-button {
-    @include flex-direction();
+    @include center-content();
     background-color: #fdfd00;
     border-radius: 0.3rem;
+    font-size: 1.5rem;
+    padding: 0.3rem 1rem;
+    column-gap: 1rem;
+    border: 1px solid black;
 
     &--add-icon {
-      width: 2.5rem;
+      width: 2.3rem;
       height: auto;
+    }
+
+    &--add-icon:hover {
+      background-color: #ffff60;
     }
   }
 
   &__new-employee-button:hover {
+    cursor: pointer;
     background-color: #ffff60;
   }
-}
-
-.button:hover {
-  cursor: pointer;
 }

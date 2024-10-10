@@ -90,12 +90,8 @@ export default function NewClientComponent({
     }
   }
 
-  /* <div className="client__popup-main-window">
-          <div className="client__popup-main-window--popup-message-window">
-     </div>
-        </div>
-      <div className="client__popup-main-window--popup-message-window"></div>
-  */
+  /*
+   */
 
   return (
     <div className="new-client">
@@ -107,8 +103,9 @@ export default function NewClientComponent({
             </p>
             <button
               onClick={closeNewClientMessagePopUp}
-              className="new-client__popup-message-div--close-button button"
+              className="new-client__popup-message-div--close-button"
             >
+              Okay Fenster schließen
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -133,7 +130,7 @@ export default function NewClientComponent({
           <div className="new-client__form">
             <button
               onClick={closeNewClientForm}
-              className="new-client__form--close-button button"
+              className="new-client__form--close-button"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -173,7 +170,7 @@ export default function NewClientComponent({
                         firstName: event.target.value,
                       });
                     }}
-                  />
+                  />{" "}
                   * Pflichtfeld
                 </section>
                 <section className="new-client__form--label-and-input-container--input-section--input-info-section">
@@ -188,7 +185,7 @@ export default function NewClientComponent({
                         lastName: event.target.value,
                       });
                     }}
-                  />
+                  />{" "}
                   * Pflichtfeld
                 </section>
                 <section className="new-client__form--label-and-input-container--input-section--input-info-section">
@@ -203,7 +200,7 @@ export default function NewClientComponent({
                         age: event.target.value,
                       });
                     }}
-                  />
+                  />{" "}
                   * Pflichtfeld{" "}
                 </section>
 
@@ -235,7 +232,7 @@ export default function NewClientComponent({
                         mail: event.target.value,
                       });
                     }}
-                  />
+                  />{" "}
                   * Pflichtfeld
                 </section>
               </div>
@@ -243,8 +240,9 @@ export default function NewClientComponent({
 
             <button
               onClick={addClientToTable}
-              className="new-client__form--add-button buuton"
+              className="new-client__form--add-button"
             >
+              Auftraggeber erstellen
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

@@ -87,8 +87,9 @@ export default function NewOrderComponent({
             </p>
             <button
               onClick={closeNewOrderMessagePopUp}
-              className="new-order__popup-message-div--close-button button"
+              className="new-order__popup-message-div--close-button"
             >
+              Okay Fenster schließen
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -290,8 +291,9 @@ export default function NewOrderComponent({
 
             <button
               onClick={createOder}
-              className="new-order__form--add-button button"
+              className="new-order__form--add-button"
             >
+              Auftrag erstellen
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"

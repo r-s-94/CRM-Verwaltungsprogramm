@@ -1,5 +1,5 @@
-$main-background-color: #f8f8f8;
-/*background-color: #f3f5f6;*/
+/*$main-background-color: #f8f8f8;*/
+$background-color: #f3f5f6;
 
 @mixin flex-direction {
   display: flex;
@@ -21,13 +21,20 @@ $main-background-color: #f8f8f8;
   justify-content: flex-start;
 }
 
+@mixin column-direction-left-side {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+}
+
 @mixin null-distance {
   margin: 0;
   padding: 0;
 }
 
 @mixin height {
-  height: 93vh;
+  height: 100vh;
 }
 
 .preview-component {
@@ -35,23 +42,77 @@ $main-background-color: #f8f8f8;
   display: grid;
   grid-template-columns: 20% 80%;
   width: 100%;
+  background-color: $background-color;
 
-  &__navbar {
-    @include column-direction();
+  &__main-navbar-div {
+    @include column-direction-left-side();
     @include height();
-    gap: 2rem;
-    background-color: $main-background-color;
-    border-top-left-radius: 0.3rem;
-    border-bottom-left-radius: 0.3rem;
     border-right: 1px solid #e5e5e5;
+
+    &--navbar {
+      /*color: white;*/
+      background-color: white;
+      border-radius: 0.3rem;
+      padding: 0.5rem 0 0 0;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      row-gap: 0.5rem;
+      height: 85%;
+      width: 90%;
+
+      &--link {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        border: 0.1rem solid #e5e5e5;
+        border-radius: 0.3rem;
+        color: black;
+        font-size: 1.5rem;
+        margin-left: 0.5rem;
+        background-color: white;
+        width: 15rem;
+
+        &--employee-button,
+        &--client-button,
+        &--orders-button,
+        &--company-report-button {
+          background-color: white;
+          border: none;
+
+          font-size: 2rem;
+          padding: 0.1rem 0.5rem;
+
+          &--employee-icon,
+          &--client-icon,
+          &--order-icon,
+          &--company-report-icon {
+            width: 3.5rem;
+            height: auto;
+          }
+
+          &--employee-icon,
+          &--client-icon,
+          &--order-icon,
+          &--company-report-icon:hover {
+            cursor: pointer;
+          }
+        }
+
+        &--text {
+          text-align: left;
+          margin-left: 0.7rem;
+        }
+      }
+    }
   }
 
   &__div {
     @include column-direction-flex-start();
     @include height();
-    background-color: $main-background-color;
-    border-top-right-radius: 0.3rem;
-    border-bottom-right-radius: 0.3rem;
+    background-color: $background-color;
   }
 }
 
@@ -59,24 +120,7 @@ a {
   text-decoration: none;
 }
 
-.button {
-  @include flex-direction();
-  background-color: white;
-  border-radius: 5px;
-  border: 1px solid rgb(0, 0, 0);
-  font-size: 2rem;
-  padding: 0.1rem 0.5rem;
-}
-
 .button:hover {
   cursor: pointer;
   background-color: #ddd;
-}
-
-.employee-icon,
-.client-icon,
-.order-icon,
-.company-report-icon {
-  width: 3rem;
-  height: auto;
 }

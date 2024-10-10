@@ -4,6 +4,12 @@
   align-items: center;
 }
 
+@mixin center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @mixin full-size {
   width: 100%;
   height: 100%;
@@ -18,16 +24,17 @@
   }
 
   &__create-order-button {
-    @include flex-direction();
+    @include center-content();
     background-color: #fdfd00;
     border-radius: 0.3rem;
+    font-size: 1.3rem;
+    column-gap: 0.5rem;
+    padding: 0.3rem 1rem;
+    border: 1px solid black;
 
     &--new-icon {
-      width: 2.5rem;
+      width: 2.3rem;
       height: auto;
-    }
-
-    &--new-icon:hover {
     }
   }
 

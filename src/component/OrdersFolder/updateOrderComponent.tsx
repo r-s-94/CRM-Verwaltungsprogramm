@@ -163,8 +163,9 @@ export default function UpdateOrderComponent({
             </p>
             <button
               onClick={closeUpdateOrderMessagePopUp}
-              className="update-order__popup-message-div--close-button button"
+              className="update-order__popup-message-div--close-button"
             >
+              Okay Fenster schließen
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -374,8 +375,9 @@ export default function UpdateOrderComponent({
 
             <button
               onClick={updateOrder}
-              className="update-order__form--edit-button button"
+              className="update-order__form--edit-button"
             >
+              Auftrag bearbeiten
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"

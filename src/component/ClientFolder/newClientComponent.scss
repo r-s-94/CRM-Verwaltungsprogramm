@@ -38,21 +38,19 @@ $border-color: #bdbdbd;
     }
 
     &--close-button {
-      background-color: $action-button-color;
+      @include center-flex();
+      font-size: 1.1rem;
+      padding: 0.3rem 1rem;
+      column-gap: 0.5rem;
 
       &--close-icon {
         width: 2rem;
         height: auto;
-        background-color: $action-button-color;
-      }
-
-      &--close-icon:hover {
-        background-color: $action-button-hover-color;
       }
     }
 
     &--close-button:hover {
-      background-color: $action-button-hover-color;
+      cursor: pointer;
     }
   }
 
@@ -65,23 +63,19 @@ $border-color: #bdbdbd;
       position: absolute;
       margin-bottom: 30rem;
       margin-left: 35rem;
-      background-color: $delete-button-color;
-      border-radius: 0.3rem;
+      border-radius: 0.2rem;
       border: 1.5px solid $border-color;
+      padding: 0.2rem 0.7rem;
 
       &--close-icon {
         width: 2rem;
         height: auto;
-        background-color: $delete-button-color;
-      }
-
-      &--close-icon:hover {
-        background-color: $delete-button-hover-color;
       }
     }
 
     &--close-button:hover {
-      background-color: $delete-button-hover-color;
+      cursor: pointer;
+      background-color: #dbdbdb;
     }
 
     &--label-and-input-container {
@@ -122,10 +116,14 @@ $border-color: #bdbdbd;
       margin-top: 5rem;
       border-radius: 0.3rem;
       border: 2px solid $border-color;
+      @include center-flex();
+      font-size: 1.2rem;
+      padding: 0.3rem 1rem;
+      column-gap: 0.5rem;
 
       &--add-icon {
         background-color: $action-button-color;
-        width: 2.3rem;
+        width: 2rem;
         height: auto;
       }
 
@@ -136,10 +134,7 @@ $border-color: #bdbdbd;
 
     &--add-button:hover {
       background-color: $action-button-hover-color;
+      cursor: pointer;
     }
   }
-}
-
-.button:hover {
-  cursor: pointer;
 }

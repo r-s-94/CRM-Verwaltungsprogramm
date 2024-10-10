@@ -3,6 +3,7 @@ import { supabase } from "../../supabase";
 import { Tables } from "../../database.types";
 import CompanyreportPreviewComponent from "./companyreportPreviewComponent";
 import { companyreportContext } from "./companyreportContext";
+import "./companyreport.scss";
 
 export default function CompanyreportComponent() {
   const [companyreportStorageObject, setCompanyreportStorageObject] = useState<
@@ -17,6 +18,8 @@ export default function CompanyreportComponent() {
   interface OptionsDatatype {
     chart: ChartDatatype;
     xaxis: AxisDatatype;
+    yaxis: YaxisDatatype;
+    dataLabels: DataLabels;
     colors: string[];
   }
 
@@ -26,6 +29,22 @@ export default function CompanyreportComponent() {
 
   interface AxisDatatype {
     categories: string[];
+  }
+
+  interface YaxisDatatype {
+    labels: LabelsDatatype;
+  }
+
+  interface LabelsDatatype {
+    formatter: FormatterDatatype;
+  }
+
+  interface FormatterDatatype {
+    (value: string): string;
+  }
+
+  interface DataLabels {
+    formatter: FormatterDatatype;
   }
 
   interface SeriesDatatype {
@@ -52,11 +71,24 @@ export default function CompanyreportComponent() {
       xaxis: {
         categories: [],
       },
+      yaxis: {
+        labels: {
+          formatter: function (value: string): string {
+            return value + " €";
+          },
+        },
+      },
+      dataLabels: {
+        formatter: function (value: string): string {
+          return value + " €";
+        },
+      },
+
       colors: ["#ae8625"],
     },
     series: [
       {
-        name: "series-1",
+        name: "Monatsumsatz",
         data: [],
       },
     ],
@@ -210,11 +242,23 @@ export default function CompanyreportComponent() {
             ...orderBilanzMonthArray,
           ],
         },
+        yaxis: {
+          labels: {
+            formatter: function (value: string) {
+              return value + " €";
+            },
+          },
+        },
+        dataLabels: {
+          formatter: function (value: string) {
+            return value + " €";
+          },
+        },
         colors: ["#ae8625"],
       },
       series: [
         {
-          name: "series-1",
+          name: "Monatsumsatz",
           data: [...reactChart.series[0].data, ...orderBilanzSumArray],
         },
       ],
@@ -239,7 +283,7 @@ export default function CompanyreportComponent() {
   }
 
   return (
-    <div>
+    <div className="company-report">
       <companyreportContext.Provider
         value={{ companyreportStorageObject, setCompanyreportStorageObject }}
       >

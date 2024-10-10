@@ -128,8 +128,9 @@ export default function UpdateEmployeeComponent({
             </p>
             <button
               onClick={closeUpdateEmployeeMessagePopUp}
-              className="update-employee__popup-message-div--close-button button"
+              className="update-employee__popup-message-div--close-button"
             >
+              Okay Fenster schließen
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -247,9 +248,9 @@ export default function UpdateEmployeeComponent({
 
             <button
               onClick={updateEmployee}
-              className="update-employee__form--edit-button button"
+              className="update-employee__form--edit-button"
             >
-              {" "}
+              Mitarbeiter bearbeiten{" "}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
