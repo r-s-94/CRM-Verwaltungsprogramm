@@ -26,10 +26,11 @@
   &__create-order-button {
     @include center-content();
     background-color: #fdfd00;
+    margin-top: 0.3rem;
     border-radius: 0.3rem;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     column-gap: 0.5rem;
-    padding: 0.3rem 1rem;
+    padding: 0.3rem 1.5rem;
     border: 1px solid black;
 
     &--new-icon {

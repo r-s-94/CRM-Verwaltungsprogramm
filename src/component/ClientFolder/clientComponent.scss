@@ -30,14 +30,15 @@ $action-button-hover-color: #ffff60;
   &__create-client-button {
     @include center-content();
     background-color: $action-button-color;
+    margin-top: 0.3rem;
     border-radius: 0.3rem;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     padding: 0.3rem 1.5rem;
     column-gap: 0.5rem;
     border: 1px solid black;
 
     &--new-client-icon {
-      width: 2rem;
+      width: 2.3rem;
       height: auto;
     }
 

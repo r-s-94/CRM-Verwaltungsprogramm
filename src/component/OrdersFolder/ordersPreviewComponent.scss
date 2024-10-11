@@ -154,26 +154,7 @@ $menu-button-color-two: #f96b00;
 
         &--td {
           text-align: left;
-
           font-size: 1.4rem;
-
-          /*&--client,
-          &--employee,
-          &--buisness,
-          &--service,
-          &--pay-methode,
-          &--payment-status,
-          &--order-note {
-            font-size: 1.3rem;
-          }
-
-          &--order-id,
-          &--service-value,
-          &--service-quantity,
-          &--service-total-sum,
-          &--order-time {
-            font-size: 1.3rem;
-          }*/
 
           &--button-div {
             @include column-flex-left-site();

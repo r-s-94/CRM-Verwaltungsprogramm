@@ -106,7 +106,7 @@ export default function EmployeesPreviewComponent({
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  className="employees-preview__popup-message-div--button-div--delete-button--delete-icon button"
+                  className="employees-preview__popup-message-div--button-div--delete-button--delete-icon"
                 >
                   <path
                     stroke-linecap="round"
