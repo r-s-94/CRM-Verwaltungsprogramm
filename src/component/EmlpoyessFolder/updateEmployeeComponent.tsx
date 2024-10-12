@@ -42,15 +42,15 @@ export default function UpdateEmployeeComponent({
     });
 
     if (selectedEmployee) {
-      const changeDatatypeString: string = String(selectedEmployee.Alter);
+      const changeDatatypeString: string = String(selectedEmployee.age);
 
       setEmployeeValueAdministration({
         ...employeeValueAdministration,
         selectedEmployeeId: selectedEmployee.id,
-        firstName: selectedEmployee.Vorname,
-        lastName: selectedEmployee.Nachname,
+        firstName: selectedEmployee.firstName,
+        lastName: selectedEmployee.lastName,
         age: changeDatatypeString,
-        remark: selectedEmployee.Bemerkung,
+        remark: selectedEmployee.note,
       });
     }
   }
@@ -84,10 +84,10 @@ export default function UpdateEmployeeComponent({
       const {} = await supabase
         .from("Employees")
         .update({
-          Vorname: employeeValueAdministration.firstName,
-          Nachname: employeeValueAdministration.lastName,
-          Alter: changeDatatypeAge,
-          Bemerkung: employeeValueAdministration.remark,
+          firstName: employeeValueAdministration.firstName,
+          lastName: employeeValueAdministration.lastName,
+          age: changeDatatypeAge,
+          note: employeeValueAdministration.remark,
         })
         .eq("id", employeeValueAdministration.selectedEmployeeId);
 

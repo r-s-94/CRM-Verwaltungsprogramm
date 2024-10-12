@@ -131,7 +131,7 @@ export default function EmployeesPreviewComponent({
             Alter
           </th>
           <th className="employees-preview__table--tr--th employees-preview__table--tr--th--note">
-            Bemerkung
+            Bwmerkung
           </th>
           <th className="employees-preview__table--tr--th employees-preview__table--tr--th--menu">
             Aktionen
@@ -142,16 +142,16 @@ export default function EmployeesPreviewComponent({
           return (
             <tr className="employees-preview__table--tr">
               <td className="employees-preview__table--tr--td employees-preview__table--tr--td--first-name">
-                {employee.Vorname}
+                {employee.firstName}
               </td>
               <td className="employees-preview__table--tr--td employees-preview__table--tr--td--last-name">
-                {employee.Nachname}
+                {employee.lastName}
               </td>
               <td className="employees-preview__table--tr--td employees-preview__table--tr--td--age">
-                {employee.Alter}
+                {employee.age}
               </td>
               <td className="employees-preview__table--tr--td employees-preview__table--tr--td--note">
-                {employee.Bemerkung}
+                {employee.note}
               </td>
               <td className="employees-preview__table--tr--td">
                 <MenuComponent

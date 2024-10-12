@@ -65,6 +65,8 @@ export default function OrdersPreviewComponent({
     showDataUpdate();
 
     setDeleteOrderMessagePopUp(false);
+
+    resetOrder();
   }
 
   function closeDeleteOrderMessagePopUp() {
@@ -96,19 +98,19 @@ export default function OrdersPreviewComponent({
       return order.id === orderId;
     });
 
-    showOrderGoalDay(selectedOrder?.Bestelldatum || "");
+    showOrderGoalDay(selectedOrder?.orderDay || "");
 
     const client = clientsStorageArray.find((client) => {
       return client.id === selectedOrder?.clients_id;
     });
 
-    setClient(`${client?.Vorname} ${client?.Nachname}`);
+    setClient(`${client?.firstName} ${client?.lastName}`);
 
     const employee = employeesStorageArray.find((employee) => {
       return employee.id === selectedOrder?.employee_id;
     });
 
-    setEmployee(`${employee?.Vorname} ${employee?.Nachname}`);
+    setEmployee(`${employee?.firstName} ${employee?.lastName}`);
   }
 
   async function closeSingleOrderPreview() {
@@ -119,6 +121,7 @@ export default function OrdersPreviewComponent({
     }
 
     setSingleOrderPreview(false);
+    resetOrder();
   }
 
   function updateSingleOrder(id: number) {
@@ -155,6 +158,7 @@ export default function OrdersPreviewComponent({
     showDataUpdate();
 
     setDeleteSingleOrderMessagePopUp(false);
+    resetOrder();
   }
 
   async function closeDeleteSingleOrderMessagePopUp() {
@@ -167,6 +171,21 @@ export default function OrdersPreviewComponent({
     openSingleOrderPreview(orderValueAdministration.selectedOrderId);
     setDeleteSingleOrderMessagePopUp(false);
     setSingleOrderPreview(true);
+  }
+
+  function resetOrder() {
+    setOrderValueAdministration({
+      ...orderValueAdministration,
+      selectedOrderId: 0,
+      service: "",
+      price: "",
+      quantity: "",
+      paymentMethode: "",
+      paymentStatus: "",
+      note: "",
+      business: false,
+      date: "",
+    });
   }
 
   /*  
@@ -238,30 +257,10 @@ export default function OrdersPreviewComponent({
             </p>
             <div className="orders-preview__popup-message-div--button-div">
               <button
-                onClick={() => {
-                  deleteSingleOrder(orderValueAdministration.selectedOrderId);
-                }}
-                className="orders-preview__popup-message-div--button-div--delete-button"
-              >
-                ja Einzelauftrag löschen
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  className="orders-preview__popup-message-div--button-div--delete-button--delete-icon"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 1 0 .23 1.482l.149-.022.841 10.518A2.75 2.75 0 0 0 7.596 19h4.807a2.75 2.75 0 0 0 2.742-2.53l.841-10.52.149.023a.75.75 0 0 0 .23-1.482A41.03 41.03 0 0 0 14 4.193V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4ZM8.58 7.72a.75.75 0 0 0-1.5.06l.3 7.5a.75.75 0 1 0 1.5-.06l-.3-7.5Zm4.34.06a.75.75 0 1 0-1.5-.06l-.3 7.5a.75.75 0 1 0 1.5.06l.3-7.5Z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </button>
-              <button
                 onClick={closeDeleteSingleOrderMessagePopUp}
                 className="orders-preview__popup-message-div--button-div--close-button"
               >
-                nein abbrechen
+                abbrechen
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -274,6 +273,27 @@ export default function OrdersPreviewComponent({
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     d="M6 18 18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+
+              <button
+                onClick={() => {
+                  deleteSingleOrder(orderValueAdministration.selectedOrderId);
+                }}
+                className="orders-preview__popup-message-div--button-div--delete-button"
+              >
+                löschen
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="orders-preview__popup-message-div--button-div--delete-button--delete-icon"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 1 0 .23 1.482l.149-.022.841 10.518A2.75 2.75 0 0 0 7.596 19h4.807a2.75 2.75 0 0 0 2.742-2.53l.841-10.52.149.023a.75.75 0 0 0 .23-1.482A41.03 41.03 0 0 0 14 4.193V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4ZM8.58 7.72a.75.75 0 0 0-1.5.06l.3 7.5a.75.75 0 1 0 1.5-.06l-.3-7.5Zm4.34.06a.75.75 0 1 0-1.5-.06l-.3 7.5a.75.75 0 1 0 1.5.06l.3-7.5Z"
+                    clip-rule="evenodd"
                   />
                 </svg>
               </button>
@@ -339,7 +359,7 @@ export default function OrdersPreviewComponent({
                   Gewerblich
                 </th>
                 <td className="orders-preview__single-order-div--table--tr--td">
-                  {ordersStorageArray[0].Firma ? "Ja" : "Nein"}
+                  {ordersStorageArray[0].business ? "Ja" : "Nein"}
                 </td>
               </tr>
               <tr>
@@ -347,7 +367,7 @@ export default function OrdersPreviewComponent({
                   Dienstleistung
                 </th>
                 <td className="orders-preview__single-order-div--table--tr--td">
-                  {ordersStorageArray[0].Dienstleistung}
+                  {ordersStorageArray[0].service}
                 </td>
               </tr>
 
@@ -356,7 +376,7 @@ export default function OrdersPreviewComponent({
                   Dienstleistungswert
                 </th>
                 <td className="orders-preview__single-order-div--table--tr--td">
-                  {ordersStorageArray[0].Dienstleistungswert} €
+                  {ordersStorageArray[0].serviceValue} €
                 </td>
               </tr>
 
@@ -365,7 +385,7 @@ export default function OrdersPreviewComponent({
                   Bestellmenge
                 </th>
                 <td className="orders-preview__single-order-div--table--tr--td">
-                  {ordersStorageArray[0].Bestellmenge}x
+                  {ordersStorageArray[0].quantity}x
                 </td>
               </tr>
 
@@ -374,8 +394,8 @@ export default function OrdersPreviewComponent({
                   Gesamtbetrag
                 </th>
                 <td className="orders-preview__single-order-div--table--tr--td">
-                  {ordersStorageArray[0].Bestellmenge *
-                    ordersStorageArray[0].Dienstleistungswert}{" "}
+                  {ordersStorageArray[0].quantity *
+                    ordersStorageArray[0].serviceValue}{" "}
                   €
                 </td>
               </tr>
@@ -385,7 +405,7 @@ export default function OrdersPreviewComponent({
                   Zahlungsart
                 </th>
                 <td className="orders-preview__single-order-div--table--tr--td">
-                  {ordersStorageArray[0].Zahlungsart}
+                  {ordersStorageArray[0].paymentMethod}
                 </td>
               </tr>
 
@@ -396,16 +416,16 @@ export default function OrdersPreviewComponent({
                 <td
                   className={`orders-preview__single-order-div--table--tr--td
                         ${
-                          ordersStorageArray[0].Rechnungsstatus === "Bezahlt"
+                          ordersStorageArray[0].paymentStatus === "Bezahlt"
                             ? "payment-check-green"
-                            : ordersStorageArray[0].Rechnungsstatus ===
+                            : ordersStorageArray[0].paymentStatus ===
                               "Ratenzahlung"
                             ? "payment-check-yellow"
                             : "payment-check-red"
                         }
                       `}
                 >
-                  {ordersStorageArray[0].Rechnungsstatus}
+                  {ordersStorageArray[0].paymentStatus}
                 </td>
               </tr>
 
@@ -423,7 +443,7 @@ export default function OrdersPreviewComponent({
                   Bemerkung
                 </th>
                 <td className="orders-preview__single-order-div--table--tr--td">
-                  {ordersStorageArray[0].Bemerkung}
+                  {ordersStorageArray[0].note}
                 </td>
               </tr>
 
@@ -493,23 +513,23 @@ export default function OrdersPreviewComponent({
           return (
             <tr className="orders-preview__table--tr">
               <td className="orders-preview__table--tr--td--service">
-                {order.Dienstleistung}
+                {order.service}
               </td>
               <td className="orders-preview__table--tr--td--service-total-sum">
-                {order.Bestellmenge * order.Dienstleistungswert} €
+                {order.quantity * order.serviceValue} €
               </td>
               <td
                 className={` orders-preview__table--tr--td--payment-status
                   ${
-                    order.Rechnungsstatus === "Bezahlt"
+                    order.paymentStatus === "Bezahlt"
                       ? "payment-check-green"
-                      : order.Rechnungsstatus === "Ratenzahlung"
+                      : order.paymentStatus === "Ratenzahlung"
                       ? "payment-check-yellow"
                       : "payment-check-red"
                   }
                 `}
               >
-                {order.Rechnungsstatus}
+                {order.paymentStatus}
               </td>
 
               <td className="orders-preview__table--tr--td">

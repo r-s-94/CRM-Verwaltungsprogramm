@@ -176,6 +176,7 @@ $menu-button-color-two: #f96b00;
 
             &--edit-button:hover {
               background-color: #dbdbdb;
+              cursor: pointer;
             }
 
             &--delete-button {
@@ -193,6 +194,7 @@ $menu-button-color-two: #f96b00;
 
             &--delete-button:hover {
               background-color: #dbdbdb;
+              cursor: pointer;
             }
           }
         }
@@ -245,6 +247,7 @@ $menu-button-color-two: #f96b00;
 
           &--detail-button:hover {
             background-color: #dbdbdb;
+            cursor: pointer;
           }
 
           &--edit-button {
@@ -261,6 +264,7 @@ $menu-button-color-two: #f96b00;
 
           &--edit-button:hover {
             background-color: #dbdbdb;
+            cursor: pointer;
           }
 
           &--delete-button {
@@ -279,6 +283,7 @@ $menu-button-color-two: #f96b00;
 
           &--delete-button:hover {
             background-color: #dbdbdb;
+            cursor: pointer;
           }
         }
       }

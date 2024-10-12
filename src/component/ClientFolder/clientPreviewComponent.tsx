@@ -130,19 +130,19 @@ export default function ClientPreviewComponent({
           return (
             <tr className="clients-preview__table--tr">
               <td className="clients-preview__table--tr--td--first-name">
-                {client.Vorname}
+                {client.firstName}
               </td>
               <td className="clients-preview__table--tr--td--last-name">
-                {client.Nachname}
+                {client.lastName}
               </td>
               <td className="clients-preview__table--tr--td--age">
-                {client.Alter}
+                {client.age}
               </td>
               <td className="clients-preview__table--tr--td--address">
-                {client.Adresse}
+                {client.address}
               </td>
               <td className="clients-preview__table--tr--td--mail">
-                {client.Mail}
+                {client.mail}
               </td>
               <td className="clients-preview__table--tr--td--menu">
                 <MenuComponent

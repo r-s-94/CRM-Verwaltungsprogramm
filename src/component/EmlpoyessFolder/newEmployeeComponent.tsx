@@ -41,10 +41,10 @@ export default function NewEmployeeComponent({
       employeeValueAdministration.age !== ""
     ) {
       const {} = await supabase.from("Employees").insert({
-        Vorname: employeeValueAdministration.firstName,
-        Nachname: employeeValueAdministration.lastName,
-        Alter: changeDatatypeAge,
-        Bemerkung: employeeValueAdministration.remark,
+        firstName: employeeValueAdministration.firstName,
+        lastName: employeeValueAdministration.lastName,
+        age: changeDatatypeAge,
+        note: employeeValueAdministration.remark,
       });
 
       setNewEmployeeForm(false);
@@ -54,17 +54,8 @@ export default function NewEmployeeComponent({
       setEmployeeValueAdministration({
         ...employeeValueAdministration,
         firstName: "",
-      });
-      setEmployeeValueAdministration({
-        ...employeeValueAdministration,
         lastName: "",
-      });
-      setEmployeeValueAdministration({
-        ...employeeValueAdministration,
         age: "",
-      });
-      setEmployeeValueAdministration({
-        ...employeeValueAdministration,
         remark: "",
       });
     } else {

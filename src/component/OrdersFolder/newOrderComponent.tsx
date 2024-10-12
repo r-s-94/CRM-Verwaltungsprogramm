@@ -22,7 +22,7 @@ export default function NewOrderComponent({
     useContext(ordersContext);
   const [selectedClientId, setSelectedClientId] = useState<number>(0);
   const [selectedEmployeeId, setSelectedEmployeeId] = useState<number>(0);
-  const [newEmployeeMessagePopUp, setNewEmployeeMessagePopUp] =
+  const [newOrderMessagePopUp, setNewOrderMessagePopUp] =
     useState<boolean>(false);
 
   async function createOder() {
@@ -41,22 +41,35 @@ export default function NewOrderComponent({
       const {} = await supabase.from("Orders").insert({
         clients_id: selectedClientId,
         employee_id: selectedEmployeeId,
-        Firma: orderValueAdministration.business,
-        Dienstleistung: orderValueAdministration.service,
-        Dienstleistungswert: changeDatatypePrice,
-        Bestellmenge: changeDatatypeQuantity,
-        Bestelldatum: orderValueAdministration.date,
-        Zahlungsart: orderValueAdministration.paymentMethode,
-        Rechnungsstatus: orderValueAdministration.paymentStatus,
-        Bemerkung: orderValueAdministration.note,
+        business: orderValueAdministration.business,
+        service: orderValueAdministration.service,
+        serviceValue: changeDatatypePrice,
+        quantity: changeDatatypeQuantity,
+        orderDay: orderValueAdministration.date,
+        paymentMethod: orderValueAdministration.paymentMethode,
+        paymentStatus: orderValueAdministration.paymentStatus,
+        note: orderValueAdministration.note,
       });
 
       setNewOrderForm(false);
 
+      setOrderValueAdministration({
+        ...orderValueAdministration,
+        selectedOrderId: 0,
+        service: "",
+        price: "",
+        quantity: "",
+        paymentMethode: "",
+        paymentStatus: "",
+        note: "",
+        business: false,
+        date: "",
+      });
+
       showDataUpdate();
     } else {
-      setNewEmployeeMessagePopUp(true);
       setNewOrderForm(false);
+      setNewOrderMessagePopUp(true);
     }
   }
 
@@ -65,7 +78,7 @@ export default function NewOrderComponent({
   }
 
   function closeNewOrderMessagePopUp() {
-    setNewEmployeeMessagePopUp(false);
+    setNewOrderMessagePopUp(false);
     setNewOrderForm(true);
   }
 
@@ -79,7 +92,7 @@ export default function NewOrderComponent({
 
   return (
     <div className="new-order">
-      {newEmployeeMessagePopUp && (
+      {newOrderMessagePopUp && (
         <PopUpComponent>
           <div className="new-order__popup-message-div">
             <p className="new-order__popup-message-div--text">
@@ -148,7 +161,6 @@ export default function NewOrderComponent({
               <div className="new-order__form--label-and-input-container--input-section">
                 <section className="new-order__form--label-and-input-container--input-section--input-info-section">
                   <select
-                    value={selectedClientId}
                     onChange={(event) => {
                       setSelectedClientId(Number(event.target.value));
                     }}
@@ -159,15 +171,14 @@ export default function NewOrderComponent({
                       return (
                         <option
                           value={client.id}
-                        >{`${client.Vorname} ${client.Nachname}`}</option>
+                        >{`${client.firstName} ${client.lastName}`}</option>
                       );
                     })}
                   </select>{" "}
-                  <span className="mandatory-field">* Pfichtfeld</span>
+                  <span className="mandatory-field"> * Pfichtfeld</span>
                 </section>
                 <section className="new-order__form--label-and-input-container--input-section--input-info-section">
                   <select
-                    value={selectedEmployeeId}
                     onChange={(event) => {
                       setSelectedEmployeeId(Number(event.target.value));
                     }}
@@ -178,7 +189,7 @@ export default function NewOrderComponent({
                       return (
                         <option
                           value={employee.id}
-                        >{`${employee.Vorname} ${employee.Nachname}`}</option>
+                        >{`${employee.firstName} ${employee.lastName}`}</option>
                       );
                     })}
                   </select>{" "}

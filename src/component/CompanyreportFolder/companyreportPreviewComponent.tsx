@@ -35,7 +35,7 @@ export default function CompanyreportPreviewComponent({
   const { companyreportStorageObject } = useContext(companyreportContext);
   const [totalYearBilanz, setTotalYearBilanz] = useState<boolean>(false);
   const [monthSum, setMonthSum] = useState<boolean>(false);
-  const totalYearSum: number = companyreportStorageObject.Umsatz || 0;
+  const totalYearSum: number = companyreportStorageObject.salesVolume || 0;
   const currentYear = new Date().getFullYear();
 
   useEffect(() => {

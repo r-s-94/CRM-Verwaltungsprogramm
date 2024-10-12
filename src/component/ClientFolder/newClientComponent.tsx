@@ -57,11 +57,11 @@ export default function NewClientComponent({
     ) {
       if (clientValueAdministration.age >= "18") {
         const {} = await supabase.from("Clients").insert({
-          Vorname: clientValueAdministration.firstName,
-          Nachname: clientValueAdministration.lastName,
-          Alter: clientAgeNumber,
-          Adresse: clientValueAdministration.address,
-          Mail: clientValueAdministration.mail,
+          firstName: clientValueAdministration.firstName,
+          lastName: clientValueAdministration.lastName,
+          age: clientAgeNumber,
+          address: clientValueAdministration.address,
+          mail: clientValueAdministration.mail,
         });
 
         showDataUpdate();

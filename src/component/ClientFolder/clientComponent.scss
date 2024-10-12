@@ -49,6 +49,7 @@ $action-button-hover-color: #ffff60;
 
   &__create-client-button:hover {
     background-color: $action-button-hover-color;
+    cursor: pointer;
   }
 }
 

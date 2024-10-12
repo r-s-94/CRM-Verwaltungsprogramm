@@ -40,12 +40,10 @@ export default function UpdateOrderComponent({
     });
 
     if (selectedOder) {
-      const date = new Date(selectedOder.Bestelldatum);
+      const date = new Date(selectedOder.orderDay);
       const formateDate = date.toISOString().split("T")[0];
-      const changeDatatypePrice: string = String(
-        selectedOder.Dienstleistungswert
-      );
-      const changeDatatypeQuantity: string = String(selectedOder.Bestellmenge);
+      const changeDatatypePrice: string = String(selectedOder.serviceValue);
+      const changeDatatypeQuantity: string = String(selectedOder.quantity);
 
       setSelectedClientId(selectedOder.clients_id);
       setSelectedEmployeeId(selectedOder.employee_id);
@@ -53,13 +51,13 @@ export default function UpdateOrderComponent({
       setOrderValueAdministration({
         ...orderValueAdministration,
         selectedOrderId: selectedOder.id,
-        service: selectedOder.Dienstleistung,
+        service: selectedOder.service,
         price: changeDatatypePrice,
         quantity: changeDatatypeQuantity,
-        paymentMethode: selectedOder.Zahlungsart,
-        paymentStatus: selectedOder.Rechnungsstatus,
-        note: selectedOder.Bemerkung || "",
-        business: selectedOder.Firma,
+        paymentMethode: selectedOder.paymentMethod,
+        paymentStatus: selectedOder.paymentStatus,
+        note: selectedOder.note || "",
+        business: selectedOder.business,
         date: formateDate,
       });
     }
@@ -83,14 +81,14 @@ export default function UpdateOrderComponent({
         .update({
           clients_id: selectedClientId,
           employee_id: selectedEmployeeId,
-          Firma: orderValueAdministration.business,
-          Dienstleistung: orderValueAdministration.service,
-          Dienstleistungswert: changeDatatypePrice,
-          Bestellmenge: changeDatatypeQuantity,
-          Bestelldatum: orderValueAdministration.date,
-          Zahlungsart: orderValueAdministration.paymentMethode,
-          Rechnungsstatus: orderValueAdministration.paymentStatus,
-          Bemerkung: orderValueAdministration.note,
+          business: orderValueAdministration.business,
+          service: orderValueAdministration.service,
+          serviceValue: changeDatatypePrice,
+          quantity: changeDatatypeQuantity,
+          orderDay: orderValueAdministration.date,
+          paymentMethod: orderValueAdministration.paymentMethode,
+          paymentStatus: orderValueAdministration.paymentStatus,
+          note: orderValueAdministration.note,
         })
         .eq("id", orderValueAdministration.selectedOrderId);
 
@@ -218,7 +216,7 @@ export default function UpdateOrderComponent({
                 <label>Zahlungsart </label>
                 <label>Rechnungsstatus: </label>
                 <label>Bestehlaufgabe:</label>
-                <label>Bemerkung: </label>
+                <label>note: </label>
                 <label>Gewerblich: </label>
               </div>
               <div className="update-order__form--label-and-input-container--input-section">
@@ -234,11 +232,11 @@ export default function UpdateOrderComponent({
                       return (
                         <option
                           value={client.id}
-                        >{`${client.Vorname} ${client.Nachname}`}</option>
+                        >{`${client.firstName} ${client.lastName}`}</option>
                       );
                     })}
-                  </select>
-                  {""}* Pflichtfeld{" "}
+                  </select>{" "}
+                  * Pflichtfeld{" "}
                 </section>
                 <section className="update-order__form--label-and-input-container--input-section--input-info-section">
                   <select
@@ -254,7 +252,7 @@ export default function UpdateOrderComponent({
                       return (
                         <option
                           value={employee.id}
-                        >{`${employee.Vorname} ${employee.Nachname}`}</option>
+                        >{`${employee.firstName} ${employee.lastName}`}</option>
                       );
                     })}
                   </select>{" "}

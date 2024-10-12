@@ -8,7 +8,7 @@ import "./companyreport.scss";
 export default function CompanyreportComponent() {
   const [companyreportStorageObject, setCompanyreportStorageObject] = useState<
     Tables<"Companyreport">
-  >({ id: 0, Umsatz: 0 });
+  >({ id: 0, salesVolume: 0 });
 
   interface StateDatatype {
     options: OptionsDatatype;
@@ -58,9 +58,9 @@ export default function CompanyreportComponent() {
   }*/
 
   interface SupabaseOrderDatatype {
-    Bestelldatum: string;
-    Dienstleistungswert: number;
-    Bestellmenge: number;
+    orderDay: string;
+    serviceValue: number;
+    quantity: number;
   }
 
   const [reactChart, setReactChart] = useState<StateDatatype>({
@@ -127,7 +127,7 @@ export default function CompanyreportComponent() {
   async function loadBilanzData() {
     const { data } = await supabase
       .from("Orders")
-      .select("Bestellmenge, Dienstleistungswert, Bestelldatum");
+      .select("quantity, serviceValue, orderDay");
     //console.log(data);
 
     /**/
@@ -184,9 +184,9 @@ export default function CompanyreportComponent() {
     //  Datum des Auftrages um ändern
 
     for (let index = 0; index < supabaseOrderArray.length; index++) {
-      const getDate = new Date(supabaseOrderArray[index].Bestelldatum);
+      const getDate = new Date(supabaseOrderArray[index].orderDay);
       const editString = getDate.toISOString().slice(5, 7);
-      supabaseOrderArray[index].Bestelldatum = editString;
+      supabaseOrderArray[index].orderDay = editString;
     }
 
     //console.log(supabaseOrderArray);
@@ -200,10 +200,10 @@ export default function CompanyreportComponent() {
       const element = supabaseOrderArray[index];
       console.log(element);
 
-      totalSum = element.Bestellmenge * element.Dienstleistungswert;
+      totalSum = element.quantity * element.serviceValue;
       console.log(totalSum);
 
-      const singleValue = Number(element.Bestelldatum) - 1;
+      const singleValue = Number(element.orderDay) - 1;
       console.log(singleValue);
 
       totalSumArray[singleValue] += totalSum;
@@ -277,14 +277,13 @@ export default function CompanyreportComponent() {
     for (let index = 0; index < supabaseOrderArray.length; index++) {
       const element = supabaseOrderArray[index];
 
-      const singleSum: number =
-        element.Bestellmenge * element.Dienstleistungswert;
+      const singleSum: number = element.quantity * element.serviceValue;
       totalSum = singleSum + totalSum;
     }
 
     setCompanyreportStorageObject({
       ...companyreportStorageObject,
-      Umsatz: totalSum,
+      salesVolume: totalSum,
     });
   }
 

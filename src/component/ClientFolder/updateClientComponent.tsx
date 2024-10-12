@@ -47,15 +47,15 @@ export default function UpdateClientComponent({
     console.log(selectedClient);
 
     if (selectedClient) {
-      const changeDatatypeString: string = String(selectedClient.Alter);
+      const changeDatatypeString: string = String(selectedClient.age);
 
       setClientValueAdministration({
         ...clientValueAdministration,
-        firstName: selectedClient.Vorname,
-        lastName: selectedClient.Nachname,
+        firstName: selectedClient.firstName,
+        lastName: selectedClient.lastName,
         age: changeDatatypeString,
-        address: selectedClient.Adresse,
-        mail: selectedClient.Mail,
+        address: selectedClient.address,
+        mail: selectedClient.mail,
       });
       setCorrectClientId(selectedClient.id);
     }
@@ -103,11 +103,11 @@ export default function UpdateClientComponent({
         const {} = await supabase
           .from("Clients")
           .update({
-            Vorname: clientValueAdministration.firstName,
-            Nachname: clientValueAdministration.lastName,
-            Alter: changeDatatypeAge,
-            Adresse: clientValueAdministration.address,
-            Mail: clientValueAdministration.mail,
+            firstName: clientValueAdministration.firstName,
+            lastName: clientValueAdministration.lastName,
+            age: changeDatatypeAge,
+            address: clientValueAdministration.address,
+            mail: clientValueAdministration.mail,
           })
           .eq("id", correctClientId);
 
@@ -223,7 +223,7 @@ export default function UpdateClientComponent({
                         firstName: event.target.value,
                       });
                     }}
-                  />
+                  />{" "}
                   * Pflichtfeld{" "}
                 </section>
 
@@ -239,7 +239,7 @@ export default function UpdateClientComponent({
                         lastName: event.target.value,
                       });
                     }}
-                  />
+                  />{" "}
                   * Pflichtfeld
                 </section>
 
@@ -255,7 +255,7 @@ export default function UpdateClientComponent({
                         age: event.target.value,
                       });
                     }}
-                  />
+                  />{" "}
                   * Pflichtfeld{" "}
                 </section>
 
@@ -287,7 +287,7 @@ export default function UpdateClientComponent({
                         mail: event.target.value,
                       });
                     }}
-                  />
+                  />{" "}
                   * Pflichtfeld
                 </section>
               </div>
