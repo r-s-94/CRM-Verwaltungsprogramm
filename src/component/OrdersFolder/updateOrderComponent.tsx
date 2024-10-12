@@ -41,9 +41,14 @@ export default function UpdateOrderComponent({
 
     if (selectedOder) {
       const date = new Date(selectedOder.orderDay);
-      const formateDate = date.toISOString().split("T")[0];
+      const formateDate = new Date(
+        date.getTime() - date.getTimezoneOffset() * 60000
+      );
+      const formateDateToString = formateDate.toISOString().slice(0, 10);
       const changeDatatypePrice: string = String(selectedOder.serviceValue);
       const changeDatatypeQuantity: string = String(selectedOder.quantity);
+
+      console.log(formateDate);
 
       setSelectedClientId(selectedOder.clients_id);
       setSelectedEmployeeId(selectedOder.employee_id);
@@ -58,7 +63,7 @@ export default function UpdateOrderComponent({
         paymentStatus: selectedOder.paymentStatus,
         note: selectedOder.note || "",
         business: selectedOder.business,
-        date: formateDate,
+        date: formateDateToString,
       });
     }
   }
@@ -215,8 +220,8 @@ export default function UpdateOrderComponent({
                 <label>Bestellwert: </label>
                 <label>Zahlungsart </label>
                 <label>Rechnungsstatus: </label>
-                <label>Bestehlaufgabe:</label>
-                <label>note: </label>
+                <label>Bestellaufgabe:</label>
+                <label>Bemerkung: </label>
                 <label>Gewerblich: </label>
               </div>
               <div className="update-order__form--label-and-input-container--input-section">
