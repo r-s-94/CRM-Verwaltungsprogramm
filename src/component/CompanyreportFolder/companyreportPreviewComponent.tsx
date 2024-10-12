@@ -35,7 +35,7 @@ export default function CompanyreportPreviewComponent({
   const { companyreportStorageObject } = useContext(companyreportContext);
   const [totalYearBilanz, setTotalYearBilanz] = useState<boolean>(false);
   const [monthSum, setMonthSum] = useState<boolean>(false);
-  const totalYearSum: number = companyreportStorageObject.Jahresumsatz || 0;
+  const totalYearSum: number = companyreportStorageObject.Umsatz || 0;
   const currentYear = new Date().getFullYear();
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export default function CompanyreportPreviewComponent({
           onClick={showTotalYearBilanz}
           className="companyreport-preview-section__button-div--button button"
         >
-          Jahresumsatz {currentYear}
+          Umsatz {currentYear}
         </button>
         <button
           onClick={showMonthBilanz}
@@ -75,7 +75,7 @@ export default function CompanyreportPreviewComponent({
           <table className="companyreport-preview-section__table">
             <tr className="companyreport-preview-section__table--tr">
               <th className="companyreport-preview-section__table--tr--th">
-                Jahresumsatz {currentYear}
+                Umsatz {currentYear}
               </th>
             </tr>
             <tr className="companyreport-preview-section__table--tr">

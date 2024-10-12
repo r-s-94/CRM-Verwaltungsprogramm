@@ -40,12 +40,12 @@ export default function UpdateOrderComponent({
     });
 
     if (selectedOder) {
-      const date = new Date(selectedOder.Bestehldatum);
+      const date = new Date(selectedOder.Bestelldatum);
       const formateDate = date.toISOString().split("T")[0];
       const changeDatatypePrice: string = String(
         selectedOder.Dienstleistungswert
       );
-      const changeDatatypeQuantity: string = String(selectedOder.Bestehlmenge);
+      const changeDatatypeQuantity: string = String(selectedOder.Bestellmenge);
 
       setSelectedClientId(selectedOder.clients_id);
       setSelectedEmployeeId(selectedOder.employee_id);
@@ -86,8 +86,8 @@ export default function UpdateOrderComponent({
           Firma: orderValueAdministration.business,
           Dienstleistung: orderValueAdministration.service,
           Dienstleistungswert: changeDatatypePrice,
-          Bestehlmenge: changeDatatypeQuantity,
-          Bestehldatum: orderValueAdministration.date,
+          Bestellmenge: changeDatatypeQuantity,
+          Bestelldatum: orderValueAdministration.date,
           Zahlungsart: orderValueAdministration.paymentMethode,
           Rechnungsstatus: orderValueAdministration.paymentStatus,
           Bemerkung: orderValueAdministration.note,
@@ -213,8 +213,8 @@ export default function UpdateOrderComponent({
                 <label>Auftraggeber:</label>
                 <label>Mitarbeiterzuteilung:</label>
                 <label>Art der Dienstleistung:</label>
-                <label>Bestehlmenge: </label>
-                <label>Bestehlwert: </label>
+                <label>Bestellmenge: </label>
+                <label>Bestellwert: </label>
                 <label>Zahlungsart </label>
                 <label>Rechnungsstatus: </label>
                 <label>Bestehlaufgabe:</label>

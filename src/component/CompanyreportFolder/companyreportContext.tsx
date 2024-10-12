@@ -9,7 +9,7 @@ interface CompanyreportDatatyps {
 export const companyreportContext = createContext<CompanyreportDatatyps>({
   companyreportStorageObject: {
     id: 0,
-    Jahresumsatz: 0,
+    Umsatz: 0,
   },
   setCompanyreportStorageObject: () => {},
 });

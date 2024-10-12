@@ -8,7 +8,7 @@ import "./companyreport.scss";
 export default function CompanyreportComponent() {
   const [companyreportStorageObject, setCompanyreportStorageObject] = useState<
     Tables<"Companyreport">
-  >({ id: 0, Jahresumsatz: 0 });
+  >({ id: 0, Umsatz: 0 });
 
   interface StateDatatype {
     options: OptionsDatatype;
@@ -58,9 +58,9 @@ export default function CompanyreportComponent() {
   }*/
 
   interface SupabaseOrderDatatype {
-    Bestehldatum: string;
+    Bestelldatum: string;
     Dienstleistungswert: number;
-    Bestehlmenge: number;
+    Bestellmenge: number;
   }
 
   const [reactChart, setReactChart] = useState<StateDatatype>({
@@ -74,13 +74,13 @@ export default function CompanyreportComponent() {
       yaxis: {
         labels: {
           formatter: function (value: string): string {
-            return value + " €";
+            return Number(value).toLocaleString("de-DE");
           },
         },
       },
       dataLabels: {
         formatter: function (value: string): string {
-          return value + " €";
+          return Number(value).toLocaleString("de-DE");
         },
       },
 
@@ -127,7 +127,7 @@ export default function CompanyreportComponent() {
   async function loadBilanzData() {
     const { data } = await supabase
       .from("Orders")
-      .select("Bestehlmenge, Dienstleistungswert, Bestehldatum");
+      .select("Bestellmenge, Dienstleistungswert, Bestelldatum");
     //console.log(data);
 
     /**/
@@ -184,9 +184,9 @@ export default function CompanyreportComponent() {
     //  Datum des Auftrages um ändern
 
     for (let index = 0; index < supabaseOrderArray.length; index++) {
-      const getDate = new Date(supabaseOrderArray[index].Bestehldatum);
+      const getDate = new Date(supabaseOrderArray[index].Bestelldatum);
       const editString = getDate.toISOString().slice(5, 7);
-      supabaseOrderArray[index].Bestehldatum = editString;
+      supabaseOrderArray[index].Bestelldatum = editString;
     }
 
     //console.log(supabaseOrderArray);
@@ -200,10 +200,10 @@ export default function CompanyreportComponent() {
       const element = supabaseOrderArray[index];
       console.log(element);
 
-      totalSum = element.Bestehlmenge * element.Dienstleistungswert;
+      totalSum = element.Bestellmenge * element.Dienstleistungswert;
       console.log(totalSum);
 
-      const singleValue = Number(element.Bestehldatum) - 1;
+      const singleValue = Number(element.Bestelldatum) - 1;
       console.log(singleValue);
 
       totalSumArray[singleValue] += totalSum;
@@ -245,13 +245,19 @@ export default function CompanyreportComponent() {
         yaxis: {
           labels: {
             formatter: function (value: string) {
-              return value + " €";
+              return Number(value).toLocaleString("de-DE", {
+                style: "currency",
+                currency: "EUR",
+              });
             },
           },
         },
         dataLabels: {
           formatter: function (value: string) {
-            return value + " €";
+            return Number(value).toLocaleString("de-DE", {
+              style: "currency",
+              currency: "EUR",
+            });
           },
         },
         colors: ["#ae8625"],
@@ -272,13 +278,13 @@ export default function CompanyreportComponent() {
       const element = supabaseOrderArray[index];
 
       const singleSum: number =
-        element.Bestehlmenge * element.Dienstleistungswert;
+        element.Bestellmenge * element.Dienstleistungswert;
       totalSum = singleSum + totalSum;
     }
 
     setCompanyreportStorageObject({
       ...companyreportStorageObject,
-      Jahresumsatz: totalSum,
+      Umsatz: totalSum,
     });
   }
 

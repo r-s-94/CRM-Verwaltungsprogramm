@@ -44,8 +44,8 @@ export default function NewOrderComponent({
         Firma: orderValueAdministration.business,
         Dienstleistung: orderValueAdministration.service,
         Dienstleistungswert: changeDatatypePrice,
-        Bestehlmenge: changeDatatypeQuantity,
-        Bestehldatum: orderValueAdministration.date,
+        Bestellmenge: changeDatatypeQuantity,
+        Bestelldatum: orderValueAdministration.date,
         Zahlungsart: orderValueAdministration.paymentMethode,
         Rechnungsstatus: orderValueAdministration.paymentStatus,
         Bemerkung: orderValueAdministration.note,
@@ -137,11 +137,11 @@ export default function NewOrderComponent({
                 <label>Auftraggeber: </label>{" "}
                 <label>Mitarbeiterzuteilung: </label>{" "}
                 <label>Art der Dienstleistung:</label>{" "}
-                <label>Bestehlmenge: </label>
+                <label>Bestellmenge: </label>
                 <label>Preis: </label>
                 <label>Zahlungsart </label>
                 <label>Rechnungsstatus: </label>
-                <label>Bestehlaufgabe:</label>
+                <label>Bestellaufgabe:</label>
                 <label>Bemerkung: </label>
                 <label>Gewerblich: </label>
               </div>

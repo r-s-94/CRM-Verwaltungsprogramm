@@ -96,7 +96,7 @@ export default function OrdersPreviewComponent({
       return order.id === orderId;
     });
 
-    showOrderGoalDay(selectedOrder?.Bestehldatum || "");
+    showOrderGoalDay(selectedOrder?.Bestelldatum || "");
 
     const client = clientsStorageArray.find((client) => {
       return client.id === selectedOrder?.clients_id;
@@ -362,10 +362,10 @@ export default function OrdersPreviewComponent({
 
               <tr>
                 <th className="orders-preview__single-order-div--table--tr--th">
-                  Bestehlmenge
+                  Bestellmenge
                 </th>
                 <td className="orders-preview__single-order-div--table--tr--td">
-                  {ordersStorageArray[0].Bestehlmenge}x
+                  {ordersStorageArray[0].Bestellmenge}x
                 </td>
               </tr>
 
@@ -374,7 +374,7 @@ export default function OrdersPreviewComponent({
                   Gesamtbetrag
                 </th>
                 <td className="orders-preview__single-order-div--table--tr--td">
-                  {ordersStorageArray[0].Bestehlmenge *
+                  {ordersStorageArray[0].Bestellmenge *
                     ordersStorageArray[0].Dienstleistungswert}{" "}
                   €
                 </td>
@@ -411,7 +411,7 @@ export default function OrdersPreviewComponent({
 
               <tr>
                 <th className="orders-preview__single-order-div--table--tr--th">
-                  Bestehldatum
+                  Bestelldatum
                 </th>
                 <td className="orders-preview__single-order-div--table--tr--td">
                   {time}
@@ -496,7 +496,7 @@ export default function OrdersPreviewComponent({
                 {order.Dienstleistung}
               </td>
               <td className="orders-preview__table--tr--td--service-total-sum">
-                {order.Bestehlmenge * order.Dienstleistungswert} €
+                {order.Bestellmenge * order.Dienstleistungswert} €
               </td>
               <td
                 className={` orders-preview__table--tr--td--payment-status
