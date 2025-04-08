@@ -48,57 +48,75 @@ $background-color: #f3f5f6;
     @include column-direction-left-side();
     @include height();
     border-right: 1px solid #e5e5e5;
+  }
 
-    &--navbar {
-      /*color: white;*/
-      background-color: #fafafa;
-      border-radius: 0.3rem;
-      padding: 0.5rem 0 0 0;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      border: 1px solid #e5e5e5;
-      row-gap: 0.5rem;
-      height: 95%;
-      width: 90%;
+  &__navbar {
+    /*color: white;*/
+    background-color: #fafafa;
+    border-radius: 0.3rem;
+    padding: 0.5rem 0 0 0;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid #e5e5e5;
+    row-gap: 0.5rem;
+    height: 95%;
+    width: 90%;
+  }
 
-      &--link {
-        display: flex;
-        justify-content: left;
-        align-items: center;
-        border-radius: 0.3rem;
-        color: black;
-        font-size: 1.5rem;
-        margin-left: 0.5rem;
-        background-color: #fafafa;
-        width: 15rem;
-        padding: 0 0.5rem;
+  &__logo-div {
+    margin: -10rem auto 5rem auto;
+    padding: 0 0.7rem;
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+  }
 
-        &--employee-icon,
-        &--client-icon,
-        &--order-icon,
-        &--company-report-icon {
-          width: 3.5rem;
-          height: auto;
-        }
+  &__logo {
+    width: 7rem;
+    border-radius: 50%;
+  }
 
-        &--employee-icon,
-        &--client-icon,
-        &--order-icon,
-        &--company-report-icon:hover {
-          cursor: pointer;
-        }
-        &--text {
-          text-align: left;
-          margin-left: 0.7rem;
-        }
-      }
+  &__headline {
+    font-size: 1.7rem;
+  }
 
-      &--link:hover {
-        background-color: #eee;
-      }
-    }
+  &__link {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    border-radius: 0.3rem;
+    color: black;
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+    background-color: #fafafa;
+    width: 90%;
+    padding: 0 0.5rem;
+  }
+
+  &__link:hover {
+    background-color: #eee;
+  }
+
+  &__employee-icon,
+  &__client-icon,
+  &__order-icon,
+  &__company-report-icon {
+    width: 3.5rem;
+    height: auto;
+  }
+
+  &__employee-icon,
+  &__client-icon,
+  &__order-icon,
+  &__company-report-icon:hover {
+    cursor: pointer;
+  }
+
+  &__text {
+    text-align: left;
+    margin-left: 0.7rem;
   }
 
   &__div {

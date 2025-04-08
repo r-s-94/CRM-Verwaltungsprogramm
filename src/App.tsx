@@ -14,8 +14,11 @@ import { EmployeePopUpDatatype } from "./employeesContext";
 import { ClientPopUpDatatype } from "./clientContext";
 import { OrderPopUpDatatype } from "./ordersContext";
 import { ordersContext } from "./ordersContext";
+import Error from "./component/error/error";
 
 export default function App() {
+  const [authorizedUser, setAuthorizedUser] = useState<boolean | null>(false);
+
   const [employeesStorageArray, setEmployeesStorageArray] = useState<
     Tables<"Employees">[]
   >([]);
@@ -64,14 +67,34 @@ export default function App() {
     [
       {
         path: "/",
-        element: <PreviewComponent />,
+        element: (
+          <PreviewComponent
+          //authorizedUser={authorizedUser}
+          //setAuthorizedUser={setAuthorizedUser}
+          />
+        ),
         children: [
-          { path: "employees-component", element: <EmployeesComponent /> },
-          { path: "client-component", element: <ClientsComponent /> },
-          { path: "orders-component", element: <OrdersComponent /> },
+          { path: "employees", element: <EmployeesComponent /> },
+          { path: "clients", element: <ClientsComponent /> },
+
           {
-            path: "companyreport-component",
+            path: "orders",
+            element: <OrdersComponent />,
+            /*  
+            authorizedUser ?: <Error />
+            wenn man vor hat Routen abzusichern ist es möglich das über den ? Tenären-Operator zu tun, indem man ihn einfach in die
+                Reihe von dem key elements schreibt und eine Bedingung prüft, das währe ein Möglichkeit
+            
+            */
+          },
+
+          {
+            path: "companyreport",
             element: <CompanyreportComponent />,
+
+            /*authorizedUser ?: <Error />
+            
+            */
           },
         ],
       },

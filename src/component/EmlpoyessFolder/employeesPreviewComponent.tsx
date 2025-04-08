@@ -131,7 +131,7 @@ export default function EmployeesPreviewComponent({
             Alter
           </th>
           <th className="employees-preview__table--tr--th employees-preview__table--tr--th--note">
-            Bwmerkung
+            Bemerkung
           </th>
           <th className="employees-preview__table--tr--th employees-preview__table--tr--th--menu">
             Aktionen
