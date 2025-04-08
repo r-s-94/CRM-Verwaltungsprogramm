@@ -14,10 +14,10 @@ import { EmployeePopUpDatatype } from "./employeesContext";
 import { ClientPopUpDatatype } from "./clientContext";
 import { OrderPopUpDatatype } from "./ordersContext";
 import { ordersContext } from "./ordersContext";
-import Error from "./component/error/error";
+//import Error from "./component/error/error";
 
 export default function App() {
-  const [authorizedUser, setAuthorizedUser] = useState<boolean | null>(false);
+  //const [authorizedUser, setAuthorizedUser] = useState<boolean | null>(false);
 
   const [employeesStorageArray, setEmployeesStorageArray] = useState<
     Tables<"Employees">[]
