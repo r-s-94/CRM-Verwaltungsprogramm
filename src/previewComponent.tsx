@@ -1,17 +1,17 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import "./previewComponent.scss";
-import { supabase } from "./supabase";
-import { Session } from "@supabase/supabase-js";
-import { useEffect, useState } from "react";
+//import { supabase } from "./supabase";
+//import { Session } from "@supabase/supabase-js";
+//import { useEffect, useState } from "react";
 import Logo from "./assets/Logo.jpg";
-import { Auth } from "@supabase/auth-ui-react";
-import { ThemeSupa } from "@supabase/auth-ui-shared";
+//import { Auth } from "@supabase/auth-ui-react";
+//import { ThemeSupa } from "@supabase/auth-ui-shared";
 
 export default function PreviewComponent() {
-  const [session, setSession] = useState<Session | null>(null);
-  const [userMail, setUserMail] = useState<string>("");
-  const [userPassword, setUserPassword] = useState<string>("");
-  const navigate = useNavigate();
+  //const [session, setSession] = useState<Session | null>(null);
+  //const [userMail, setUserMail] = useState<string>("");
+  //const [userPassword, setUserPassword] = useState<string>("");
+  //const navigate = useNavigate();
 
   /*
 {
