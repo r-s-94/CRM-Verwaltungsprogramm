@@ -36,7 +36,7 @@ export default function App() {
       selectedEmployeeId: 0,
       firstName: "",
       lastName: "",
-      age: "",
+      age: 0,
       remark: "",
     });
 
@@ -45,7 +45,7 @@ export default function App() {
       selectedClientId: 0,
       firstName: "",
       lastName: "",
-      age: "",
+      age: 0,
       mail: "",
       address: "",
     });

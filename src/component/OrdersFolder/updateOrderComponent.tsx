@@ -28,7 +28,6 @@ export default function UpdateOrderComponent({
   const { clientsStorageArray } = useContext(clientsContext);
   const [selectedClientId, setSelectedClientId] = useState<number>(0);
   const [selectedEmployeeId, setSelectedEmployeeId] = useState<number>(0);
-  const [updateOrderPopUp, setUpdateOrderPopUp] = useState<boolean>(false);
 
   useEffect(() => {
     showOrder();
@@ -120,11 +119,6 @@ export default function UpdateOrderComponent({
     });
 
     setUpdateOrderForm(false);
-  }
-
-  function closeupdateOrderPopUp() {
-    setUpdateOrderPopUp(false);
-    setUpdateOrderForm(true);
   }
 
   /* <div className="orders-div__popup-main-window">
