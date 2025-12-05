@@ -1,12 +1,63 @@
-@mixin full-size {
-  width: 100%;
-  height: 100vh;
-}
+$crm-color-white: white;
 
 .company-report {
-  @include full-size();
-}
+  &__headline {
+    margin: 1.5rem 0 0 3rem;
+    font-size: 2rem;
+  }
 
-h1 {
-  margin-top: 3rem;
+  &__table-div {
+    width: 95%;
+    height: 84vh;
+    margin: 1.5rem auto 0 auto;
+    padding: 1.5rem 1rem;
+    row-gap: 4rem;
+    background-color: $crm-color-white;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 0.2rem;
+  }
+
+  &__button-div {
+    width: 100%;
+    column-gap: 3rem;
+  }
+
+  &__total-year-button {
+    width: 9rem;
+  }
+
+  &__year-report-button {
+    width: 8.5rem;
+    margin-left: 73%;
+  }
+
+  &__preview {
+    height: 71vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__short-table-div {
+    margin-top: 7rem;
+  }
+
+  &__shart-div {
+  }
+
+  &__short-headline,
+  &__chart-headline {
+    font-size: 1.5rem;
+  }
+
+  &__short-text {
+    font-size: 1.4rem;
+    margin-top: 1.7rem;
+    text-align: center;
+    border-bottom: 3px solid #e0e0e0;
+    border-bottom-style: double;
+  }
+
+  &__chart {
+    width: 1000px;
+  }
 }

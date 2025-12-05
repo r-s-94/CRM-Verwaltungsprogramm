@@ -9,129 +9,83 @@ $border-color: #bdbdbd;
   height: 100%;
 }
 
-@mixin center-flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin column-flex {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin column-flex-left-site {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: start;
-}
-
 .update-order {
-  &__popup-message-div {
-    @include column-flex();
-
-    &--text {
-      font-size: 1.3rem;
-    }
-
-    &--close-button {
-      font-size: 1rem;
-      @include center-flex();
-      padding: 0.3rem 1rem;
-      column-gap: 0.5rem;
-      border-radius: 0.2rem;
-      border: 1px solid black;
-
-      &--close-icon {
-        width: 2rem;
-        height: auto;
-      }
-    }
-
-    &--close-button:hover {
-      cursor: pointer;
-      background-color: #dbdbdb;
-    }
-  }
-
   &__form {
     @include full-size();
-    @include column-flex();
+  }
 
-    &--close-button {
-      position: absolute;
-      margin-bottom: 35rem;
-      margin-left: 50rem;
-      border: 1.5px solid $border-color;
-      padding: 0.3rem 0.8rem;
-      border-radius: 0.2rem;
+  &__close-icon {
+    width: 1.7rem;
+    height: auto;
+    margin: 0.5rem 0 0 57.5rem;
+    transition: all 0.5s ease-in-out;
+  }
 
-      &--close-icon {
-        width: 2rem;
-        height: auto;
-      }
-    }
+  &__close-icon:hover {
+    color: gray;
+  }
 
-    &--label-and-input-container {
-      margin-top: 3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      column-gap: 10rem;
+  &__lable-and-input-div {
+    margin-top: 5rem;
+    column-gap: 7rem;
+  }
 
-      &--label-section {
-        margin-top: 1rem;
-        @include column-flex-left-site();
-        row-gap: 2.3rem;
-        padding-left: 0;
-      }
+  &__lable-div,
+  &__input-div {
+    display: flex;
+    flex-direction: column;
+  }
 
-      .label {
-        padding: 0;
-        margin: 0;
-        font-size: 1.3rem;
-      }
+  &__lable-div {
+    row-gap: 1.6rem;
+  }
 
-      &--input-section {
-        margin-top: 1rem;
-        @include column-flex-left-site();
-        row-gap: 2.1rem;
-      }
+  &__input-div {
+    row-gap: 1rem;
+  }
 
-      .input {
-        width: 10rem;
-        height: 1.3rem;
-        font-size: 1rem;
-      }
-    }
+  &__select {
+    width: 10.7rem;
+    height: 1.7rem;
+    font-size: 15px;
+  }
 
-    &--edit-button {
-      @include center-flex();
-      background-color: $action-button-color;
-      margin-top: 5rem;
-      border-radius: 0.3rem;
-      border: 2px solid $border-color;
-      font-size: 1.2rem;
-      padding: 0.3rem 1rem;
-      column-gap: 0.5rem;
+  &__option {
+  }
 
-      &--edit-icon {
-        background-color: $action-button-color;
-        width: 2rem;
-        height: auto;
-      }
+  .input {
+    width: 10rem;
+    height: 1.5rem;
+    font-size: 1rem;
+    padding-left: 0.5rem;
+  }
 
-      &--edit-icon:hover {
-        background-color: $action-button-hover-color;
-      }
-    }
+  &__input-check-box {
+    width: 5rem;
+    margin-left: 47%;
+  }
 
-    &--edit-button:hover {
-      background-color: $action-button-hover-color;
-      cursor: pointer;
-    }
+  &__button-div {
+    margin-top: 3rem;
+    column-gap: 3rem;
+  }
+
+  &__cancle-button {
+    width: 10rem;
+    column-gap: 0.5rem;
+  }
+
+  &__cancle-icon {
+    width: 1.5rem;
+  }
+
+  &__update-order-button {
+    width: 13rem;
+    column-gap: 0.7rem;
+  }
+
+  &__update-order-icon {
+    width: 1.5rem;
+    height: auto;
   }
 }

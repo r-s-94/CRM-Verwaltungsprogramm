@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { companyreportContext } from "./companyreportContext";
 import Chart from "react-apexcharts";
+import "../../index.scss";
 import "./companyreportPreviewComponent.scss";
 
 interface StateDatatype {
@@ -58,13 +59,13 @@ export default function CompanyreportPreviewComponent({
         {" "}
         <button
           onClick={showTotalYearBilanz}
-          className="companyreport-preview-section__button-div--button button"
+          className="companyreport-preview-section__button button"
         >
           Umsatz {currentYear}
         </button>
         <button
           onClick={showMonthBilanz}
-          className="companyreport-preview-section__button-div--button button"
+          className="companyreport-preview-section__button button"
         >
           Jahresbilanz
         </button>

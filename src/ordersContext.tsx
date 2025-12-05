@@ -4,8 +4,8 @@ import { Tables } from "./database.types";
 export interface OrderPopUpDatatype {
   selectedOrderId: number;
   service: string;
-  quantity: string;
-  price: string;
+  quantity: number;
+  price: number;
   paymentMethode: string;
   paymentStatus: string;
   date: string;
@@ -28,8 +28,8 @@ export const ordersContext = createContext<OrdersStorageContext>({
   orderValueAdministration: {
     selectedOrderId: 0,
     service: "",
-    quantity: "",
-    price: "",
+    quantity: 0,
+    price: 0,
     paymentMethode: "",
     paymentStatus: "",
     date: "",

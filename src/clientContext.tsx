@@ -5,7 +5,7 @@ export interface ClientPopUpDatatype {
   selectedClientId: number;
   firstName: string;
   lastName: string;
-  age: string;
+  age: number;
   mail: string;
   address: string;
 }
@@ -28,7 +28,7 @@ export const clientsContext = createContext<ClientsStateData>({
     selectedClientId: 0,
     firstName: "",
     lastName: "",
-    age: "",
+    age: 0,
     mail: "",
     address: "",
   },

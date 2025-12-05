@@ -7,19 +7,7 @@ $close-button-hover-color: limegreen;
 $icon-color: white;
 $icon-hover-color: black;
 $menu-button-color-two: #f96b00;
-
-@mixin center-flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin column-flex {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
+$crm-color-white: white;
 
 @mixin full-size {
   width: 100%;
@@ -28,142 +16,196 @@ $menu-button-color-two: #f96b00;
 
 .employees-preview {
   @include full-size();
-  overflow: auto;
   margin-top: 2.5rem;
 
-  &__popup-message-div {
-    &--text {
-      font-size: 1.5rem;
-    }
-
-    &--button-div {
-      width: 100%;
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-
-      &--delete-button {
-        @include center-flex();
-        font-size: 1.1rem;
-        padding: 0.5rem 1rem;
-        column-gap: 0.5rem;
-        background-color: $delete-button-hover-color;
-        border-radius: 0.2rem;
-        border: 1px solid black;
-
-        &--delete-icon {
-          width: 1.7rem;
-          height: auto;
-          border: none;
-        }
-      }
-
-      &--delete-button:hover {
-        background-color: $delete-button-color;
-        cursor: pointer;
-      }
-
-      &--close-button {
-        @include center-flex();
-        font-size: 1rem;
-        padding: 0.3rem 1rem;
-        column-gap: 0.5rem;
-        border-radius: 0.2rem;
-        border: 1px solid black;
-
-        &--close-icon {
-          width: 2.1rem;
-          height: auto;
-        }
-      }
-
-      &--close-button:hover {
-        background-color: #dbdbdb;
-        cursor: pointer;
-      }
-    }
+  &__question-div {
+    @include full-size();
+    border: 1px solid black;
   }
 
-  &__table {
+  &__close-icon {
+    width: 1.5rem;
+    height: auto;
+    margin: 0.5rem 0 0 57.5rem;
+    transition: all 0.5s ease-in-out;
+  }
+
+  &__close-icon:hover {
+    color: gray;
+  }
+
+  &__text {
+    text-align: center;
+    margin-top: 15rem;
+    font-size: 1.4rem;
+  }
+
+  &__button-div {
     width: 100%;
-    border-collapse: collapse;
-    background-color: white;
-
-    &--tr {
-      &--th {
-        position: sticky;
-        top: 0;
-        font-size: 1.5rem;
-        padding: 1rem;
-      }
-
-      &--td {
-        padding: 0.5rem;
-
-        &--first-name,
-        &--last-name,
-        &--note {
-          text-align: left;
-          font-size: 1.3rem;
-        }
-
-        &--age {
-          text-align: right;
-          font-size: 1.3rem;
-        }
-
-        &--button-div {
-          @include column-flex();
-          row-gap: 2rem;
-          margin-left: -1rem;
-
-          &--edit-button {
-            background-color: $menu-button-color-two;
-            border-radius: 0.3rem;
-            border: 1px solid black;
-            padding: 0.3rem 0.5rem;
-
-            &--edit-icon {
-              width: 2rem;
-              height: auto;
-            }
-
-            &--edit-icon:hover {
-              color: $icon-hover-color;
-            }
-          }
-
-          &--edit-button:hover {
-            background-color: $menu-button-color-two;
-          }
-
-          &--delete-button {
-            @include center-flex();
-            font-size: 0.5rem;
-            background-color: $delete-button-color;
-            border: 1px solid black;
-            border-radius: 0.3rem;
-            padding: 0.3rem 0.5rem;
-
-            &--delete-icon {
-              width: 2rem;
-              height: auto;
-            }
-          }
-        }
-      }
-    }
+    margin-top: 5rem;
+    column-gap: 3rem;
   }
-}
 
-td,
-th {
-  border: 1px solid #dddddd;
-  padding: 8px;
-}
+  &__cancel-button {
+    width: 9rem;
+    column-gap: 0.5rem;
+  }
 
-tr:nth-child(even) {
-  /*background-color: #dddddd;*/
-  /*background-color: #b3e5fc;*/
-  background-color: #cae0ed;
+  &__cancel-icon,
+  &__delete-employee-icon {
+    width: 1.5rem;
+    height: auto;
+  }
+
+  &__delete-employee-button {
+    width: 9rem;
+    column-gap: 0.7rem;
+    background-color: white;
+    color: $delete-button-color;
+    border: 2px solid $delete-button-color;
+  }
+
+  &__close-button {
+    font-size: 1rem;
+    padding: 0.3rem 1rem;
+    column-gap: 0.5rem;
+    border-radius: 0.2rem;
+    border: 1px solid black;
+  }
+
+  &__table-div {
+    width: 95%;
+    margin: 1rem auto;
+    padding-top: 2rem;
+    background-color: $crm-color-white;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 0.2rem;
+  }
+
+  &__new-employee-button {
+    width: 14rem;
+    margin: 1rem 0 3rem 75%;
+    column-gap: 0.7rem;
+  }
+
+  &__new-icon {
+    width: 1.5rem;
+    height: auto;
+  }
+
+  &__headline-div {
+    width: 100%;
+  }
+
+  &__headline {
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    font-size: 1.3rem;
+    text-align: center;
+    background-color: $crm-color-white;
+  }
+
+  /*&__first-name,
+  &__last-name,
+  &__note,
+  &__age,
+  &__option {
+  }*/
+
+  &__first-name,
+  &__last-name {
+    width: 15%;
+  }
+
+  &__age {
+    width: 15%;
+  }
+
+  &__note {
+    width: 30%;
+  }
+
+  &__options {
+    width: 15%;
+  }
+
+  &__employees-preview-div {
+    width: 100%;
+    height: 65vh;
+    overflow-y: auto;
+  }
+
+  &__employee-info-div {
+    width: 98.7%;
+    margin: 1.5rem auto;
+    padding-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  &__employee-info {
+  }
+
+  /*&__first-name-info,
+  &__last-name-info,
+  &__age-info,
+  &__note-info,
+  &__options-div {
+    border: 1px solid black;
+  }*/
+
+  &__first-name-info,
+  &__last-name-info,
+  &__age-info,
+  &__note-info {
+    font-size: 1.1rem;
+  }
+
+  &__first-name-info {
+    width: 13%;
+    padding-left: 4%;
+  }
+
+  &__last-name-info {
+    width: 14.2%;
+    padding-left: 3%;
+  }
+
+  &__age-info {
+    width: 11.2%;
+    text-align: right;
+    padding-right: 4%;
+  }
+
+  &__note-info {
+    width: 29%;
+    padding-left: 3%;
+  }
+
+  &__options-div {
+    width: 15%;
+    padding-left: 3%;
+  }
+
+  &__new-employee-button-div {
+    column-gap: 1rem;
+  }
+
+  &__edit-button,
+  &__delete-button {
+    background-color: $crm-color-white;
+    border: none;
+  }
+
+  &__edit-icon,
+  &__delete-icon {
+    width: 1.5rem;
+    height: auto;
+  }
+
+  &__delete-button {
+    color: $delete-button-color;
+  }
 }

@@ -1,23 +1,16 @@
-.popup-main-window {
+.popup-window-div {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 1;
 
-  &__popup-message-window {
-    width: 90%;
-    height: 85%;
-    border-radius: 0.3rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  &__popup-dialog-div {
+    width: 50%;
+    height: 75%;
     background-color: white;
+    border-radius: 0.2rem;
   }
 }

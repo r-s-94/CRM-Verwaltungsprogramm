@@ -1,110 +1,80 @@
-/*$main-background-color: #f8f8f8;*/
-$background-color: #f3f5f6;
+/*$crm-gray-black-color: #323531;*/
+/*$crm-gray-black-color: #31363c;*/
+/*$crm-gray-black-color: #718096;*/
+/*$crm-gray-black-color: #15232e;*/
+/*$crm-gray-black-color: #353e43;*/
 
-@mixin flex-direction {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin column-direction {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-@mixin column-direction-flex-start {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-@mixin column-direction-left-side {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: center;
-}
-
-@mixin null-distance {
-  margin: 0;
-  padding: 0;
-}
-
-@mixin height {
-  height: 100vh;
-}
+$crm-white-color: white;
 
 .preview-component {
-  @include null-distance();
   display: grid;
-  grid-template-columns: 20% 80%;
-  width: 100%;
-  background-color: $background-color;
+  grid-template-columns: 17% 83%;
 
-  &__main-navbar-div {
-    @include column-direction-left-side();
-    @include height();
-    border-right: 1px solid #e5e5e5;
-  }
-
-  &__navbar {
-    /*color: white;*/
-    background-color: #fafafa;
-    border-radius: 0.3rem;
-    padding: 0.5rem 0 0 0;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border: 1px solid #e5e5e5;
-    row-gap: 0.5rem;
-    height: 95%;
-    width: 90%;
+  &__navbar-logo-div {
+    height: 100vh;
+    row-gap: 5rem;
+    /*background-color: #56595d;*/
+    /*background-color: #696b6f;*/
+    /*background-color: #e2e6eb;*/
+    /*background-color: #edf0f2;*/
+    /*background-color: #c7ccd1;*/
+    /*background-color: #cbd3da;*/
+    /*background-color: #707070;*/
+    /*background-color: #666;*/
+    /*background-color: #afafaf;*/
+    /*background-color: #a5a5a5;*/
+    /*background-color: #8c8c8c;*/
+    /*background-color: #7f7f7f;*/
+    /*background-color: #757575;*/
+    /*background-color: #646464;*/
+    background-color: #2f3542;
   }
 
   &__logo-div {
+    width: 90%;
     margin: -10rem auto 5rem auto;
     padding: 0 0.7rem;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    column-gap: 0.5rem;
+    row-gap: 0.7rem;
   }
 
   &__logo {
-    width: 7rem;
+    width: 5rem;
     border-radius: 50%;
   }
 
   &__headline {
-    font-size: 1.7rem;
+    font-size: 1.6rem;
+    color: #f3f5f6;
+  }
+
+  &__nav-bar {
+    width: 100%;
+    row-gap: 3rem;
   }
 
   &__link {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    border-radius: 0.3rem;
-    color: black;
-    font-size: 1.5rem;
-    margin-left: 0.5rem;
-    background-color: #fafafa;
-    width: 90%;
-    padding: 0 0.5rem;
+    width: 60%;
+    height: 3.3rem;
+    font-size: 1.3rem;
+    margin: 0 auto;
+    padding-left: 5%;
+    color: #f3f5f6;
+    column-gap: 1rem;
+    transition: all 0.5s ease-in-out;
+    border-radius: 0.2rem;
   }
 
   &__link:hover {
-    background-color: #eee;
+    background-color: #414852;
   }
 
   &__employee-icon,
   &__client-icon,
   &__order-icon,
   &__company-report-icon {
-    width: 3.5rem;
-    height: auto;
   }
 
   &__employee-icon,
@@ -115,22 +85,8 @@ $background-color: #f3f5f6;
   }
 
   &__text {
-    text-align: left;
-    margin-left: 0.7rem;
   }
 
-  &__div {
-    @include column-direction-flex-start();
-    @include height();
-    background-color: $background-color;
+  &__outlet {
   }
-}
-
-a {
-  text-decoration: none;
-}
-
-.button:hover {
-  cursor: pointer;
-  background-color: #ddd;
 }

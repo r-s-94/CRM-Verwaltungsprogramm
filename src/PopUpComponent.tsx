@@ -1,4 +1,5 @@
 import React from "react";
+import "./index.scss";
 import "./PopUpComponent.scss";
 
 export default function PopUpComponent({
@@ -7,8 +8,8 @@ export default function PopUpComponent({
   children: React.ReactNode;
 }) {
   return (
-    <div className="popup-main-window">
-      <div className="popup-main-window__popup-message-window">{children}</div>
+    <div className="popup-window-div center-content">
+      <div className="popup-window-div__popup-dialog-div ">{children}</div>
     </div>
   );
 }

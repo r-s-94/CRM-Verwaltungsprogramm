@@ -54,14 +54,16 @@ export default function App() {
     useState<OrderPopUpDatatype>({
       selectedOrderId: 0,
       service: "",
-      quantity: "",
-      price: "",
+      quantity: 0,
+      price: 0,
       paymentMethode: "",
       paymentStatus: "",
       date: "",
       note: "",
       business: false,
     });
+
+  //cd ".\react-vite-crm-managment-program\"
 
   const router = createBrowserRouter(
     [

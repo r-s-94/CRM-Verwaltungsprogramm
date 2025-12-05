@@ -5,7 +5,7 @@ export interface EmployeePopUpDatatype {
   selectedEmployeeId: number;
   firstName: string;
   lastName: string;
-  age: string;
+  age: number;
   remark: string;
 }
 
@@ -29,7 +29,7 @@ export const employeesContext = createContext<EmployeesStateData>({
     selectedEmployeeId: 0,
     firstName: "",
     lastName: "",
-    age: "",
+    age: 0,
     remark: "",
   },
   setEmployeeValueAdministration: () => {},

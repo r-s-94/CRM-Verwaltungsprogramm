@@ -4,22 +4,9 @@ $action-button-color: #fdfd00;
 $action-button-hover-color: #ffff60;
 $border-color: #bdbdbd;
 
-@mixin full-size {
+@mixin full-screen {
   width: 100%;
   height: 100%;
-}
-
-@mixin center-flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin column-flex {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 @mixin column-flex-left-site {
@@ -30,100 +17,72 @@ $border-color: #bdbdbd;
 }
 
 .update-client {
-  &__popup-message-div {
-    @include column-flex();
-
-    &--text {
-      font-size: 1.3rem;
-    }
-
-    &--close-button {
-      @include center-flex();
-      font-size: 1.1rem;
-      padding: 0.3rem 0.5rem;
-
-      &--close-icon {
-        width: 2rem;
-        height: auto;
-      }
-    }
+  &__form {
+    @include full-screen();
+    border: 1px solid black;
   }
 
-  &__form {
-    @include full-size();
-    @include column-flex();
+  &__close-icon {
+    width: 1.7rem;
+    height: auto;
+    margin: 0.5rem 0 0 57.7rem;
+    transition: all 0.5s ease-in-out;
+  }
 
-    &--close-button {
-      position: absolute;
-      margin-bottom: 30rem;
-      border-radius: 0.2rem;
-      margin-left: 30rem;
-      padding: 0.2rem 0.8rem;
-      border: 1.5px solid $border-color;
+  &__close-icon:hover {
+    color: gray;
+  }
 
-      &--close-icon {
-        width: 2rem;
-        height: auto;
-      }
-    }
+  &__label-and-input-div {
+    margin-top: 10rem;
+    column-gap: 7rem;
+  }
 
-    &--label-and-input-container {
-      margin-top: 3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      column-gap: 10rem;
+  &__label-div {
+    margin-top: 1rem;
+    @include column-flex-left-site();
+    row-gap: 2.4rem;
+    padding-left: 0;
+  }
 
-      &--label-section {
-        margin-top: 1rem;
-        @include column-flex-left-site();
-        row-gap: 2.3rem;
-        padding-left: 0;
-      }
+  .label {
+    font-size: 1.3rem;
+  }
 
-      .label {
-        padding: 0;
-        margin: 0;
-        font-size: 1.3rem;
-      }
+  &__input-div {
+    margin-top: 1rem;
+    @include column-flex-left-site();
+    row-gap: 2.1rem;
+  }
 
-      &--input-section {
-        margin-top: 1rem;
-        @include column-flex-left-site();
-        row-gap: 2.1rem;
-      }
+  .input {
+    width: 10rem;
+    height: 1.5rem;
+    font-size: 1rem;
+    padding-left: 0.5rem;
+  }
 
-      .input {
-        width: 10rem;
-        height: 1.3rem;
-        font-size: 1rem;
-      }
-    }
+  &__button-div {
+    margin-top: 3rem;
+    column-gap: 3rem;
+  }
 
-    &--edit-button {
-      background-color: $action-button-color;
-      margin-top: 5rem;
-      border-radius: 0.3rem;
-      @include center-flex();
-      border: 2px solid $border-color;
-      font-size: 1.2rem;
-      padding: 0.3rem 1rem;
-      column-gap: 0.5rem;
+  &__cancel-button {
+    width: 9rem;
+    column-gap: 0.5rem;
+  }
 
-      &--edit-icon {
-        background-color: $action-button-color;
-        width: 2rem;
-        height: auto;
-      }
+  &__cancel-icon {
+    width: 1.3rem;
+  }
 
-      &--edit-icon:hover {
-        background-color: $action-button-hover-color;
-      }
-    }
+  &__edit-client-button {
+    width: 16rem;
+    column-gap: 0.7rem;
+  }
 
-    &--edit-button:hover {
-      background-color: $action-button-hover-color;
-      cursor: pointer;
-    }
+  &__edit-client-icon {
+    width: 1.3rem;
+    height: auto;
   }
 }

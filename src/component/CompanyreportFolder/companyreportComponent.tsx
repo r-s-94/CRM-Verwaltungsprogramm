@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../supabase";
 import { Tables } from "../../database.types";
-import CompanyreportPreviewComponent from "./companyreportPreviewComponent";
-import { companyreportContext } from "./companyreportContext";
+//import CompanyreportPreviewComponent from "./companyreportPreviewComponent";
+//import { companyreportContext } from "./companyreportContext";
+import Chart from "react-apexcharts";
+import "../../index.scss";
 import "./companyreport.scss";
 
 export default function CompanyreportComponent() {
@@ -10,20 +12,20 @@ export default function CompanyreportComponent() {
     Tables<"Companyreport">
   >({ id: 0, salesVolume: 0 });
 
-  interface StateDatatype {
+  interface ReactChartDatatype {
     options: OptionsDatatype;
     series: SeriesDatatype[];
   }
 
   interface OptionsDatatype {
-    chart: ChartDatatype;
+    chart: Chart;
     xaxis: AxisDatatype;
-    yaxis: YaxisDatatype;
+    /*yaxis: YaxisDatatype;*/
     dataLabels: DataLabels;
     colors: string[];
   }
 
-  interface ChartDatatype {
+  interface Chart {
     id: string;
   }
 
@@ -31,13 +33,13 @@ export default function CompanyreportComponent() {
     categories: string[];
   }
 
-  interface YaxisDatatype {
+  /*interface YaxisDatatype {
     labels: LabelsDatatype;
-  }
+  }*/
 
-  interface LabelsDatatype {
+  /*interface LabelsDatatype {
     formatter: FormatterDatatype;
-  }
+  }*/
 
   interface FormatterDatatype {
     (value: string): string;
@@ -63,7 +65,31 @@ export default function CompanyreportComponent() {
     quantity: number;
   }
 
-  const [reactChart, setReactChart] = useState<StateDatatype>({
+  /*interface ReactChartDatatype2 {
+    options: OptionsDatatype;
+    series: SeriesDataype[];
+  }
+
+  interface OptionsDatatype {
+    chart: Chart;
+    xaxis: AxisDatatype;
+    colors: string[];
+  }
+
+  interface Chart {
+    id: string;
+  }
+
+  interface AxisDatatype {
+    categories: string[];
+  }
+
+  interface SeriesDataype {
+    name: string;
+    data: number[];
+  }*/
+
+  const [reactChart, setReactChart] = useState<ReactChartDatatype>({
     options: {
       chart: {
         id: "basic-bar",
@@ -71,13 +97,7 @@ export default function CompanyreportComponent() {
       xaxis: {
         categories: [],
       },
-      yaxis: {
-        labels: {
-          formatter: function (value: string): string {
-            return Number(value).toLocaleString("de-DE");
-          },
-        },
-      },
+
       dataLabels: {
         formatter: function (value: string): string {
           return Number(value).toLocaleString("de-DE");
@@ -121,8 +141,27 @@ export default function CompanyreportComponent() {
   }, [supabase]);
 
   useEffect(() => {
+    showMonthBilanz();
+  }, []);
+
+  useEffect(() => {
     //console.log(supabaseOrderArray);
   }, [supabaseOrderArray]);
+
+  const [totalYearBilanz, setTotalYearBilanz] = useState<boolean>(false);
+  const [monthSum, setMonthSum] = useState<boolean>(false);
+  const totalYearSum: number = companyreportStorageObject.salesVolume || 0;
+  const currentYear = new Date().getFullYear();
+
+  function showTotalYearBilanz() {
+    setTotalYearBilanz(true);
+    setMonthSum(false);
+  }
+
+  function showMonthBilanz() {
+    setTotalYearBilanz(false);
+    setMonthSum(true);
+  }
 
   async function loadBilanzData() {
     const { data } = await supabase
@@ -242,16 +281,7 @@ export default function CompanyreportComponent() {
             ...orderBilanzMonthArray,
           ],
         },
-        yaxis: {
-          labels: {
-            formatter: function (value: string) {
-              return Number(value).toLocaleString("de-DE", {
-                style: "currency",
-                currency: "EUR",
-              });
-            },
-          },
-        },
+
         dataLabels: {
           formatter: function (value: string) {
             return Number(value).toLocaleString("de-DE", {
@@ -289,13 +319,74 @@ export default function CompanyreportComponent() {
 
   return (
     <div className="company-report">
-      <companyreportContext.Provider
-        value={{ companyreportStorageObject, setCompanyreportStorageObject }}
-      >
-        {" "}
-        <h1>Firmenbilanz</h1>
-        <CompanyreportPreviewComponent reactChart={reactChart} />
-      </companyreportContext.Provider>
+      {" "}
+      <h1 className="company-report__headline">Firmenbilanz</h1>
+      <div className="company-report__table-div center-content-column">
+        <div className="company-report__button-div center-content">
+          {" "}
+          <button
+            onClick={showMonthBilanz}
+            className="company-report__year-report-button button primary-button"
+          >
+            Jahresbilanz
+          </button>
+          <button
+            onClick={showTotalYearBilanz}
+            className="company-report__total-year-button button primary-button"
+          >
+            Umsatz {currentYear}
+          </button>
+        </div>
+
+        <div className="company-report__preview">
+          {totalYearBilanz && (
+            <div className="company-report__short-table-div">
+              <h2 className="company-report__short-headine">
+                Umsatz {currentYear}
+              </h2>
+
+              <p className="company-report__short-text">
+                {totalYearSum || " - "} €
+              </p>
+            </div>
+          )}
+
+          {monthSum && (
+            <div className="company-report__chart-div">
+              {" "}
+              <h2 className="company-report__chart-headline">Jahresbilanz</h2>
+              <Chart
+                options={reactChart.options}
+                series={reactChart.series}
+                type="area"
+                className="company-report__chart"
+              />
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
+
+  /*  <CompanyreportPreviewComponent reactChart={reactChart} />
+
+   yaxis: {
+        labels: {
+          formatter: function (value: string): string {
+            return Number(value).toLocaleString("de-DE");
+          },
+        },
+      },
+
+   yaxis: {
+          labels: {
+            formatter: function (value: string) {
+              return Number(value).toLocaleString("de-DE", {
+                style: "currency",
+                currency: "EUR",
+              });
+            },
+          },
+        },
+  */
 }

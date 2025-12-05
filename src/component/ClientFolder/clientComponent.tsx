@@ -1,4 +1,5 @@
 import { useEffect, useContext, useState } from "react";
+import "../../index.scss";
 import "./clientComponent.scss";
 import ClientPreviewComponent from "./clientPreviewComponent";
 import { clientsContext } from "../../clientContext";
@@ -13,10 +14,6 @@ export default function ClientsComponent() {
   useEffect(() => {
     loadClients();
   }, [clientValueAdministration.selectedClientId]);
-
-  function showNewClientForm() {
-    setNewClientForm(true);
-  }
 
   return (
     <div className="client">
@@ -33,28 +30,9 @@ export default function ClientsComponent() {
       />
 
       <h1 className="client__headline">Auftraggeber</h1>
-      <button
-        onClick={showNewClientForm}
-        className="client__create-client-button"
-      >
-        Auftrageber erstellen
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          className="client__create-client-button--new-client-icon"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 4.5v15m7.5-7.5h-15"
-          />
-        </svg>
-      </button>
 
       <ClientPreviewComponent
+        setNewClientForm={setNewClientForm}
         showClientsUpdate={loadClients}
         setUpdateClientForm={setUpdateClientForm}
       />

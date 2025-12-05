@@ -10,10 +10,6 @@ export default function OrdersComponent() {
   const [newOrderForm, setNewOrderForm] = useState<boolean>(false);
   const [updateOrderForm, setUpdateOrderForm] = useState<boolean>(false);
 
-  function showNewOrderForm() {
-    setNewOrderForm(true);
-  }
-
   return (
     <div className="orders">
       {" "}
@@ -28,27 +24,8 @@ export default function OrdersComponent() {
         setUpdateOrderForm={setUpdateOrderForm}
       />
       <h1 className="orders__headline">Aufträge</h1>
-      <button
-        onClick={showNewOrderForm}
-        className="orders__create-order-button"
-      >
-        Auftrag erstellen{" "}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          className="orders__create-order-button--new-icon"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 4.5v15m7.5-7.5h-15"
-          />
-        </svg>
-      </button>
       <OrdersPreviewComponent
+        setNewOrderForm={setNewOrderForm}
         showDataUpdate={loadOrders}
         setUpdateOrderForm={setUpdateOrderForm}
       />{" "}

@@ -22,8 +22,6 @@ export default function NewOrderComponent({
     useContext(ordersContext);
   const [selectedClientId, setSelectedClientId] = useState<number>(0);
   const [selectedEmployeeId, setSelectedEmployeeId] = useState<number>(0);
-  const [newOrderMessagePopUp, setNewOrderMessagePopUp] =
-    useState<boolean>(false);
 
   async function createOder() {
     const changeDatatypePrice: number = Number(orderValueAdministration.price);
@@ -31,55 +29,54 @@ export default function NewOrderComponent({
       orderValueAdministration.quantity
     );
 
-    if (
-      orderValueAdministration.service !== "" &&
-      orderValueAdministration.quantity !== "" &&
-      orderValueAdministration.price !== "" &&
-      orderValueAdministration.paymentMethode !== "" &&
-      orderValueAdministration.paymentStatus !== ""
-    ) {
-      const {} = await supabase.from("Orders").insert({
-        clients_id: selectedClientId,
-        employee_id: selectedEmployeeId,
-        business: orderValueAdministration.business,
-        service: orderValueAdministration.service,
-        serviceValue: changeDatatypePrice,
-        quantity: changeDatatypeQuantity,
-        orderDay: orderValueAdministration.date,
-        paymentMethod: orderValueAdministration.paymentMethode,
-        paymentStatus: orderValueAdministration.paymentStatus,
-        note: orderValueAdministration.note,
-      });
+    const {} = await supabase.from("Orders").insert({
+      clients_id: selectedClientId,
+      employee_id: selectedEmployeeId,
+      business: orderValueAdministration.business,
+      service: orderValueAdministration.service,
+      serviceValue: changeDatatypePrice,
+      quantity: changeDatatypeQuantity,
+      orderDay: orderValueAdministration.date,
+      paymentMethod: orderValueAdministration.paymentMethode,
+      paymentStatus: orderValueAdministration.paymentStatus,
+      note: orderValueAdministration.note,
+    });
 
-      setNewOrderForm(false);
+    setNewOrderForm(false);
 
-      setOrderValueAdministration({
-        ...orderValueAdministration,
-        selectedOrderId: 0,
-        service: "",
-        price: "",
-        quantity: "",
-        paymentMethode: "",
-        paymentStatus: "",
-        note: "",
-        business: false,
-        date: "",
-      });
+    setOrderValueAdministration({
+      ...orderValueAdministration,
+      selectedOrderId: 0,
+      service: "",
+      price: 0,
+      quantity: 0,
+      paymentMethode: "",
+      paymentStatus: "",
+      note: "",
+      business: false,
+      date: "",
+    });
 
-      showDataUpdate();
-    } else {
-      setNewOrderForm(false);
-      setNewOrderMessagePopUp(true);
-    }
+    showDataUpdate();
   }
 
   function closeNewOrderForm() {
     setNewOrderForm(false);
-  }
+    setSelectedClientId(0);
+    setSelectedEmployeeId(0);
 
-  function closeNewOrderMessagePopUp() {
-    setNewOrderMessagePopUp(false);
-    setNewOrderForm(true);
+    setOrderValueAdministration({
+      ...orderValueAdministration,
+      selectedOrderId: 0,
+      service: "",
+      price: 0,
+      quantity: 0,
+      paymentMethode: "",
+      paymentStatus: "",
+      note: "",
+      business: false,
+      date: "",
+    });
   }
 
   /*    <div className="orders-div__popup-main-window">
@@ -92,175 +89,166 @@ export default function NewOrderComponent({
 
   return (
     <div className="new-order">
-      {newOrderMessagePopUp && (
-        <PopUpComponent>
-          <div className="new-order__popup-message-div">
-            <p className="new-order__popup-message-div--text">
-              Bitte alle * Pflichtfelder ausfühlen.
-            </p>
-            <button
-              onClick={closeNewOrderMessagePopUp}
-              className="new-order__popup-message-div--close-button"
-            >
-              Okay Fenster schließen
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                className="new-order__popup-message-div--close-button--close-icon"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M6 18 18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
-        </PopUpComponent>
-      )}
-
       {newOrderForm && (
         <PopUpComponent>
           <div className="new-order__form">
-            <button
+            <svg
               onClick={closeNewOrderForm}
-              className="new-order__form--close-button button"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              className="new-order__close-icon hover"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                className="new-order__form--close-button--close-icon"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M6 18 18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18 18 6M6 6l12 12"
+              />
+            </svg>
 
-            <div className="new-order__form--label-and-input-container">
-              <div className="new-order__form--label-and-input-container--label-section">
-                <label>Auftraggeber: </label>{" "}
-                <label>Mitarbeiterzuteilung: </label>{" "}
-                <label>Art der Dienstleistung:</label>{" "}
-                <label>Bestellmenge: </label>
-                <label>Preis: </label>
-                <label>Zahlungsart </label>
-                <label>Rechnungsstatus: </label>
-                <label>Bestellaufgabe:</label>
-                <label>Bemerkung: </label>
-                <label>Gewerblich: </label>
+            <div className="new-order__lable-and-input-div center-content">
+              <div className="new-order__lable-div">
+                <label className="new-order-lable lable">Auftraggeber: </label>{" "}
+                <label className="new-order-lable lable">
+                  Mitarbeiterzuteilung:{" "}
+                </label>{" "}
+                <label className="new-order-lable lable">
+                  Art der Dienstleistung:
+                </label>{" "}
+                <label className="new-order-lable lable">Bestellmenge: </label>
+                <label className="new-order-lable lable">Preis: </label>
+                <label className="new-order-lable lable">Zahlungsart </label>
+                <label className="new-order-lable lable">
+                  Rechnungsstatus:{" "}
+                </label>
+                <label className="new-order-lable lable">Bestellaufgabe:</label>
+                <label className="new-order-lable lable">Bemerkung: </label>
+                <label className="new-order-lable lable">Gewerblich: </label>
               </div>
-              <div className="new-order__form--label-and-input-container--input-section">
-                <section className="new-order__form--label-and-input-container--input-section--input-info-section">
+              <div className="new-order__input-div">
+                <div className="new-order__input-info-div">
                   <select
                     onChange={(event) => {
                       setSelectedClientId(Number(event.target.value));
                     }}
-                    className="select"
+                    className="new-order__select"
                   >
-                    <option>...</option>
+                    <option value={0} className="new-order__option">
+                      ...
+                    </option>
                     {clientsStorageArray.map((client) => {
                       return (
                         <option
                           value={client.id}
+                          className="new-order__option"
                         >{`${client.firstName} ${client.lastName}`}</option>
                       );
                     })}
                   </select>{" "}
                   <span className="mandatory-field"> * Pfichtfeld</span>
-                </section>
-                <section className="new-order__form--label-and-input-container--input-section--input-info-section">
+                </div>
+                <div className="new-order__input-info-div">
                   <select
                     onChange={(event) => {
                       setSelectedEmployeeId(Number(event.target.value));
                     }}
-                    className="select"
+                    className="new-order__select"
                   >
-                    <option>...</option>
+                    <option value={0} className="new-order__option">
+                      ...
+                    </option>
                     {employeesStorageArray.map((employee) => {
                       return (
                         <option
                           value={employee.id}
+                          className="new-order__option"
                         >{`${employee.firstName} ${employee.lastName}`}</option>
                       );
                     })}
                   </select>{" "}
                   <span className="mandatory-field">* Pflichtfeld</span>
-                </section>
-                <section className="new-order__form--label-and-input-container--input-section--input-info-section">
+                </div>
+                <div className="new-order__input-info-div">
                   <input
                     type="text"
                     value={orderValueAdministration.service}
                     onChange={(event) => {
                       setOrderValueAdministration({
                         ...orderValueAdministration,
-                        service: event.target.value,
+                        service: event.target.value.trimStart(),
                       });
                     }}
+                    className="new-order__ input"
                   />{" "}
                   * Pflichtfeld{" "}
-                </section>
-                <section className="new-order__form--label-and-input-container--input-section--input-info-section">
+                </div>
+                <div className="new-order__input-info-div">
                   <input
                     type="number"
-                    value={orderValueAdministration.quantity}
+                    value={
+                      orderValueAdministration.quantity !== 0
+                        ? orderValueAdministration.quantity
+                        : ""
+                    }
                     onChange={(event) => {
                       setOrderValueAdministration({
                         ...orderValueAdministration,
-                        quantity: event.target.value,
+                        quantity: Number(event.target.value),
                       });
                     }}
+                    className="new-order__input-quantity input number"
                   />{" "}
                   * Pflichtfeld{" "}
-                </section>
-                <section className="new-order__form--label-and-input-container--input-section--input-info-section">
+                </div>
+                <div className="new-order__input-info-div">
                   <input
                     type="number"
-                    value={orderValueAdministration.price}
+                    value={
+                      orderValueAdministration.price !== 0
+                        ? orderValueAdministration.price
+                        : ""
+                    }
                     onChange={(event) => {
                       setOrderValueAdministration({
                         ...orderValueAdministration,
-                        price: event.target.value,
+                        price: Number(event.target.value),
                       });
                     }}
+                    className="new-order__ input number"
                   />{" "}
                   * Pflichtfeld
-                </section>
-                <section className="new-order__form--label-and-input-container--input-section--input-info-section">
+                </div>
+                <div className="new-order__input-info-div">
                   <input
                     type="text"
                     value={orderValueAdministration.paymentMethode}
                     onChange={(event) => {
                       setOrderValueAdministration({
                         ...orderValueAdministration,
-                        paymentMethode: event.target.value,
+                        paymentMethode: event.target.value.trimStart(),
                       });
                     }}
+                    className="new-order__ input"
                   />{" "}
                   * Pflichtfeld{" "}
-                </section>
-                <section className="new-order__form--label-and-input-container--input-section--input-info-section">
+                </div>
+                <div className="new-order__input-info-div">
                   <input
                     type="text"
                     value={orderValueAdministration.paymentStatus}
                     onChange={(event) => {
                       setOrderValueAdministration({
                         ...orderValueAdministration,
-                        paymentStatus: event.target.value,
+                        paymentStatus: event.target.value.trimStart(),
                       });
                     }}
+                    className="new-order__ input"
                   />{" "}
                   * Pflichtfeld{" "}
-                </section>
-                <section className="new-order__form--label-and-input-container--input-section--input-info-section">
+                </div>
+                <div className="new-order__input-info-div">
                   <input
                     type="date"
                     value={orderValueAdministration.date}
@@ -270,22 +258,25 @@ export default function NewOrderComponent({
                         date: event.target.value,
                       });
                     }}
-                  />
-                </section>
-                <section className="new-order__form--label-and-input-container--input-section--input-info-section">
+                    className="new-order__ input number"
+                  />{" "}
+                  * Pflichtfeld
+                </div>
+                <div className="new-order__input-info-div">
                   <input
                     type="text"
                     value={orderValueAdministration.note}
                     onChange={(event) => {
                       setOrderValueAdministration({
                         ...orderValueAdministration,
-                        note: event.target.value,
+                        note: event.target.value.trimStart(),
                       });
                     }}
+                    className="new-order__ input"
                   />{" "}
-                </section>
+                </div>
 
-                <section className="new-order__form--label-and-input-container--input-section--input-info-section">
+                <div className="new-order__input-info-div">
                   <input
                     type="checkbox"
                     checked={orderValueAdministration.business}
@@ -295,25 +286,72 @@ export default function NewOrderComponent({
                         business: event.target.checked,
                       });
                     }}
+                    className="new-order__input-check-box"
                   />{" "}
-                </section>
+                </div>
               </div>
             </div>
 
-            <button
-              onClick={createOder}
-              className="new-order__form--add-button"
-            >
-              Auftrag erstellen
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                className="new-order__form--add-button--add-icon"
+            <div className="new-order__button-div center-content">
+              <button
+                onClick={closeNewOrderForm}
+                className="new-order__cancle-button button"
               >
-                <path d="M10 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM1.615 16.428a1.224 1.224 0 0 1-.569-1.175 6.002 6.002 0 0 1 11.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 0 1 7 18a9.953 9.953 0 0 1-5.385-1.572ZM16.25 5.75a.75.75 0 0 0-1.5 0v2h-2a.75.75 0 0 0 0 1.5h2v2a.75.75 0 0 0 1.5 0v-2h2a.75.75 0 0 0 0-1.5h-2v-2Z" />
-              </svg>{" "}
-            </button>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="new-order__cancle-icon"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 18 18 6M6 6l12 12"
+                  />
+                </svg>
+                abbrechen
+              </button>
+
+              <button
+                onClick={createOder}
+                disabled={
+                  selectedClientId !== 0 &&
+                  selectedEmployeeId !== 0 &&
+                  orderValueAdministration.service.length > 0 &&
+                  orderValueAdministration.quantity !== 0 &&
+                  orderValueAdministration.price !== 0 &&
+                  orderValueAdministration.paymentStatus.length > 0 &&
+                  orderValueAdministration.paymentMethode.length > 0 &&
+                  orderValueAdministration.date.length > 0
+                    ? false
+                    : true
+                }
+                className={`new-order__new-order-button button ${
+                  selectedClientId !== 0 &&
+                  selectedEmployeeId !== 0 &&
+                  orderValueAdministration.service.length > 0 &&
+                  orderValueAdministration.quantity !== 0 &&
+                  orderValueAdministration.price !== 0 &&
+                  orderValueAdministration.paymentStatus.length > 0 &&
+                  orderValueAdministration.paymentMethode.length > 0 &&
+                  orderValueAdministration.date.length > 0
+                    ? "primary-button"
+                    : "disbled-button"
+                } `}
+              >
+                Auftrag anlegen
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="new-order__new-order-icon"
+                >
+                  <path d="M10 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM1.615 16.428a1.224 1.224 0 0 1-.569-1.175 6.002 6.002 0 0 1 11.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 0 1 7 18a9.953 9.953 0 0 1-5.385-1.572ZM16.25 5.75a.75.75 0 0 0-1.5 0v2h-2a.75.75 0 0 0 0 1.5h2v2a.75.75 0 0 0 1.5 0v-2h2a.75.75 0 0 0 0-1.5h-2v-2Z" />
+                </svg>{" "}
+              </button>
+            </div>
           </div>
         </PopUpComponent>
       )}

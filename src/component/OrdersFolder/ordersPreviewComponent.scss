@@ -3,30 +3,11 @@ $delete-button-hover-color: #ff0000;
 $action-button-color: #fdfd00;
 $action-button-hover-color: #ffff60;
 $border-color: #bdbdbd;
+$crm-color-white: white;
 
 @mixin full-size {
   width: 100%;
   height: 100%;
-}
-
-@mixin center-flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin column-flex {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin column-flex-left-site {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: start;
 }
 
 //
@@ -41,19 +22,6 @@ $icon-color: white;
 $icon-hover-color: black;
 $menu-button-color-two: #f96b00;
 
-@mixin center-flex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin column-flex {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
 @mixin full-size {
   width: 100%;
   height: 100%;
@@ -61,249 +29,376 @@ $menu-button-color-two: #f96b00;
 
 .orders-preview {
   @include full-size();
-  overflow: auto;
   margin-top: 2.5rem;
 
-  &__popup-message-div {
-    &--text {
-      font-size: 1.5rem;
-    }
-
-    &--button-div {
-      width: 100%;
-      display: flex;
-      justify-content: space-evenly;
-      align-items: center;
-
-      &--delete-button {
-        @include center-flex();
-        padding: 0.4rem 1rem;
-        font-size: 1.1rem;
-        column-gap: 0.5rem;
-        border: 1px solid black;
-        border-radius: 0.2rem;
-        background-color: $delete-button-hover-color;
-
-        &--delete-icon {
-          width: 1.8rem;
-          height: auto;
-          border: none;
-        }
-      }
-
-      &--delete-button:hover {
-        cursor: pointer;
-        background-color: $delete-button-color;
-      }
-
-      &--close-button {
-        @include center-flex();
-        padding: 0.3rem 1rem;
-        font-size: 1rem;
-        column-gap: 0.5rem;
-        border: 1px solid black;
-        border-radius: 0.2rem;
-
-        &--close-icon {
-          width: 2rem;
-          height: auto;
-        }
-      }
-
-      &--close-button:hover {
-        cursor: pointer;
-        background-color: #dbdbdb;
-      }
-    }
+  &__delete-order-form,
+  &__delete-single-order-form {
+    @include full-size();
   }
+
+  &__close-icon {
+    width: 1.7rem;
+    height: auto;
+    margin: 0.5rem 0 0 57.7rem;
+    transition: all 0.5s ease-in-out;
+  }
+
+  &__close-icon:hover {
+    color: gray;
+  }
+
+  &__text {
+    text-align: center;
+    font-size: 1.4rem;
+    margin-top: 15rem;
+  }
+
+  &__delete-order-button-div,
+  &__delete-single-order-button-div {
+    width: 100%;
+    margin-top: 3rem;
+    column-gap: 3rem;
+  }
+
+  &__delete-order-cancle-button,
+  &__delete-single-order-cancle-button {
+    width: 9rem;
+    column-gap: 0.5rem;
+  }
+
+  &__delete-order-cancle-icon,
+  &__delete-single-order-cancle-icon {
+    width: 1.5rem;
+  }
+
+  &__delete-order-button,
+  &__delete-single-order-button {
+    width: 8rem;
+    column-gap: 0.5rem;
+    background-color: white;
+    color: $delete-button-color;
+    border: 2px solid $delete-button-color;
+  }
+
+  &__delete-order-icon,
+  &__delete-single-order-icon {
+    width: 1.5rem;
+    height: auto;
+    border: none;
+  }
+
+  // single-order
 
   &__single-order-div {
     @include full-size();
-    @include column-flex();
-    row-gap: 5rem;
-
-    &--close-button {
-      position: absolute;
-      margin-bottom: 43rem;
-      margin-left: 65%;
-      border-radius: 0.2rem;
-      border: 1px solid black;
-      padding: 0.2rem 0.8rem;
-
-      &--close-icon {
-        width: 2rem;
-        height: auto;
-      }
-    }
-
-    &--close-button:hover {
-      cursor: pointer;
-      background-color: #dbdbdb;
-    }
-
-    &--table {
-      width: 50%;
-      border-collapse: collapse;
-
-      &--tr {
-        &--th {
-          font-size: 1.4rem;
-          text-align: left;
-          width: 50%;
-        }
-
-        &--td {
-          text-align: left;
-          font-size: 1.4rem;
-
-          &--button-div {
-            @include column-flex-left-site();
-            row-gap: 2rem;
-            margin-left: -5rem;
-
-            &--edit-button {
-              @include center-flex();
-              background-color: $menu-button-color-two;
-              padding: 0.3rem 0.5rem;
-              border-radius: 0.3rem;
-              border: 1px solid black;
-
-              &--edit-icon {
-                width: 2rem;
-                height: auto;
-              }
-            }
-
-            &--edit-button:hover {
-              background-color: #dbdbdb;
-              cursor: pointer;
-            }
-
-            &--delete-button {
-              @include center-flex();
-              background-color: $delete-button-color;
-              border: 1px solid black;
-              border-radius: 0.3rem;
-              padding: 0.3rem 0.5rem;
-
-              &--delete-icon {
-                width: 2rem;
-                height: auto;
-              }
-            }
-
-            &--delete-button:hover {
-              background-color: #dbdbdb;
-              cursor: pointer;
-            }
-          }
-        }
-      }
-    }
   }
 
-  &__table {
+  &__close-icon {
+    width: 1.7rem;
+    height: auto;
+    margin: 0.5rem 0 0 96%;
+    transition: all 0.5s ease-in-out;
+  }
+
+  &__close-icon:hover {
+    color: gray;
+  }
+
+  &__single-table-div {
+    margin-top: 1.5rem;
+    column-gap: 1rem;
+  }
+
+  &__single-headline-div {
+    width: 20rem;
+    height: 37rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+  }
+
+  &__single-order-headline {
+    height: 2.5rem;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    /*padding: 6px 0.7rem 0.5rem 0.7rem;*/
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  &__single-info-div {
+    width: 20rem;
+    height: 37rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+  }
+
+  &__single-order-info {
+    height: 2.5rem;
+    font-size: 1.2rem;
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  &__single-order-id-info,
+  &__single-order-client-info,
+  &__single-order-employee-info,
+  &__single-order-business-info,
+  &__single-order-service-info,
+  &__single-order-service-value-info,
+  &__single-order-quantity-info,
+  &__single-order-quantity-service-value-info,
+  &__single-order-payment-method-info,
+  &__single-order-time-stamp-info,
+  &__single-order-note-info {
+    padding: 0 0.7rem 0 0.7rem;
+  }
+
+  &__single-order-client-info,
+  &__single-order-employee-info,
+  &__single-order-business-info,
+  &__single-order-payment-method-info,
+  &__single-order-note-info {
+    justify-content: left;
+    align-items: center;
+  }
+
+  &__single-order-id-info,
+  &__single-order-service-value-info,
+  &__single-order-quantity-info,
+  &__single-order-quantity-service-value-info,
+  &__single-order-time-stamp-info {
+    justify-content: right;
+    align-items: center;
+  }
+
+  /*&__single-order-id-info {
+  }
+
+  &__single-order-client-info {
+  }
+
+  &__single-order-employee-info {
+  }
+
+  &__single-order-business-info {
+  }*/
+
+  &__single-order-service-info {
+    overflow-y: auto;
+    line-height: 1.7rem;
+  }
+
+  /*&__single-order-service-value-info {
+  }
+
+  &__single-order-quantity-info {
+  }
+
+  &__single-order-quantity-service-value-info {
+  }*/
+
+  &__single-order-payment-status-info {
+    /*padding: 0.5rem 0.7rem 6px 0.7rem;*/
+  }
+
+  /*.number {
+    text-align: right;
+  }*/
+
+  &__single-order-check-icon,
+  &__single-order-note-icon,
+  &__single-order-attention-icon {
+    width: 1.5rem;
+  }
+
+  &__single-order-check-icon {
+    color: #52b642;
+  }
+
+  &__single-order-note-icon {
+    background-color: #ffde21;
+    /*color: #ffb343;*/
+    color: black;
+    border-radius: 50%;
+  }
+
+  &__single-order-attention-icon {
+    color: #bb0000;
+  }
+
+  /*&__single-order-time-stamp-info {
+  }*/
+
+  &__single-order-note-info {
+    overflow-y: auto;
+  }
+
+  &__single-order-options-div {
+    /*padding: 0.5rem 0.7rem 6px 0.7rem;*/
+  }
+
+  &__single-order-button-div {
+    column-gap: 1rem;
+  }
+
+  &__edit-icon {
+    width: 1.5rem;
+    height: auto;
+  }
+
+  &__delete-icon {
+    width: 1.5rem;
+    height: auto;
+  }
+
+  // Order
+
+  &__table-div {
+    width: 95%;
+    margin: 1rem auto;
+    padding-top: 2rem;
+    background-color: $crm-color-white;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 0.2rem;
+  }
+
+  &__new-order-button {
+    width: 12rem;
+    margin: 1rem 0 3rem 80%;
+    column-gap: 0.7rem;
+  }
+
+  &__new-order-icon {
+    width: 1.5rem;
+    height: auto;
+  }
+
+  &__headline-div {
     width: 100%;
-    border-collapse: collapse;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    text-align: center;
+  }
+
+  &__headline {
+    padding: 1rem;
+    position: sticky;
+    top: 0;
+    font-size: 1.3rem;
+    text-align: center;
+    background-color: $crm-color-white;
+  }
+
+  &__service,
+  &__payment-status {
+  }
+
+  &__service-total-sum {
+  }
+
+  &__order-preview-div {
+    width: 100%;
+    height: 65vh;
+    overflow-y: auto;
+  }
+
+  &__order-info-div {
+    width: 98.7%;
+    margin: 1.5rem auto;
+    padding-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  &__order-info,
+  &__service-total-sum-info {
+    font-size: 1.1rem;
+  }
+
+  &__service-info {
+    width: 17.8%;
+    text-align: left;
+    padding-left: 7%;
+  }
+
+  &__service-total-sum-info {
+    width: 17.5%;
+    text-align: right;
+    padding-right: 8%;
+  }
+
+  &__payment-status-info {
+    width: 25.5%;
+    text-align: center;
+  }
+
+  &__check-icon,
+  &__note-icon,
+  &__attention-icon {
+    width: 1.5rem;
+  }
+
+  &__check-icon {
+    color: #52b642;
+  }
+
+  &__note-icon {
+    background-color: #ffde21;
+    /*color: #ffb343;*/
+    color: black;
+    border-radius: 50%;
+  }
+
+  &__attention-icon {
+    color: #bb0000;
+  }
+
+  &__option-div {
+    width: 20%;
+    padding-left: 3.2%;
+  }
+
+  &__button-div {
+    column-gap: 1rem;
+  }
+
+  &__detail-button {
     background-color: white;
+    border: none;
+  }
 
-    &--tr {
-      &--th {
-        position: sticky;
-        top: 0;
-        font-size: 1.5rem;
-        padding: 1rem;
-      }
+  &__detail-icon {
+    width: 1.5rem;
+    height: auto;
+  }
 
-      &--td {
-        padding: 0.5rem 0;
+  &__edit-button {
+    background-color: white;
+    border: none;
+  }
 
-        &--service,
-        &--payment-status {
-          text-align: left;
-          font-size: 1.3rem;
-        }
+  &__edit-icon {
+    width: 1.5rem;
+    height: auto;
+  }
 
-        &--service-total-sum {
-          text-align: right;
-          font-size: 1.3rem;
-        }
+  &__delete-button {
+    background-color: white;
+    border: none;
+  }
 
-        &--button-div {
-          @include column-flex();
-          row-gap: 1rem;
-
-          &--detail-button {
-            border-radius: 0.3rem;
-            border: 1px solid black;
-            padding: 0.3rem 0.5rem;
-            background-color: white;
-
-            &--detail-icon {
-              width: 2rem;
-              height: auto;
-            }
-          }
-
-          &--detail-button:hover {
-            background-color: #dbdbdb;
-            cursor: pointer;
-          }
-
-          &--edit-button {
-            background-color: $menu-button-color-two;
-            border-radius: 0.3rem;
-            border: 1px solid black;
-            padding: 0.3rem 0.5rem;
-
-            &--edit-icon {
-              width: 2rem;
-              height: auto;
-            }
-          }
-
-          &--edit-button:hover {
-            background-color: #dbdbdb;
-            cursor: pointer;
-          }
-
-          &--delete-button {
-            @include center-flex();
-            font-size: 0.5rem;
-            background-color: $delete-button-color;
-            border: 1px solid black;
-            border-radius: 0.3rem;
-            padding: 0.3rem 0.5rem;
-
-            &--delete-icon {
-              width: 2rem;
-              height: auto;
-            }
-          }
-
-          &--delete-button:hover {
-            background-color: #dbdbdb;
-            cursor: pointer;
-          }
-        }
-      }
-    }
+  &__delete-icon {
+    width: 1.5rem;
+    height: auto;
+    color: $delete-button-color;
   }
 }
 
-td,
-th {
-  border: 1px solid #dddddd;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  /*background-color: #dddddd;*/
-  /*background-color: #b3e5fc;*/
-  background-color: #cae0ed;
-}
-
-.payment-check-green {
+/*.payment-check-green {
   background-color: #52b642;
 }
 
@@ -313,12 +408,4 @@ tr:nth-child(even) {
 
 .payment-check-red {
   background-color: #bb0000;
-}
-
-.button {
-  @include column-flex();
-}
-
-.button:hover {
-  cursor: pointer;
-}
+}*/

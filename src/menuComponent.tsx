@@ -1,4 +1,5 @@
 import { ReactElement, useState } from "react";
+import "./index.scss";
 import "./menuComponent.scss";
 
 export default function MenuComponent({ buttons }: { buttons: ReactElement }) {
@@ -19,7 +20,9 @@ export default function MenuComponent({ buttons }: { buttons: ReactElement }) {
       onClick={() => {
         showToolTip(menuControl);
       }}
-      className={`menu-div ${menuControl ? "menu-div-active" : "menu-div"}`}
+      className={`menu-div hover ${
+        menuControl ? "menu-div-active" : "menu-div"
+      }`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
