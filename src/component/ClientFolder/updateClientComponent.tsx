@@ -5,15 +5,21 @@ import "./updateClientComponent.scss";
 import { clientsContext } from "../../clientContext";
 import PopUpComponent from "../../PopUpComponent";
 import "../../PopUpComponent.scss";
+import { toastyContent } from "../../toastyContext";
+import { popUpWidthHeightContent } from "../../popUpPaddingContent";
 
 export default function UpdateClientComponent({
   showDataUpdate,
   updateClientForm,
   setUpdateClientForm,
+  failInMail,
+  setFailInMail,
 }: {
   showDataUpdate: () => void;
   updateClientForm: boolean;
   setUpdateClientForm: (value: boolean) => void;
+  failInMail: number;
+  setFailInMail: (failInMail: number) => void;
 }) {
   const [correctClientId, setCorrectClientId] = useState<number>(0);
   const {
@@ -21,6 +27,11 @@ export default function UpdateClientComponent({
     clientValueAdministration,
     setClientValueAdministration,
   } = useContext(clientsContext);
+  const { toastyObject, setToastyObject, autoHiddenToasty } =
+    useContext(toastyContent);
+  const { popUpWidthHeightObject, setPopUpWidthHeightObject } = useContext(
+    popUpWidthHeightContent
+  );
 
   useEffect(() => {
     showClient();
@@ -37,13 +48,37 @@ export default function UpdateClientComponent({
     if (selectedClient) {
       setClientValueAdministration({
         ...clientValueAdministration,
-        firstName: selectedClient.firstName,
-        lastName: selectedClient.lastName,
-        age: selectedClient.age,
-        address: selectedClient.address,
+        salutation: selectedClient.salutation,
+        firstName: selectedClient.first_name,
+        lastName: selectedClient.last_name,
+        street: selectedClient.street,
+        streetNumber: selectedClient.street_number,
+        PLZ: selectedClient.PLZ,
+        city: selectedClient.city,
         mail: selectedClient.mail,
+        handy: selectedClient.handy,
+        note: selectedClient.note,
       });
       setCorrectClientId(selectedClient.id);
+    }
+  }
+
+  function checkMailContent() {
+    const clientMail = clientValueAdministration.mail;
+    if (clientMail.length > 0) {
+      if (clientMail.includes("@") && !clientMail.includes(" ")) {
+        setFailInMail(1);
+      } else {
+        setFailInMail(-1);
+        setToastyObject({
+          ...toastyObject,
+          area: "client",
+          message: "Ungültige E-Mail (@ erforderlich, kein(e) Leerzeichen(en))",
+          status: -1,
+          z_index: 1,
+        });
+        autoHiddenToasty();
+      }
     }
   }
 
@@ -53,42 +88,87 @@ export default function UpdateClientComponent({
     setClientValueAdministration({
       ...clientValueAdministration,
       selectedClientId: 0,
+      salutation: "",
       firstName: "",
       lastName: "",
-      age: 0,
-      address: "",
+      age: "",
       mail: "",
+      street: "",
+      streetNumber: "",
+      PLZ: "",
+      city: "",
+      handy: "",
+      note: "",
+    });
+    setPopUpWidthHeightObject({
+      ...popUpWidthHeightObject,
+      width: 0,
+      height: 0,
     });
   }
 
   async function updateClient() {
-    const changeDatatypeAge: number = Number(clientValueAdministration.age);
-
-    const {} = await supabase
+    const { error } = await supabase
       .from("Clients")
       .update({
-        firstName: clientValueAdministration.firstName,
-        lastName: clientValueAdministration.lastName,
-        age: changeDatatypeAge,
-        address: clientValueAdministration.address,
+        salutatio: clientValueAdministration.salutation,
+        first_name: clientValueAdministration.firstName,
+        last_name: clientValueAdministration.lastName,
+        age: clientValueAdministration.age,
+        street: clientValueAdministration.street,
+        street_number: clientValueAdministration.streetNumber,
+        PLZ: clientValueAdministration.PLZ,
+        city: clientValueAdministration.city,
         mail: clientValueAdministration.mail,
+        handy: clientValueAdministration.handy,
+        note: clientValueAdministration.note,
       })
       .eq("id", correctClientId);
 
-    showDataUpdate();
+    if (error?.code !== "PGRST204") {
+      showDataUpdate();
 
-    setClientValueAdministration({
-      ...clientValueAdministration,
-      selectedClientId: 0,
-      firstName: "",
-      lastName: "",
-      age: 0,
-      address: "",
-      mail: "",
-    });
-    setCorrectClientId(0);
+      setClientValueAdministration({
+        ...clientValueAdministration,
+        selectedClientId: 0,
+        salutation: "",
+        firstName: "",
+        lastName: "",
+        age: "",
+        mail: "",
+        street: "",
+        streetNumber: "",
+        PLZ: "",
+        city: "",
+        handy: "",
+        note: "",
+      });
+      setCorrectClientId(0);
+      setPopUpWidthHeightObject({
+        ...popUpWidthHeightObject,
+        width: 0,
+        height: 0,
+      });
+      setUpdateClientForm(false);
 
-    setUpdateClientForm(false);
+      setToastyObject({
+        ...toastyObject,
+        area: "client",
+        message: "Auftraggeber wurde erfolgreich bearbeitet.",
+        status: 1,
+        z_index: 0,
+      });
+      autoHiddenToasty();
+    } else {
+      setToastyObject({
+        ...toastyObject,
+        area: "client",
+        message: "Auftraggeber bearbeiten fehlgeschlagen.",
+        status: 1,
+        z_index: 1,
+      });
+      autoHiddenToasty();
+    }
   }
 
   /* <div className="client__popup-main-window">
@@ -121,17 +201,64 @@ export default function UpdateClientComponent({
                 d="M6 18 18 6M6 6l12 12"
               />
             </svg>
-            <div className="update-client__label-and-input-div center-content">
+            <div className="update-client__label-and-input-div">
               <div className="update-client__label-div">
-                <label className="update-clinet__label label">Vorname:</label>
-                <label className="update-clinet__label label">Nachname:</label>
-                <label className="update-clinet__label label">
-                  Geburtsdatum:
+                <label className="update-cient__label-salutation label">
+                  Anrede:
                 </label>
-                <label className="update-clinet__label label">Adresse: </label>
-                <label className="update-clinet__label label">E-Mail: </label>
+                <label className="update-client__label-first-name label">
+                  Vorname:
+                </label>
+                <label className="update-client__label-last-name label">
+                  Nachname:
+                </label>
+                <label className="update-client__label-street-number label">
+                  Straße/Nummer:{" "}
+                </label>{" "}
+                <label className="update-client__label-PLZ label">PLZ: </label>{" "}
+                <label className="update-client__label-city label">
+                  Ort/Stadt:{" "}
+                </label>{" "}
+                <label className="update-client__label-mail label">
+                  E-Mail:{" "}
+                </label>
+                <label className="update-client__label-handy label">
+                  Handy:{" "}
+                </label>
+                <label className="update-client__label-remark label">
+                  Bemerkung:{" "}
+                </label>
               </div>
               <div className="update-client__input-div">
+                <div className="update-client__input-info-div">
+                  <select
+                    name=""
+                    onChange={(event) => {
+                      setClientValueAdministration({
+                        ...clientValueAdministration,
+                        salutation: event.target.value,
+                      });
+                    }}
+                    value={clientValueAdministration.salutation}
+                    className="update-client__select"
+                    id=""
+                  >
+                    <option value="" className="update-client__option">
+                      ...
+                    </option>
+                    <option value="Frau" className="update-client__option">
+                      Frau
+                    </option>
+                    <option value="Herr" className="update-client__option">
+                      Herr
+                    </option>
+                  </select>
+
+                  <span className="new-employee__input-note">
+                    * Pflichtfeld
+                  </span>
+                </div>
+
                 <div className="update-client__input-info-div">
                   <input
                     type="text"
@@ -145,7 +272,9 @@ export default function UpdateClientComponent({
                       });
                     }}
                   />{" "}
-                  * Pflichtfeld{" "}
+                  <span className="update-client__input-note">
+                    * Pflichtfeld
+                  </span>{" "}
                 </div>
 
                 <div className="update-client__input-info-div">
@@ -161,44 +290,77 @@ export default function UpdateClientComponent({
                       });
                     }}
                   />{" "}
-                  * Pflichtfeld
+                  <span className="update-client__input-note">
+                    * Pflichtfeld
+                  </span>{" "}
+                </div>
+
+                <div className="update-client__input-info-div">
+                  <div className="update-client__street-street-number-collect-div">
+                    <input
+                      type="text"
+                      name=""
+                      className="update-client__street input"
+                      value={clientValueAdministration.street}
+                      onChange={(event) => {
+                        setClientValueAdministration({
+                          ...clientValueAdministration,
+                          street: event.target.value.trimStart(),
+                        });
+                      }}
+                    />
+                    <input
+                      type="number"
+                      name=""
+                      className="update-client__adress-number input number"
+                      value={clientValueAdministration.streetNumber}
+                      onChange={(event) => {
+                        setClientValueAdministration({
+                          ...clientValueAdministration,
+                          streetNumber: event.target.value.trimStart(),
+                        });
+                      }}
+                    />{" "}
+                  </div>
+                  <span className="update-client__input-note">
+                    * Pflichtfeld
+                  </span>{" "}
                 </div>
 
                 <div className="update-client__input-info-div">
                   <input
-                    type="date"
+                    type="number"
                     name=""
-                    id=""
-                    className="update-client__age input"
-                    value={
-                      clientValueAdministration.age !== 0
-                        ? clientValueAdministration.age
-                        : ""
-                    }
+                    className="update-client__PLZ input number"
+                    value={clientValueAdministration.PLZ}
                     onChange={(event) => {
                       setClientValueAdministration({
                         ...clientValueAdministration,
-                        age: Number(event.target.value.trimStart()),
+                        PLZ: event.target.value,
                       });
                     }}
-                  />{" "}
-                  * Pflichtfeld mind. 18 Jahre
+                  />
+                  <span className="update-client__input-note">
+                    * Pflichtfeld
+                  </span>{" "}
                 </div>
 
                 <div className="update-client__input-info-div">
                   <input
                     type="text"
                     name=""
-                    className="update-client__adress input"
-                    value={clientValueAdministration.address}
+                    className="update-client__city input"
+                    value={clientValueAdministration.city}
                     onChange={(event) => {
                       setClientValueAdministration({
                         ...clientValueAdministration,
-                        address: event.target.value.trimStart(),
+                        city: event.target.value.trimStart(),
                       });
                     }}
-                  />{" "}
-                  * Pflichtfeld
+                  />
+                  <span className="update-client__input-note">
+                    * Pflichtfeld
+                  </span>{" "}
                 </div>
 
                 <div className="update-client__input-info-div">
@@ -208,13 +370,50 @@ export default function UpdateClientComponent({
                     className="update-client__mail input"
                     value={clientValueAdministration.mail}
                     onChange={(event) => {
+                      setFailInMail(0);
                       setClientValueAdministration({
                         ...clientValueAdministration,
                         mail: event.target.value.trimStart(),
                       });
                     }}
+                    onBlur={checkMailContent}
                   />{" "}
-                  * Pflichtfeld
+                  <span className="update-client__input-note">
+                    * Pflichtfeld
+                  </span>{" "}
+                </div>
+
+                <div className="update-client__input-info-div">
+                  <input
+                    type="tel"
+                    name=""
+                    className="update-client__handy input number"
+                    value={clientValueAdministration.handy}
+                    onChange={(event) => {
+                      setClientValueAdministration({
+                        ...clientValueAdministration,
+                        handy: event.target.value,
+                      });
+                    }}
+                  />
+                  <span className="update-client__input-note">
+                    * Pflichtfeld
+                  </span>{" "}
+                </div>
+
+                <div className="new-client__input-info-div">
+                  <textarea
+                    name=""
+                    className="new-client__remark"
+                    value={clientValueAdministration.note}
+                    onChange={(event) => {
+                      setClientValueAdministration({
+                        ...clientValueAdministration,
+                        note: event.target.value,
+                      });
+                    }}
+                    id=""
+                  ></textarea>{" "}
                 </div>
               </div>
             </div>
@@ -243,20 +442,30 @@ export default function UpdateClientComponent({
               <button
                 onClick={updateClient}
                 disabled={
+                  clientValueAdministration.salutation !== "" &&
                   clientValueAdministration.firstName.length > 0 &&
                   clientValueAdministration.lastName.length > 0 &&
-                  clientValueAdministration.age !== 0 &&
-                  clientValueAdministration.address.length > 0 &&
-                  clientValueAdministration.mail.length > 0
+                  clientValueAdministration.street.length > 0 &&
+                  Number(clientValueAdministration.streetNumber) !== 0 &&
+                  clientValueAdministration.PLZ.length > 4 &&
+                  clientValueAdministration.city.length > 0 &&
+                  clientValueAdministration.mail.length > 0 &&
+                  failInMail === 1 &&
+                  Number(clientValueAdministration.handy) !== 0
                     ? false
                     : true
                 }
                 className={`update-client__edit-client-button button ${
+                  clientValueAdministration.salutation !== "" &&
                   clientValueAdministration.firstName.length > 0 &&
                   clientValueAdministration.lastName.length > 0 &&
-                  clientValueAdministration.age !== 0 &&
-                  clientValueAdministration.address.length > 0 &&
-                  clientValueAdministration.mail.length > 0
+                  clientValueAdministration.street.length > 0 &&
+                  Number(clientValueAdministration.streetNumber) !== 0 &&
+                  clientValueAdministration.PLZ.length > 4 &&
+                  clientValueAdministration.city.length > 0 &&
+                  clientValueAdministration.mail.length > 0 &&
+                  failInMail === 1 &&
+                  Number(clientValueAdministration.handy) !== 0
                     ? "primary-button"
                     : "disbled-button"
                 }`}
@@ -268,7 +477,8 @@ export default function UpdateClientComponent({
                   fill="currentColor"
                   className="update-client__edit-client-icon"
                 >
-                  <path d="M10 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM1.615 16.428a1.224 1.224 0 0 1-.569-1.175 6.002 6.002 0 0 1 11.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 0 1 7 18a9.953 9.953 0 0 1-5.385-1.572ZM16.25 5.75a.75.75 0 0 0-1.5 0v2h-2a.75.75 0 0 0 0 1.5h2v2a.75.75 0 0 0 1.5 0v-2h2a.75.75 0 0 0 0-1.5h-2v-2Z" />
+                  <path d="m5.433 13.917 1.262-3.155A4 4 0 0 1 7.58 9.42l6.92-6.918a2.121 2.121 0 0 1 3 3l-6.92 6.918c-.383.383-.84.685-1.343.886l-3.154 1.262a.5.5 0 0 1-.65-.65Z" />
+                  <path d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0 0 10 3H4.75A2.75 2.75 0 0 0 2 5.75v9.5A2.75 2.75 0 0 0 4.75 18h9.5A2.75 2.75 0 0 0 17 15.25V10a.75.75 0 0 0-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5Z" />
                 </svg>
               </button>
             </div>
@@ -277,4 +487,13 @@ export default function UpdateClientComponent({
       )}
     </div>
   );
+  /*  <label className="update-clinet__label label">Alter:</label>
+  
+  <div className="update-client__input-info-div">
+    <p className="update-client__age number">
+      {calculateClientAge(clientValueAdministration.age)}
+    </p>
+  </div>
+  
+  */
 }

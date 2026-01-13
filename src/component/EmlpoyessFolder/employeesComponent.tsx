@@ -9,8 +9,10 @@ import UpdateEmployeeComponent from "./updateEmployeeComponent";
 export default function EmployeesComponent() {
   const { loadEmployees, employeeValueAdministration } =
     useContext(employeesContext);
+
   const [newEmployeeForm, setNewEmployeeForm] = useState<boolean>(false);
   const [updateEmployeeForm, setUpdateEmployeeForm] = useState<boolean>(false);
+  const [failInMail, setFailInMail] = useState<number>(0);
 
   useEffect(() => {
     loadEmployees();
@@ -36,12 +38,16 @@ export default function EmployeesComponent() {
         showDataUpdate={loadEmployees}
         newEmployeeForm={newEmployeeForm}
         setNewEmployeeForm={setNewEmployeeForm}
+        failInMail={failInMail}
+        setFailInMail={setFailInMail}
       />
 
       <UpdateEmployeeComponent
         showDataUpdate={loadEmployees}
         updateEmployeeForm={updateEmployeeForm}
         setUpdateEmployeeForm={setUpdateEmployeeForm}
+        failInMail={failInMail}
+        setFailInMail={setFailInMail}
       />
 
       <h1 className="employee-section__headline">Mitarbeiter</h1>
@@ -50,6 +56,8 @@ export default function EmployeesComponent() {
         setNewEmployeeForm={setNewEmployeeForm}
         showEmployeesUpdate={loadEmployees}
         setUpdateEmployeeForm={setUpdateEmployeeForm}
+        failInMail={failInMail}
+        setFailInMail={setFailInMail}
       />
     </section>
   );

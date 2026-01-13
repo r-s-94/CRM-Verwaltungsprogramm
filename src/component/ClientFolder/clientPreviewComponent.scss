@@ -18,6 +18,160 @@ $crm-color-white: white;
   @include full-screen();
   margin-top: 2.5rem;
 
+  // single-order
+
+  &__single-client-div {
+    @include full-screen();
+  }
+
+  &__close-icon {
+    width: 1.7rem;
+    height: auto;
+    margin: 0.5rem 0 0 96%;
+    transition: all 0.5s ease-in-out;
+  }
+
+  &__close-icon:hover {
+    color: gray;
+  }
+
+  &__single-table-div {
+    margin-top: 5rem;
+    column-gap: 1rem;
+  }
+
+  &__single-headline-div {
+    width: 20rem;
+    height: 37rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+  }
+
+  &__single-client-headline {
+    height: 2.5rem;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    /*padding: 6px 0.7rem 0.5rem 0.7rem;*/
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  &__single-info-div {
+    width: 20rem;
+    height: 37rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+  }
+
+  &__single-client-info {
+    height: 2.5rem;
+    font-size: 1.2rem;
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  &__single-client-id-info,
+  &__single-client-salutation-info,
+  &__single-client-name-info,
+  &__single-client-age-info,
+  &__single-client-street-info,
+  &__single-client-PLZ-info,
+  &__single-client-city-info,
+  &__single-client-mail-info,
+  &__single-client-handy-info,
+  &__single-client-note-info {
+    padding: 0 0.7rem 0 0.7rem;
+  }
+
+  &__single-client-salutation-info,
+  &__single-client-name-info,
+  &__single-client-street-info,
+  &__single-client-city-info,
+  &__single-client-mail-info,
+  &__single-client-note-info {
+    justify-content: left;
+    align-items: center;
+  }
+
+  &__single-client-id-info,
+  &__single-client-age-info,
+  &__single-client-PLZ-info,
+  &__single-client-handy-info {
+    justify-content: right;
+    align-items: center;
+  }
+
+  &__single-client-age-info {
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+  }
+
+  /*&__single-order-id-info {
+  }
+
+  &__single-order-client-info {
+  }
+
+  &__single-order-employee-info {
+  }
+
+  &__single-order-business-info {
+  }*/
+
+  &__single-order-service-info {
+    overflow-y: auto;
+    line-height: 1.7rem;
+  }
+
+  /*&__single-order-service-value-info {
+  }
+
+  &__single-order-quantity-info {
+  }
+
+  &__single-order-quantity-service-value-info {
+  }*/
+
+  &__single-order-payment-status-info {
+    /*padding: 0.5rem 0.7rem 6px 0.7rem;*/
+  }
+
+  &__single-order-payment-status {
+    position: relative;
+  }
+
+  /*.number {
+    text-align: right;
+  }*/
+
+  /*&__single-order-time-stamp-info {
+  }*/
+
+  &__single-client-note-info {
+    overflow-y: auto;
+  }
+
+  &__single-client-options-div {
+    /*padding: 0.5rem 0.7rem 6px 0.7rem;*/
+  }
+
+  &__single-client-button-div {
+    column-gap: 1rem;
+  }
+
+  &__edit-icon {
+    width: 1.5rem;
+    height: auto;
+  }
+
+  &__delete-icon {
+    width: 1.5rem;
+    height: auto;
+  }
+
   &__question-div {
     @include full-screen();
   }
@@ -25,7 +179,7 @@ $crm-color-white: white;
   &__close-icon {
     width: 1.7rem;
     height: auto;
-    margin: 0.5rem 0 0 57.5rem;
+    margin: 0.5rem 0 0 96%;
     transition: all 0.5s ease-in-out;
   }
 
@@ -59,9 +213,6 @@ $crm-color-white: white;
   &__delete-client-button {
     width: 10rem;
     column-gap: 0.7rem;
-    background-color: white;
-    color: $delete-button-color;
-    border: 2px solid $delete-button-color;
   }
 
   &__close-button {
@@ -83,7 +234,7 @@ $crm-color-white: white;
 
   &__new-client-button {
     width: 14rem;
-    margin: 1rem 0 3rem 75%;
+    margin: 1rem 0 3rem 80%;
     column-gap: 0.7rem;
   }
 
@@ -93,8 +244,8 @@ $crm-color-white: white;
   }
 
   &__headline-div {
-    width: 100%;
-    display: flex;
+    width: 97%;
+    margin: 0 auto;
   }
 
   &__headline {
@@ -114,9 +265,8 @@ $crm-color-white: white;
    
   }*/
 
-  &__first-name,
-  &__last-name {
-    width: 15%;
+  &__name {
+    width: 18%;
   }
 
   &__age,
@@ -126,12 +276,13 @@ $crm-color-white: white;
 
   &__address,
   &__mail {
-    width: 18.3%;
+    width: 23%;
   }
 
   &__clients-preview-div {
-    width: 100%;
+    width: 97%;
     height: 65vh;
+    margin: 0 auto;
     overflow-y: auto;
   }
 
@@ -148,51 +299,47 @@ $crm-color-white: white;
     font-size: 1.1rem;
   }
 
-  &__first-name-info {
-    width: 11.6%;
-    padding-left: 5%;
-  }
-
-  &__last-name-info {
-    width: 12.3%;
-    padding-left: 5%;
+  &__name-info {
+    width: 18.3%;
+    margin-left: 1.3%;
+    padding-left: 3%;
   }
 
   &__age-info {
-    width: 9.3%;
-    text-align: right;
-    padding-right: 3%;
+    width: 12.5%;
+    text-align: center;
   }
 
-  &__address-info,
+  &__address-info {
+    width: 20.5%;
+    padding-left: 5.5%;
+  }
+
   &__mail-info {
-    width: 17.7%;
+    width: 22.5%;
     padding-left: 3%;
   }
 
   &__options-div {
-    width: 10%;
-    padding-left: 1.5%;
-  }
-
-  &__button-div {
-    width: 10rem;
+    width: 12.7%;
     column-gap: 1rem;
   }
 
+  &__detail-button,
   &__edit-button,
   &__delete-button {
-    background-color: $crm-color-white;
+    background-color: white;
     border: none;
   }
 
+  &__detail-icon,
   &__edit-icon,
   &__delete-icon {
     width: 1.5rem;
     height: auto;
   }
 
-  &__delete-button {
+  &__delete-icon {
     color: $delete-button-color;
   }
 }

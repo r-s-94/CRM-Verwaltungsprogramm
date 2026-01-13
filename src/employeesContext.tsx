@@ -3,9 +3,16 @@ import { Tables } from "./database.types";
 
 export interface EmployeePopUpDatatype {
   selectedEmployeeId: number;
+  salutation: string;
   firstName: string;
   lastName: string;
-  age: number;
+  age: string;
+  street: string;
+  streetNumber: string;
+  PLZ: string;
+  city: string;
+  mail: string;
+  handy: string;
   remark: string;
 }
 
@@ -27,9 +34,16 @@ export const employeesContext = createContext<EmployeesStateData>({
   loadEmployees: () => {},
   employeeValueAdministration: {
     selectedEmployeeId: 0,
+    salutation: "",
     firstName: "",
     lastName: "",
-    age: 0,
+    age: "",
+    street: "",
+    streetNumber: "",
+    PLZ: "",
+    city: "",
+    mail: "",
+    handy: "",
     remark: "",
   },
   setEmployeeValueAdministration: () => {},

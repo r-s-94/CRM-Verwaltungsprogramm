@@ -3,7 +3,7 @@ import PreviewComponent from "./previewComponent";
 import EmployeesComponent from "./component/EmlpoyessFolder/employeesComponent";
 import ClientsComponent from "./component/ClientFolder/clientComponent";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import OrdersComponent from "./component/OrdersFolder/ordersComponent";
 import CompanyreportComponent from "./component/CompanyreportFolder/companyreportComponent";
 import { Tables } from "./database.types";
@@ -14,6 +14,12 @@ import { EmployeePopUpDatatype } from "./employeesContext";
 import { ClientPopUpDatatype } from "./clientContext";
 import { OrderPopUpDatatype } from "./ordersContext";
 import { ordersContext } from "./ordersContext";
+import {
+  popUpWidthHeightContent,
+  PopUpWidthHeightObjectDatatype,
+} from "./popUpPaddingContent";
+import { toastyContent, ToastyObject } from "./toastyContext";
+
 //import Error from "./component/error/error";
 
 export default function App() {
@@ -34,34 +40,63 @@ export default function App() {
   const [employeeValueAdministration, setEmployeeValueAdministration] =
     useState<EmployeePopUpDatatype>({
       selectedEmployeeId: 0,
+      salutation: "",
       firstName: "",
       lastName: "",
-      age: 0,
+      age: "",
+      street: "",
+      streetNumber: "",
+      PLZ: "",
+      city: "",
+      mail: "",
+      handy: "",
       remark: "",
     });
 
   const [clientValueAdministration, setClientValueAdministration] =
     useState<ClientPopUpDatatype>({
       selectedClientId: 0,
+      salutation: "",
       firstName: "",
       lastName: "",
-      age: 0,
+      age: "",
       mail: "",
-      address: "",
+      street: "",
+      streetNumber: "",
+      PLZ: "",
+      city: "",
+      handy: "",
+      note: "",
     });
 
   const [orderValueAdministration, setOrderValueAdministration] =
     useState<OrderPopUpDatatype>({
       selectedOrderId: 0,
       service: "",
-      quantity: 0,
-      price: 0,
+      quantity: 1,
+      singlePrice: 0,
+      totalPrice: 0,
       paymentMethode: "",
       paymentStatus: "",
       date: "",
       note: "",
       business: false,
     });
+
+  const [popUpWidthHeightObject, setPopUpWidthHeightObject] =
+    useState<PopUpWidthHeightObjectDatatype>({
+      width: 0,
+      height: 0,
+    });
+
+  const [toastyObject, setToastyObject] = useState<ToastyObject>({
+    area: "",
+    message: "",
+    status: 0,
+    z_index: 0,
+  });
+
+  const timeControlToasty = useRef(0);
 
   //cd ".\react-vite-crm-managment-program\"
 
@@ -141,39 +176,68 @@ export default function App() {
     }
   }
 
+  function autoHiddenToasty() {
+    timeControlToasty.current = window.setTimeout(() => {
+      setToastyObject({
+        ...toastyObject,
+        area: "",
+        status: 0,
+        z_index: 0,
+      });
+    }, 3000);
+    postProcessing();
+  }
+
+  function postProcessing() {
+    timeControlToasty.current = window.setTimeout(() => {
+      setToastyObject({
+        ...toastyObject,
+        message: "",
+      });
+    }, 10000);
+  }
+
   return (
     <div>
-      <employeesContext.Provider
-        value={{
-          employeesStorageArray,
-          setEmployeesStorageArray,
-          loadEmployees,
-          employeeValueAdministration,
-          setEmployeeValueAdministration,
-        }}
+      <toastyContent.Provider
+        value={{ toastyObject, setToastyObject, autoHiddenToasty }}
       >
-        <clientsContext.Provider
-          value={{
-            clientsStorageArray,
-            setClientsStorageArray,
-            loadClients,
-            clientValueAdministration,
-            setClientValueAdministration,
-          }}
+        <popUpWidthHeightContent.Provider
+          value={{ popUpWidthHeightObject, setPopUpWidthHeightObject }}
         >
-          <ordersContext.Provider
+          <employeesContext.Provider
             value={{
-              ordersStorageArray,
-              setOrdersStorageArray,
-              loadOrders,
-              orderValueAdministration,
-              setOrderValueAdministration,
+              employeesStorageArray,
+              setEmployeesStorageArray,
+              loadEmployees,
+              employeeValueAdministration,
+              setEmployeeValueAdministration,
             }}
           >
-            <RouterProvider router={router} />
-          </ordersContext.Provider>
-        </clientsContext.Provider>
-      </employeesContext.Provider>
+            <clientsContext.Provider
+              value={{
+                clientsStorageArray,
+                setClientsStorageArray,
+                loadClients,
+                clientValueAdministration,
+                setClientValueAdministration,
+              }}
+            >
+              <ordersContext.Provider
+                value={{
+                  ordersStorageArray,
+                  setOrdersStorageArray,
+                  loadOrders,
+                  orderValueAdministration,
+                  setOrderValueAdministration,
+                }}
+              >
+                <RouterProvider router={router} />
+              </ordersContext.Provider>
+            </clientsContext.Provider>
+          </employeesContext.Provider>
+        </popUpWidthHeightContent.Provider>
+      </toastyContent.Provider>
     </div>
   );
 } /*

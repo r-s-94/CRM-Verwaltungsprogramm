@@ -3,11 +3,17 @@ import { Tables } from "./database.types";
 
 export interface ClientPopUpDatatype {
   selectedClientId: number;
+  salutation: string;
   firstName: string;
   lastName: string;
-  age: number;
+  age: string;
   mail: string;
-  address: string;
+  street: string;
+  streetNumber: string;
+  PLZ: string;
+  city: string;
+  handy: string;
+  note: string;
 }
 
 interface ClientsStateData {
@@ -26,11 +32,17 @@ export const clientsContext = createContext<ClientsStateData>({
   loadClients: () => {},
   clientValueAdministration: {
     selectedClientId: 0,
+    salutation: "",
     firstName: "",
     lastName: "",
-    age: 0,
+    age: "",
     mail: "",
-    address: "",
+    street: "",
+    streetNumber: "",
+    PLZ: "",
+    city: "",
+    handy: "",
+    note: "",
   },
   setClientValueAdministration: () => {},
 });

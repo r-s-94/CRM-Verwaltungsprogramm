@@ -6,30 +6,32 @@ import { employeesContext } from "../../employeesContext";
 import "./employeesComponent.scss";
 import PopUpComponent from "../../PopUpComponent";
 import "../../PopUpComponent.scss";
+import { toastyContent } from "../../toastyContext";
+import { popUpWidthHeightContent } from "../../popUpPaddingContent";
 
 export default function UpdateEmployeeComponent({
   showDataUpdate,
   updateEmployeeForm,
   setUpdateEmployeeForm,
+  failInMail,
+  setFailInMail,
 }: {
   showDataUpdate: () => void;
   updateEmployeeForm: boolean;
   setUpdateEmployeeForm: (value: boolean) => void;
+  failInMail: number;
+  setFailInMail: (failInMail: number) => void;
 }) {
-  /* const [updateEmployeeFirstName, setUpdateEmployeeFirstName] =
-    useState<string>("");
-  const [updateEmployeeLastName, setUpdateEmployeeLastName] =
-    useState<string>("");
-  const [updateEmployeeAge, setUpdateEmployeeAge] = useState<string>("");
-  const [updateEmployeeRemark, setUpdateEmployeeRemark] = useState<string>("");
-  
-  */
-
   const {
     employeesStorageArray,
     employeeValueAdministration,
     setEmployeeValueAdministration,
   } = useContext(employeesContext);
+  const { toastyObject, setToastyObject, autoHiddenToasty } =
+    useContext(toastyContent);
+  const { popUpWidthHeightObject, setPopUpWidthHeightObject } = useContext(
+    popUpWidthHeightContent
+  );
 
   useEffect(() => {
     showEmployee();
@@ -44,36 +46,114 @@ export default function UpdateEmployeeComponent({
       setEmployeeValueAdministration({
         ...employeeValueAdministration,
         selectedEmployeeId: selectedEmployee.id,
-        firstName: selectedEmployee.firstName,
-        lastName: selectedEmployee.lastName,
+        salutation: selectedEmployee.salutation,
+        firstName: selectedEmployee.first_name,
+        lastName: selectedEmployee.last_name,
         age: selectedEmployee.age,
+        street: selectedEmployee.street,
+        streetNumber: selectedEmployee.street_number,
+        PLZ: selectedEmployee.PLZ,
+        city: selectedEmployee.city,
+        mail: selectedEmployee.mail,
+        handy: selectedEmployee.handy,
         remark: selectedEmployee.note,
       });
     }
   }
 
+  function employeeAgeContent(age: string) {
+    const employeeAge = age;
+
+    if (employeeAge.length > 0) {
+      setEmployeeValueAdministration({
+        ...employeeValueAdministration,
+        age: employeeAge,
+      });
+    }
+
+    if (employeeAge === "") {
+      setEmployeeValueAdministration({
+        ...employeeValueAdministration,
+        age: "",
+      });
+    }
+  }
+
+  function checkMailContent() {
+    const employeeMail = employeeValueAdministration.mail;
+
+    if (employeeMail.length > 0) {
+      if (employeeMail.includes("@") && !employeeMail.includes(" ")) {
+        setFailInMail(1);
+      } else {
+        setFailInMail(-1);
+        setToastyObject({
+          ...toastyObject,
+          area: "employee",
+          message: "Ungültige E-Mail (@ erforderlich, kein(e) Leerzeichen(en))",
+          status: -1,
+          z_index: 1,
+        });
+        autoHiddenToasty();
+      }
+    }
+  }
+
   async function updateEmployee() {
-    const {} = await supabase
+    const { error } = await supabase
       .from("Employees")
       .update({
-        firstName: employeeValueAdministration.firstName,
-        lastName: employeeValueAdministration.lastName,
+        salutation: employeeValueAdministration.salutation,
+        first_name: employeeValueAdministration.firstName,
+        last_name: employeeValueAdministration.lastName,
         age: employeeValueAdministration.age,
+        street: employeeValueAdministration.street,
+        street_number: employeeValueAdministration.streetNumber,
+        PLZ: employeeValueAdministration.PLZ,
+        city: employeeValueAdministration.city,
+        mail: employeeValueAdministration.mail,
+        handy: employeeValueAdministration.handy,
         note: employeeValueAdministration.remark,
       })
       .eq("id", employeeValueAdministration.selectedEmployeeId);
 
-    showDataUpdate();
-    setEmployeeValueAdministration({
-      ...employeeValueAdministration,
-      selectedEmployeeId: 0,
-      firstName: "",
-      lastName: "",
-      age: 0,
-      remark: "",
-    });
+    if (error?.code !== "PGRST204") {
+      showDataUpdate();
+      setEmployeeValueAdministration({
+        ...employeeValueAdministration,
+        selectedEmployeeId: 0,
+        salutation: "",
+        firstName: "",
+        lastName: "",
+        age: "",
+        street: "",
+        streetNumber: "",
+        PLZ: "",
+        city: "",
+        mail: "",
+        handy: "",
+        remark: "",
+      });
 
-    setUpdateEmployeeForm(false);
+      setUpdateEmployeeForm(false);
+      setToastyObject({
+        ...toastyObject,
+        area: "employee",
+        message: "Mitarbeiter wurde erfolgreich bearbeitet.",
+        status: 1,
+        z_index: 0,
+      });
+      autoHiddenToasty();
+    } else {
+      setToastyObject({
+        ...toastyObject,
+        area: "employee",
+        message: "Mitarbeiter bearbeiten fehlgeschlagen.",
+        status: -1,
+        z_index: 1,
+      });
+      autoHiddenToasty();
+    }
   }
 
   function closeUpdateEmployeeForm() {
@@ -81,10 +161,22 @@ export default function UpdateEmployeeComponent({
     setEmployeeValueAdministration({
       ...employeeValueAdministration,
       selectedEmployeeId: 0,
+      salutation: "",
       firstName: "",
       lastName: "",
-      age: 0,
+      age: "",
+      street: "",
+      streetNumber: "",
+      PLZ: "",
+      city: "",
+      mail: "",
+      handy: "",
       remark: "",
+    });
+    setPopUpWidthHeightObject({
+      ...popUpWidthHeightObject,
+      width: 0,
+      height: 0,
     });
   }
 
@@ -119,14 +211,69 @@ export default function UpdateEmployeeComponent({
               />
             </svg>
 
-            <div className="update-employee__label-and-input-div center-content">
+            <div className="update-employee__label-and-input-div">
               <div className="update-employee__label-div">
-                <label className="label">Vorname:</label>
-                <label className="label">Nachname: </label>
-                <label className="label">Alter: </label>{" "}
-                <label className="label">Bemerkung: </label>
+                <label className="update-employee__label-salutation label">
+                  Anrede:
+                </label>
+                <label className="update-employee__label-first-name label">
+                  Vorname:
+                </label>
+                <label className="update-employee__label-last-name label">
+                  Nachname:{" "}
+                </label>
+                <label className="update-employee__label-birthday label">
+                  Geburtsdatum:{" "}
+                </label>{" "}
+                <label className="update-employee__label-street-number label">
+                  Str./Hausnr.:{" "}
+                </label>{" "}
+                <label className="update-employee__label-PLZ label">
+                  PLZ:{" "}
+                </label>{" "}
+                <label className="update-employee__label-city label">
+                  Ort/Stadt:{" "}
+                </label>{" "}
+                <label className="update-employee__label-mail label">
+                  Mail:{" "}
+                </label>{" "}
+                <label className="update-employee__label-handy label">
+                  Handy:{" "}
+                </label>{" "}
+                <label className="update-employee__label-remark label">
+                  Bemerkung:{" "}
+                </label>
               </div>
               <div className="update-employee__input-div">
+                <div className="update-employee__input-info-div">
+                  <select
+                    name=""
+                    onChange={(event) => {
+                      setEmployeeValueAdministration({
+                        ...employeeValueAdministration,
+                        salutation: event.target.value,
+                      });
+                    }}
+                    value={employeeValueAdministration.salutation}
+                    className="update-employee__select"
+                    id=""
+                  >
+                    <option value="" className="update-employee__option">
+                      ...
+                    </option>
+                    <option value="Frau" className="update-employee__option">
+                      Frau
+                    </option>
+                    <option value="Herr" className="update-employee__option">
+                      Herr
+                    </option>
+                  </select>
+
+                  <span className="new-employee__input-note">
+                    * Pflichtfeld
+                  </span>
+                </div>
+
                 <div className="update-employee__input-info-div">
                   {" "}
                   <input
@@ -141,7 +288,9 @@ export default function UpdateEmployeeComponent({
                       });
                     }}
                   />{" "}
-                  * Pflichtfeld
+                  <span className="update-employee__input-note">
+                    * Pflichtfeld
+                  </span>
                 </div>
                 <div className="update-employee__input-info-div">
                   <input
@@ -156,34 +305,137 @@ export default function UpdateEmployeeComponent({
                       });
                     }}
                   />{" "}
-                  * Pflichtfeld
+                  <span className="update-employee__input-note">
+                    * Pflichtfeld
+                  </span>
+                </div>
+
+                <div className="update-employee__input-info-div">
+                  <input
+                    type="date"
+                    name=""
+                    className="update-employee__age input"
+                    value={employeeValueAdministration.age}
+                    onChange={(event) => {
+                      employeeAgeContent(event.target.value);
+                    }}
+                  />{" "}
+                  <span className="update-employee__input-note">
+                    * Pflichtfeld
+                  </span>
+                </div>
+
+                <div className="update-employee__input-info-div">
+                  <div className="update-employee__street-street-number-collect-div">
+                    <input
+                      type="text"
+                      name=""
+                      className="update-employee__street input"
+                      value={employeeValueAdministration.street}
+                      onChange={(event) => {
+                        setEmployeeValueAdministration({
+                          ...employeeValueAdministration,
+                          street: event.target.value.trimStart(),
+                        });
+                      }}
+                    />
+                    <input
+                      type="number"
+                      name=""
+                      className="update-employee__street-number input number"
+                      value={employeeValueAdministration.streetNumber}
+                      onChange={(event) => {
+                        setEmployeeValueAdministration({
+                          ...employeeValueAdministration,
+                          streetNumber: event.target.value,
+                        });
+                      }}
+                    />{" "}
+                  </div>
+
+                  <span className="update-employee__input-note">
+                    * Pflichtfeld
+                  </span>
                 </div>
 
                 <div className="update-employee__input-info-div">
                   <input
                     type="number"
                     name=""
-                    className="update-employee__age input"
-                    value={
-                      employeeValueAdministration.age !== 0
-                        ? employeeValueAdministration.age
-                        : ""
-                    }
+                    className="update-employee__PLZ input number"
+                    value={employeeValueAdministration.PLZ}
                     onChange={(event) => {
                       setEmployeeValueAdministration({
                         ...employeeValueAdministration,
-                        age: Number(event.target.value.trimStart()),
+                        PLZ: event.target.value,
                       });
                     }}
                   />{" "}
-                  * Pflichtfeld
+                  <span className="update-employee__input-note">
+                    * Pflichtfeld
+                  </span>
                 </div>
 
                 <div className="update-employee__input-info-div">
                   <input
                     type="text"
                     name=""
-                    className="update-employee__remark input"
+                    className="update-employee__city input"
+                    value={employeeValueAdministration.city}
+                    onChange={(event) => {
+                      setEmployeeValueAdministration({
+                        ...employeeValueAdministration,
+                        city: event.target.value.trimStart(),
+                      });
+                    }}
+                  />{" "}
+                  <span className="update-employee__input-note">
+                    * Pflichtfeld
+                  </span>
+                </div>
+
+                <div className="update-employee__input-info-div">
+                  <input
+                    type="text"
+                    name=""
+                    className="update-employee__mail input"
+                    value={employeeValueAdministration.mail}
+                    onChange={(event) => {
+                      setFailInMail(0);
+                      setEmployeeValueAdministration({
+                        ...employeeValueAdministration,
+                        mail: event.target.value.trimStart(),
+                      });
+                    }}
+                    onBlur={checkMailContent}
+                  />{" "}
+                  <span className="update-employee__input-note">
+                    * Pflichtfeld
+                  </span>
+                </div>
+
+                <div className="update-employee__input-info-div">
+                  <input
+                    type="tel"
+                    name=""
+                    className="update-employee__handy input number"
+                    value={employeeValueAdministration.handy}
+                    onChange={(event) => {
+                      setEmployeeValueAdministration({
+                        ...employeeValueAdministration,
+                        handy: event.target.value,
+                      });
+                    }}
+                  />{" "}
+                  <span className="update-employee__input-note">
+                    * Pflichtfeld
+                  </span>
+                </div>
+
+                <div className="update-employee__input-info-div">
+                  <textarea
+                    name=""
+                    className="update-employee__remark"
                     value={employeeValueAdministration.remark}
                     onChange={(event) => {
                       setEmployeeValueAdministration({
@@ -191,7 +443,8 @@ export default function UpdateEmployeeComponent({
                         remark: event.target.value,
                       });
                     }}
-                  />
+                    id=""
+                  ></textarea>
                 </div>
               </div>
             </div>
@@ -221,16 +474,32 @@ export default function UpdateEmployeeComponent({
               <button
                 onClick={updateEmployee}
                 disabled={
+                  employeeValueAdministration.salutation !== "" &&
                   employeeValueAdministration.firstName.length > 0 &&
                   employeeValueAdministration.lastName.length > 0 &&
-                  employeeValueAdministration.age !== 0
+                  employeeValueAdministration.age.length > 0 &&
+                  employeeValueAdministration.street.length > 0 &&
+                  Number(employeeValueAdministration.streetNumber) !== 0 &&
+                  employeeValueAdministration.PLZ.length > 4 &&
+                  employeeValueAdministration.city.length > 0 &&
+                  employeeValueAdministration.mail.length > 0 &&
+                  failInMail === 1 &&
+                  employeeValueAdministration.handy.length > 10
                     ? false
                     : true
                 }
                 className={`update-employee__edit-button button ${
+                  employeeValueAdministration.salutation !== "" &&
                   employeeValueAdministration.firstName.length > 0 &&
                   employeeValueAdministration.lastName.length > 0 &&
-                  employeeValueAdministration.age !== 0
+                  employeeValueAdministration.age.length > 0 &&
+                  employeeValueAdministration.street.length > 0 &&
+                  Number(employeeValueAdministration.streetNumber) !== 0 &&
+                  employeeValueAdministration.PLZ.length > 4 &&
+                  employeeValueAdministration.city.length > 0 &&
+                  employeeValueAdministration.mail.length > 0 &&
+                  failInMail === 1 &&
+                  employeeValueAdministration.handy.length > 10
                     ? "primary-button"
                     : "disbled-button"
                 }`}

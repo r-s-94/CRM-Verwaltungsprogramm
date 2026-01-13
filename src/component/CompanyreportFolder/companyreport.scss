@@ -8,16 +8,15 @@ $crm-color-white: white;
 
   &__table-div {
     width: 95%;
-    height: 84vh;
+    height: 90vh;
     margin: 1.5rem auto 0 auto;
-    padding: 1.5rem 1rem;
-    row-gap: 4rem;
+    row-gap: 1rem;
     background-color: $crm-color-white;
     box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
     border-radius: 0.2rem;
   }
 
-  &__button-div {
+  /*&__button-div {
     width: 100%;
     column-gap: 3rem;
   }
@@ -29,19 +28,22 @@ $crm-color-white: white;
   &__year-report-button {
     width: 8.5rem;
     margin-left: 73%;
-  }
+  }*/
 
   &__preview {
-    height: 71vh;
     display: flex;
     flex-direction: column;
   }
 
   &__short-table-div {
-    margin-top: 7rem;
+    margin-top: 2rem;
   }
 
-  &__shart-div {
+  &__chart-div {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
   }
 
   &__short-headline,
@@ -49,8 +51,11 @@ $crm-color-white: white;
     font-size: 1.5rem;
   }
 
+  &__chart-headline {
+  }
+
   &__short-text {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     margin-top: 1.7rem;
     text-align: center;
     border-bottom: 3px solid #e0e0e0;

@@ -10,6 +10,7 @@ export default function ClientsComponent() {
   const { loadClients, clientValueAdministration } = useContext(clientsContext);
   const [newClientForm, setNewClientForm] = useState<boolean>(false);
   const [updateClientForm, setUpdateClientForm] = useState<boolean>(false);
+  const [failInMail, setFailInMail] = useState<number>(0);
 
   useEffect(() => {
     loadClients();
@@ -21,12 +22,16 @@ export default function ClientsComponent() {
         showDataUpdate={loadClients}
         newClientForm={newClientForm}
         setNewClientForm={setNewClientForm}
+        failInMail={failInMail}
+        setFailInMail={setFailInMail}
       />
 
       <UpdateClientComponent
         showDataUpdate={loadClients}
         updateClientForm={updateClientForm}
         setUpdateClientForm={setUpdateClientForm}
+        failInMail={failInMail}
+        setFailInMail={setFailInMail}
       />
 
       <h1 className="client__headline">Auftraggeber</h1>
@@ -35,6 +40,8 @@ export default function ClientsComponent() {
         setNewClientForm={setNewClientForm}
         showClientsUpdate={loadClients}
         setUpdateClientForm={setUpdateClientForm}
+        failInMail={failInMail}
+        setFailInMail={setFailInMail}
       />
     </div>
   );

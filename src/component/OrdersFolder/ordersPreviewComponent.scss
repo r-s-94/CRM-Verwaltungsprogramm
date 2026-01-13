@@ -39,7 +39,7 @@ $menu-button-color-two: #f96b00;
   &__close-icon {
     width: 1.7rem;
     height: auto;
-    margin: 0.5rem 0 0 57.7rem;
+    margin: 0.5rem 0 0 96%;
     transition: all 0.5s ease-in-out;
   }
 
@@ -75,9 +75,6 @@ $menu-button-color-two: #f96b00;
   &__delete-single-order-button {
     width: 8rem;
     column-gap: 0.5rem;
-    background-color: white;
-    color: $delete-button-color;
-    border: 2px solid $delete-button-color;
   }
 
   &__delete-order-icon,
@@ -105,7 +102,7 @@ $menu-button-color-two: #f96b00;
   }
 
   &__single-table-div {
-    margin-top: 1.5rem;
+    margin-top: 3rem;
     column-gap: 1rem;
   }
 
@@ -203,6 +200,10 @@ $menu-button-color-two: #f96b00;
     /*padding: 0.5rem 0.7rem 6px 0.7rem;*/
   }
 
+  &__single-order-payment-status {
+    position: relative;
+  }
+
   /*.number {
     text-align: right;
   }*/
@@ -211,6 +212,12 @@ $menu-button-color-two: #f96b00;
   &__single-order-note-icon,
   &__single-order-attention-icon {
     width: 1.5rem;
+  }
+
+  &__single-order-check-icon:hover,
+  &__single-order-note-icon:hover,
+  &__single-order-attention-icon:hover {
+    cursor: help;
   }
 
   &__single-order-check-icon {
@@ -266,7 +273,7 @@ $menu-button-color-two: #f96b00;
 
   &__new-order-button {
     width: 12rem;
-    margin: 1rem 0 3rem 80%;
+    margin: 1rem 0 3rem 85%;
     column-gap: 0.7rem;
   }
 
@@ -276,8 +283,8 @@ $menu-button-color-two: #f96b00;
   }
 
   &__headline-div {
-    width: 100%;
-    margin: 0 auto;
+    width: 95%;
+    margin: 0 0 0 2rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     text-align: center;
@@ -301,16 +308,17 @@ $menu-button-color-two: #f96b00;
 
   &__order-preview-div {
     width: 100%;
-    height: 65vh;
+    height: 63vh;
+    padding-top: 1rem;
     overflow-y: auto;
   }
 
   &__order-info-div {
-    width: 98.7%;
-    margin: 1.5rem auto;
+    width: 96%;
+    margin: 1.5rem 0 1.5rem 2rem;
     padding-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     border-bottom: 1px solid #e0e0e0;
   }
 
@@ -319,22 +327,45 @@ $menu-button-color-two: #f96b00;
     font-size: 1.1rem;
   }
 
+  &__service-info,
+  &__service-total-sum-info {
+    display: flex;
+    align-items: center;
+  }
+
   &__service-info {
-    width: 17.8%;
-    text-align: left;
-    padding-left: 7%;
+    justify-content: left;
+    margin: 0 1rem 0 5rem;
   }
 
   &__service-total-sum-info {
-    width: 17.5%;
-    text-align: right;
-    padding-right: 8%;
   }
 
   &__payment-status-info {
-    width: 25.5%;
-    text-align: center;
+    /*width: 25.5%;
+    text-align: center;*/
   }
+
+  &__payment-status,
+  &__action-order-tool-tip-div {
+    position: relative;
+  }
+
+  /* &__tool-tip-message-left,
+  &__tool-tip-message-right {
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 2px 4px gray;
+    border-radius: 0.2rem;
+  }
+
+  &__tool-tip-message-right {
+    margin: -3rem 0 0 2rem;
+  }
+
+  &__tool-tip-message-left {
+    margin: -3rem 2rem 0 0;
+  }*/
 
   &__check-icon,
   &__note-icon,
@@ -357,43 +388,35 @@ $menu-button-color-two: #f96b00;
     color: #bb0000;
   }
 
+  &__check-icon:hover,
+  &__note-icon:hover,
+  &__attention-icon:hover {
+    cursor: help;
+  }
+
   &__option-div {
-    width: 20%;
-    padding-left: 3.2%;
+    //width: 20%;
   }
 
   &__button-div {
     column-gap: 1rem;
   }
 
-  &__detail-button {
-    background-color: white;
-    border: none;
-  }
-
-  &__detail-icon {
-    width: 1.5rem;
-    height: auto;
-  }
-
-  &__edit-button {
-    background-color: white;
-    border: none;
-  }
-
-  &__edit-icon {
-    width: 1.5rem;
-    height: auto;
-  }
-
+  &__detail-button,
+  &__edit-button,
   &__delete-button {
     background-color: white;
     border: none;
   }
 
+  &__detail-icon,
+  &__edit-icon,
   &__delete-icon {
     width: 1.5rem;
     height: auto;
+  }
+
+  &__delete-icon {
     color: $delete-button-color;
   }
 }

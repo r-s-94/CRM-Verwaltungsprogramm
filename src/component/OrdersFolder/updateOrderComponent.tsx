@@ -7,6 +7,9 @@ import "../../index.scss";
 import "./updateOrderComponent.scss";
 import PopUpComponent from "../../PopUpComponent";
 import "../../PopUpComponent.scss";
+import { serviceArray } from "./ordersComponent";
+import { toastyContent } from "../../toastyContext";
+import { popUpWidthHeightContent } from "../../popUpPaddingContent";
 
 export default function UpdateOrderComponent({
   showDataUpdate,
@@ -26,6 +29,11 @@ export default function UpdateOrderComponent({
 
   const { employeesStorageArray } = useContext(employeesContext);
   const { clientsStorageArray } = useContext(clientsContext);
+  const { toastyObject, setToastyObject, autoHiddenToasty } =
+    useContext(toastyContent);
+  const { popUpWidthHeightObject, setPopUpWidthHeightObject } = useContext(
+    popUpWidthHeightContent
+  );
   const [selectedClientId, setSelectedClientId] = useState<number>(0);
   const [selectedEmployeeId, setSelectedEmployeeId] = useState<number>(0);
 
@@ -33,13 +41,83 @@ export default function UpdateOrderComponent({
     showOrder();
   }, [orderValueAdministration.selectedOrderId]);
 
+  function updateServiceContent(service: string) {
+    const serviceName = service;
+
+    const findService = serviceArray.find((serviceOption) => {
+      return serviceOption.service === serviceName;
+    });
+
+    console.log(findService);
+
+    if (findService !== undefined) {
+      setOrderValueAdministration({
+        ...orderValueAdministration,
+        service: findService.service,
+        singlePrice: findService.price,
+      });
+
+      console.log(findService.price);
+
+      if (orderValueAdministration.quantity > 0) {
+        const totalPrice = getTotalPrice(
+          findService.price,
+          orderValueAdministration.quantity
+        );
+
+        getTotalPrice(findService.price, orderValueAdministration.quantity);
+        setOrderValueAdministration({
+          ...orderValueAdministration,
+          service: findService.service,
+          singlePrice: findService.price,
+          quantity: orderValueAdministration.quantity,
+          totalPrice: totalPrice,
+        });
+      }
+    } else {
+      setOrderValueAdministration({
+        ...orderValueAdministration,
+        service: "",
+        singlePrice: 0,
+        totalPrice: 0,
+      });
+    }
+  }
+
+  function updateServiceQuantity(quantity: string) {
+    console.log(quantity);
+
+    const serviceQuantity = Number(quantity);
+    console.log(serviceQuantity);
+
+    if (serviceQuantity < 0) {
+      setOrderValueAdministration({ ...orderValueAdministration, quantity: 0 });
+    } else {
+      const totalPrice = getTotalPrice(
+        orderValueAdministration.singlePrice,
+        serviceQuantity
+      );
+
+      setOrderValueAdministration({
+        ...orderValueAdministration,
+        quantity: serviceQuantity,
+        totalPrice: totalPrice,
+      });
+    }
+  }
+
+  function getTotalPrice(singlePrice: number, quantity: number) {
+    return singlePrice * quantity;
+  }
+
   function showOrder() {
     const selectedOder = ordersStorageArray.find((order) => {
       return order.id === orderValueAdministration.selectedOrderId;
     });
 
     if (selectedOder) {
-      const date = new Date(selectedOder.orderDay);
+      console.log(selectedOder);
+      const date = new Date(selectedOder.order_day);
       const formateDate = new Date(
         date.getTime() - date.getTimezoneOffset() * 60000
       );
@@ -52,10 +130,11 @@ export default function UpdateOrderComponent({
         ...orderValueAdministration,
         selectedOrderId: selectedOder.id,
         service: selectedOder.service,
-        price: selectedOder.serviceValue,
+        singlePrice: selectedOder.single_price,
+        totalPrice: selectedOder.total_price || 0,
         quantity: selectedOder.quantity,
-        paymentMethode: selectedOder.paymentMethod,
-        paymentStatus: selectedOder.paymentStatus,
+        paymentMethode: selectedOder.payment_method,
+        paymentStatus: selectedOder.payment_status,
         note: selectedOder.note || "",
         business: selectedOder.business,
         date: formateDateToString,
@@ -64,38 +143,65 @@ export default function UpdateOrderComponent({
   }
 
   async function updateOrder() {
-    const {} = await supabase
+    const { error } = await supabase
       .from("Orders")
       .update({
         clients_id: selectedClientId,
         employee_id: selectedEmployeeId,
         business: orderValueAdministration.business,
         service: orderValueAdministration.service,
-        serviceValue: orderValueAdministration.price,
+        single_price: orderValueAdministration.singlePrice,
+        total_price: orderValueAdministration.totalPrice,
         quantity: orderValueAdministration.quantity,
-        orderDay: orderValueAdministration.date,
-        paymentMethod: orderValueAdministration.paymentMethode,
-        paymentStatus: orderValueAdministration.paymentStatus,
+        order_day: orderValueAdministration.date,
+        payment_method: orderValueAdministration.paymentMethode,
+        payment_status: orderValueAdministration.paymentStatus,
         note: orderValueAdministration.note,
       })
       .eq("id", orderValueAdministration.selectedOrderId);
 
-    setOrderValueAdministration({
-      ...orderValueAdministration,
-      selectedOrderId: 0,
-      service: "",
-      price: 0,
-      quantity: 0,
-      paymentMethode: "",
-      paymentStatus: "",
-      note: "",
-      business: false,
-      date: "",
-    });
+    if (error?.code !== "PGRST204") {
+      setOrderValueAdministration({
+        ...orderValueAdministration,
+        selectedOrderId: 0,
+        service: "",
+        singlePrice: 0,
+        totalPrice: 0,
+        quantity: 1,
+        paymentMethode: "",
+        paymentStatus: "",
+        note: "",
+        business: false,
+        date: "",
+      });
 
-    setUpdateOrderForm(false);
+      setUpdateOrderForm(false);
+      setPopUpWidthHeightObject({
+        ...popUpWidthHeightObject,
+        width: 0,
+        height: 0,
+      });
 
-    showDataUpdate();
+      showDataUpdate();
+
+      setToastyObject({
+        ...toastyObject,
+        area: "order",
+        message: "Auftrag wurde erfolgreich bearbeitet.",
+        status: 1,
+        z_index: 0,
+      });
+      autoHiddenToasty();
+    } else {
+      setToastyObject({
+        ...toastyObject,
+        area: "order",
+        message: "Auftrag bearbeiten fehlgeschlagen.",
+        status: -1,
+        z_index: 1,
+      });
+      autoHiddenToasty();
+    }
   }
 
   async function closeUpdateOrderForm() {
@@ -109,13 +215,20 @@ export default function UpdateOrderComponent({
       ...orderValueAdministration,
       selectedOrderId: 0,
       service: "",
-      price: 0,
-      quantity: 0,
+      singlePrice: 0,
+      totalPrice: 0,
+      quantity: 1,
       paymentMethode: "",
       paymentStatus: "",
       note: "",
       business: false,
       date: "",
+    });
+
+    setPopUpWidthHeightObject({
+      ...popUpWidthHeightObject,
+      width: 0,
+      height: 0,
     });
 
     setUpdateOrderForm(false);
@@ -151,35 +264,40 @@ export default function UpdateOrderComponent({
               />
             </svg>
 
-            <div className="update-order__lable-and-input-div center-content">
+            <div className="update-order__lable-and-input-div">
               <div className="update-order__lable-div">
-                <label className="update-order__lable lable">
+                <label className="update-order__lable-client lable">
                   Auftraggeber:
                 </label>
-                <label className="update-order__lable lable">
-                  Mitarbeiterzuteilung:
+                <label className="update-order__lable-employee lable">
+                  Mitarbeiter:
                 </label>
-                <label className="update-order__lable lable">
-                  Art der Dienstleistung:
+                <label className="update-order__lable-service lable">
+                  Dienstleistung:
                 </label>
-                <label className="update-order__lable lable">
+                <label className="update-order__lable-single-price lable">
+                  Einzelpreis:{" "}
+                </label>
+                <label className="update-order__lable-quantity lable">
                   Bestellmenge:{" "}
                 </label>
-                <label className="update-order__lable lable">
-                  Bestellwert:{" "}
+                <label className="update-order__lable-total-price lable">
+                  Gesamtpreis:{" "}
                 </label>
-                <label className="update-order__lable lable">
+                <label className="update-order__lable-payment-method lable">
                   Zahlungsart{" "}
                 </label>
-                <label className="update-order__lable lable">
+                <label className="update-order__lable-payment-status lable">
                   Rechnungsstatus:{" "}
                 </label>
-                <label className="update-order__lable lable">
+                <label className="update-order__lable-order-date lable">
                   Bestellaufgabe:
                 </label>
-                <label className="update-order__lable lable">Bemerkung: </label>
-                <label className="update-order__lable lable">
+                <label className="update-order__lable-business lable">
                   Gewerblich:{" "}
+                </label>
+                <label className="update-order__lable-remark lable">
+                  Bemerkung:{" "}
                 </label>
               </div>
               <div className="update-order__input-div">
@@ -191,16 +309,21 @@ export default function UpdateOrderComponent({
                     }}
                     className="update-order__select"
                   >
-                    <option value={0}>...</option>
+                    <option value={0} className="update-order__option">
+                      ...
+                    </option>
                     {clientsStorageArray.map((client) => {
                       return (
                         <option
                           value={client.id}
-                        >{`${client.firstName} ${client.lastName}`}</option>
+                          className="update-order__option"
+                        >{`${client.first_name} ${client.last_name}`}</option>
                       );
                     })}
                   </select>{" "}
-                  * Pflichtfeld{" "}
+                  <span className="update-order__input-note">
+                    * Pflichtfeld
+                  </span>{" "}
                 </div>
                 <div className="update-order__input-info-div">
                   <select
@@ -212,100 +335,173 @@ export default function UpdateOrderComponent({
                   >
                     {" "}
                     Mitarbeiterzuteilung
-                    <option value={0}>...</option>
+                    <option value={0} className="update-order__option">
+                      ...
+                    </option>
                     {employeesStorageArray.map((employee) => {
                       return (
                         <option
                           value={employee.id}
-                        >{`${employee.firstName} ${employee.lastName}`}</option>
+                          className="update-order__option"
+                        >{`${employee.first_name} ${employee.last_name}`}</option>
                       );
                     })}
                   </select>{" "}
-                  * Pflichtfeld{" "}
+                  <span className="update-order__input-note">
+                    * Pflichtfeld
+                  </span>{" "}
                 </div>
 
                 <div className="update-order__input-info-div">
-                  <input
-                    type="text"
-                    value={orderValueAdministration.service}
-                    onChange={(event) => {
-                      setOrderValueAdministration({
-                        ...orderValueAdministration,
-                        service: event.target.value.trimStart(),
-                      });
-                    }}
-                    className="update-order__ input"
-                  />{" "}
-                  * Pflichtfeld
-                </div>
-
-                <div className="update-order__input-info-div">
-                  <input
-                    type="number"
-                    value={
-                      orderValueAdministration.quantity !== 0
-                        ? orderValueAdministration.quantity
-                        : ""
-                    }
-                    onChange={(event) => {
-                      setOrderValueAdministration({
-                        ...orderValueAdministration,
-                        quantity: Number(event.target.value),
-                      });
-                    }}
-                    className="update-order__ input number"
-                  />{" "}
-                  * Pflichtfeld{" "}
-                </div>
-
-                <div className="update-order__input-info-div">
-                  <input
-                    type="number"
+                  <select
                     name=""
-                    value={
-                      orderValueAdministration.price !== 0
-                        ? orderValueAdministration.price
-                        : ""
-                    }
                     onChange={(event) => {
-                      setOrderValueAdministration({
-                        ...orderValueAdministration,
-                        price: Number(event.target.value),
-                      });
+                      updateServiceContent(event.target.value);
                     }}
-                    className="update-order__ input number"
-                  />
-                  {""} * Pflichtfeld
+                    value={orderValueAdministration.service}
+                    className="update-order__select"
+                    id=""
+                  >
+                    <option value="" className="update-order__option">
+                      ...
+                    </option>
+                    {serviceArray.map((serviceOption) => (
+                      <option
+                        value={serviceOption.service}
+                        className="update-order__option"
+                      >
+                        {serviceOption.service}
+                      </option>
+                    ))}
+                  </select>
+                  <span className="update-order__input-note">
+                    * Pflichtfeld
+                  </span>
+                </div>
+
+                <div className="update-order__input-info-div">
+                  <p className="update-order__single-price number">
+                    {" "}
+                    {orderValueAdministration.singlePrice !== 0
+                      ? orderValueAdministration.singlePrice.toLocaleString(
+                          "de-DE",
+                          {
+                            style: "currency",
+                            currency: "EUR",
+                          }
+                        )
+                      : ""}
+                  </p>
                 </div>
 
                 <div className="update-order__input-info-div">
                   <input
-                    type="text"
+                    type="number"
+                    value={orderValueAdministration.quantity}
+                    onChange={(event) => {
+                      updateServiceQuantity(event.target.value);
+                    }}
+                    className="update-order__quantity input number"
+                  />{" "}
+                </div>
+
+                <div className="update-order__input-info-div">
+                  <p className="update-order__total-price number">
+                    {orderValueAdministration.quantity > 0 &&
+                    orderValueAdministration.totalPrice !== 0
+                      ? orderValueAdministration.totalPrice.toLocaleString(
+                          "de-DE",
+                          {
+                            style: "currency",
+                            currency: "EUR",
+                          }
+                        )
+                      : ""}
+                  </p>
+                </div>
+
+                <div className="update-order__input-info-div">
+                  <select
+                    onChange={(event) => {
+                      setOrderValueAdministration({
+                        ...orderValueAdministration,
+                        paymentMethode: event.target.value,
+                      });
+                    }}
                     value={orderValueAdministration.paymentMethode}
-                    onChange={(event) => {
-                      setOrderValueAdministration({
-                        ...orderValueAdministration,
-                        paymentMethode: event.target.value.trimStart(),
-                      });
-                    }}
-                    className="update-order__ input"
-                  />{" "}
-                  * Pflichtfeld
+                    name=""
+                    id=""
+                    className="update-order__select"
+                  >
+                    <option value="" className="update-order__option">
+                      ...
+                    </option>
+                    <option
+                      value="Überweisung"
+                      className="update-order__option"
+                    >
+                      Überweisung
+                    </option>
+                    <option
+                      value="Sofortüberweisung"
+                      className="update-order__option"
+                    >
+                      Sofortüberweisung
+                    </option>
+                    <option
+                      value="Kreditkarte"
+                      className="update-order__option"
+                    >
+                      Kreditkarte
+                    </option>
+                    <option
+                      value="auf Rechnung"
+                      className="update-order__option"
+                    >
+                      auf Rechnung
+                    </option>
+                  </select>
+                  <span className="update-order__input-note">
+                    * Pflichtfeld
+                  </span>
                 </div>
 
                 <div className="update-order__input-info-div">
-                  <input
-                    type="text"
-                    value={orderValueAdministration.paymentStatus}
+                  {" "}
+                  <select
                     onChange={(event) => {
                       setOrderValueAdministration({
                         ...orderValueAdministration,
-                        paymentStatus: event.target.value.trimStart(),
+                        paymentStatus: event.target.value,
                       });
                     }}
-                    className="update-order__ input"
-                  />{" "}
-                  * Pflichtfeld
+                    value={orderValueAdministration.paymentStatus}
+                    className="update-order__select"
+                    name=""
+                    id=""
+                  >
+                    <option value="" className="update-order__option">
+                      ...
+                    </option>
+                    <option value="Bezahlt" className="update-order__option">
+                      Bezahlt
+                    </option>
+                    <option
+                      value="Ratenzahlung"
+                      className="update-order__option"
+                    >
+                      Ratenzahlung
+                    </option>
+                    <option
+                      value="Zahlung fehlgeschlagen"
+                      className="update-order__option"
+                    >
+                      Zahlung fehlgeschlagen
+                    </option>
+                  </select>
+                  <span className="update-order__input-note">
+                    * Pflichtfeld
+                  </span>
                 </div>
 
                 <div className="update-order__input-info-div">
@@ -320,21 +516,9 @@ export default function UpdateOrderComponent({
                     }}
                     className="update-order__ input number"
                   />
-                  * Pflichtfeld
-                </div>
-
-                <div className="update-order__input-info-div">
-                  <input
-                    type="text"
-                    value={orderValueAdministration.note}
-                    onChange={(event) => {
-                      setOrderValueAdministration({
-                        ...orderValueAdministration,
-                        note: event.target.value.trimStart(),
-                      });
-                    }}
-                    className="update-order__ input"
-                  />{" "}
+                  <span className="update-order__input-note">
+                    * Pflichtfeld
+                  </span>
                 </div>
 
                 <div className="update-order__input-info-div">
@@ -349,6 +533,21 @@ export default function UpdateOrderComponent({
                     }}
                     className="update-order__input-check-box"
                   />{" "}
+                </div>
+
+                <div className="update-order__input-info-div">
+                  <textarea
+                    name=""
+                    value={orderValueAdministration.note}
+                    onChange={(event) => {
+                      setOrderValueAdministration({
+                        ...orderValueAdministration,
+                        note: event.target.value.trimStart(),
+                      });
+                    }}
+                    className="update-order__textarea "
+                    id=""
+                  ></textarea>
                 </div>
               </div>
             </div>
@@ -380,11 +579,10 @@ export default function UpdateOrderComponent({
                 disabled={
                   selectedClientId !== 0 &&
                   selectedEmployeeId !== 0 &&
-                  orderValueAdministration.service.length > 0 &&
-                  orderValueAdministration.quantity !== 0 &&
-                  orderValueAdministration.price !== 0 &&
-                  orderValueAdministration.paymentStatus.length > 0 &&
-                  orderValueAdministration.paymentMethode.length > 0 &&
+                  orderValueAdministration.service !== "" &&
+                  orderValueAdministration.quantity > 0 &&
+                  orderValueAdministration.paymentStatus !== "" &&
+                  orderValueAdministration.paymentMethode !== "" &&
                   orderValueAdministration.date.length > 0
                     ? false
                     : true
@@ -392,11 +590,10 @@ export default function UpdateOrderComponent({
                 className={`update-order__update-order-button button ${
                   selectedClientId !== 0 &&
                   selectedEmployeeId !== 0 &&
-                  orderValueAdministration.service.length > 0 &&
-                  orderValueAdministration.quantity !== 0 &&
-                  orderValueAdministration.price !== 0 &&
-                  orderValueAdministration.paymentStatus.length > 0 &&
-                  orderValueAdministration.paymentMethode.length > 0 &&
+                  orderValueAdministration.service !== "" &&
+                  orderValueAdministration.quantity > 0 &&
+                  orderValueAdministration.paymentStatus !== "" &&
+                  orderValueAdministration.paymentMethode !== "" &&
                   orderValueAdministration.date.length > 0
                     ? "primary-button"
                     : "disbled-button"

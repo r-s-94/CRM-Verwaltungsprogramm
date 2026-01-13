@@ -60,8 +60,8 @@ export default function CompanyreportComponent() {
   }*/
 
   interface SupabaseOrderDatatype {
-    orderDay: string;
-    serviceValue: number;
+    order_day: string;
+    total_price: number;
     quantity: number;
   }
 
@@ -100,7 +100,10 @@ export default function CompanyreportComponent() {
 
       dataLabels: {
         formatter: function (value: string): string {
-          return Number(value).toLocaleString("de-DE");
+          return Number(value).toLocaleString("de-DE", {
+            style: "currency",
+            currency: "EUR",
+          });
         },
       },
 
@@ -142,6 +145,7 @@ export default function CompanyreportComponent() {
 
   useEffect(() => {
     showMonthBilanz();
+    //showTotalYearBilanz();
   }, []);
 
   useEffect(() => {
@@ -166,7 +170,7 @@ export default function CompanyreportComponent() {
   async function loadBilanzData() {
     const { data } = await supabase
       .from("Orders")
-      .select("quantity, serviceValue, orderDay");
+      .select("quantity, total_price, order_day");
     //console.log(data);
 
     /**/
@@ -223,9 +227,9 @@ export default function CompanyreportComponent() {
     //  Datum des Auftrages um ändern
 
     for (let index = 0; index < supabaseOrderArray.length; index++) {
-      const getDate = new Date(supabaseOrderArray[index].orderDay);
+      const getDate = new Date(supabaseOrderArray[index].order_day);
       const editString = getDate.toISOString().slice(5, 7);
-      supabaseOrderArray[index].orderDay = editString;
+      supabaseOrderArray[index].order_day = editString;
     }
 
     //console.log(supabaseOrderArray);
@@ -239,10 +243,10 @@ export default function CompanyreportComponent() {
       const element = supabaseOrderArray[index];
       console.log(element);
 
-      totalSum = element.quantity * element.serviceValue;
+      totalSum = element.quantity * element.total_price;
       console.log(totalSum);
 
-      const singleValue = Number(element.orderDay) - 1;
+      const singleValue = Number(element.order_day) - 1;
       console.log(singleValue);
 
       totalSumArray[singleValue] += totalSum;
@@ -307,7 +311,7 @@ export default function CompanyreportComponent() {
     for (let index = 0; index < supabaseOrderArray.length; index++) {
       const element = supabaseOrderArray[index];
 
-      const singleSum: number = element.quantity * element.serviceValue;
+      const singleSum: number = element.quantity * element.total_price;
       totalSum = singleSum + totalSum;
     }
 
@@ -322,47 +326,30 @@ export default function CompanyreportComponent() {
       {" "}
       <h1 className="company-report__headline">Firmenbilanz</h1>
       <div className="company-report__table-div center-content-column">
-        <div className="company-report__button-div center-content">
-          {" "}
-          <button
-            onClick={showMonthBilanz}
-            className="company-report__year-report-button button primary-button"
-          >
-            Jahresbilanz
-          </button>
-          <button
-            onClick={showTotalYearBilanz}
-            className="company-report__total-year-button button primary-button"
-          >
-            Umsatz {currentYear}
-          </button>
-        </div>
-
         <div className="company-report__preview">
-          {totalYearBilanz && (
-            <div className="company-report__short-table-div">
-              <h2 className="company-report__short-headine">
-                Umsatz {currentYear}
-              </h2>
+          <div className="company-report__short-table-div center-content-column">
+            <h2 className="company-report__short-headine">
+              Umsatz {currentYear}
+            </h2>
 
-              <p className="company-report__short-text">
-                {totalYearSum || " - "} €
-              </p>
-            </div>
-          )}
+            <p className="company-report__short-text">
+              {totalYearSum.toLocaleString("de-DE", {
+                style: "currency",
+                currency: "EUR",
+              }) || " - "}
+            </p>
+          </div>
 
-          {monthSum && (
-            <div className="company-report__chart-div">
-              {" "}
-              <h2 className="company-report__chart-headline">Jahresbilanz</h2>
-              <Chart
-                options={reactChart.options}
-                series={reactChart.series}
-                type="area"
-                className="company-report__chart"
-              />
-            </div>
-          )}
+          <div className="company-report__chart-div">
+            {" "}
+            <h2 className="company-report__chart-headline">Jahresbilanz</h2>
+            <Chart
+              options={reactChart.options}
+              series={reactChart.series}
+              type="area"
+              className="company-report__chart"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -388,5 +375,21 @@ export default function CompanyreportComponent() {
             },
           },
         },
+        
+        <div className="company-report__button-div center-content">
+          {" "}
+          <button
+            onClick={showMonthBilanz}
+            className="company-report__year-report-button button primary-button"
+          >
+            Jahresbilanz
+          </button>
+          <button
+            onClick={showTotalYearBilanz}
+            className="company-report__total-year-button button primary-button"
+          >
+            Umsatz {currentYear}
+          </button>
+        </div>
   */
 }

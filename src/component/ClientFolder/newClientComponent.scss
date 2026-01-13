@@ -12,8 +12,11 @@ $border-color: #bdbdbd;
 @mixin column-flex-left-site {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: start;
+}
+
+.text-right {
+  text-align: right;
 }
 
 .new-client {
@@ -25,7 +28,7 @@ $border-color: #bdbdbd;
   &__close-icon {
     width: 1.7rem;
     height: auto;
-    margin: 0.5rem 0 0 57.7rem;
+    margin: 0.5rem 0 0 96%;
     transition: all 0.5s ease-in-out;
   }
 
@@ -34,33 +37,130 @@ $border-color: #bdbdbd;
   }
 
   &__label-and-input-div {
-    margin-top: 10rem;
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
     column-gap: 7rem;
   }
 
   &__label-div {
-    margin-top: 1rem;
+    margin: 1rem 0 0 6rem;
     @include column-flex-left-site();
-    row-gap: 2.4rem;
     padding-left: 0;
   }
 
   .label {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+  }
+
+  &__label-first-name,
+  &__label-last-name,
+  &__label-city {
+    margin-top: 2rem;
+  }
+
+  &__label-street-number {
+    margin-top: 3.5rem;
+  }
+
+  &__label-birthday,
+  &__label-mail,
+  &__label-handy,
+  &__label-remark {
+    margin-top: 1.8rem;
+  }
+
+  &__label-PLZ {
+    margin-top: 4.2rem;
   }
 
   &__input-div {
     margin-top: 1rem;
     @include column-flex-left-site();
-    row-gap: 2.1rem;
+    row-gap: 1.4rem;
+  }
+
+  &__input-info-div {
+    display: flex;
+    column-gap: 0.5rem;
+  }
+
+  &__input-note {
+    margin-top: 0.3rem;
+  }
+
+  &__select {
+    width: 12.7rem;
+    height: 1.7rem;
+    font-size: 15px;
+  }
+
+  &__select:hover {
+    cursor: pointer;
+  }
+
+  &__option {
+  }
+
+  &__client-age-verification-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 0.5rem;
+  }
+
+  &__street-street-number-collect-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    row-gap: 0.5rem;
+  }
+
+  &__select {
+    width: 12.7rem;
+    height: 1.7rem;
+    font-size: 15px;
+  }
+
+  &__select:hover {
+    cursor: pointer;
+  }
+
+  &__option {
   }
 
   .input {
-    width: 10rem;
-    height: 1.5rem;
+    width: 12rem;
+    height: 1.6rem;
     font-size: 1rem;
     padding-left: 0.5rem;
   }
+
+  &__age-inline {
+    width: 12.5rem;
+    height: 1.3rem;
+  }
+
+  &__age-over {
+    color: green;
+  }
+
+  &__age-under {
+    color: red;
+  }
+
+  textarea {
+    width: 17rem;
+    height: 5rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    resize: none;
+  }
+
+  /*&__date-incomplete-icon {
+    background-color: #ffde21;
+  }*/
 
   &__button-div {
     margin-top: 3rem;

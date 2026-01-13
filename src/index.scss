@@ -1,3 +1,5 @@
+$delete-button-color: #dd0000;
+
 * {
   margin: 0;
   padding: 0;
@@ -33,6 +35,12 @@ body {
   justify-content: center;
 }
 
+.end-center-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 @mixin pirmary-button-color {
   background-color: #2c7be5;
   color: white;
@@ -43,6 +51,18 @@ body {
 @mixin pirmary-button-color-hover {
   background-color: white;
   color: #2c7be5;
+}
+
+@mixin delete-button {
+  background-color: white;
+  color: $delete-button-color;
+  border: 2px solid $delete-button-color;
+  transition: all 0.5s ease-in-out;
+}
+
+@mixin delete-button-hover {
+  background-color: $delete-button-color;
+  color: white;
 }
 
 .button {
@@ -64,6 +84,14 @@ body {
 
 .primary-button:hover {
   @include pirmary-button-color-hover();
+}
+
+.delete-button {
+  @include delete-button();
+}
+
+.delete-button:hover {
+  @include delete-button-hover();
 }
 
 .link {
@@ -90,4 +118,14 @@ body {
 
 .number {
   text-align: right;
+}
+
+.user-feedback {
+  position: absolute;
+  font-size: 1.1rem;
+  background-color: white;
+  color: black;
+  box-shadow: 0 2px 4px gray;
+  border-radius: 0.2rem;
+  transition: all 0.5s ease-in-out;
 }

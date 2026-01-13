@@ -5,7 +5,8 @@ export interface OrderPopUpDatatype {
   selectedOrderId: number;
   service: string;
   quantity: number;
-  price: number;
+  singlePrice: number;
+  totalPrice: number;
   paymentMethode: string;
   paymentStatus: string;
   date: string;
@@ -28,8 +29,9 @@ export const ordersContext = createContext<OrdersStorageContext>({
   orderValueAdministration: {
     selectedOrderId: 0,
     service: "",
-    quantity: 0,
-    price: 0,
+    quantity: 1,
+    singlePrice: 0,
+    totalPrice: 0,
     paymentMethode: "",
     paymentStatus: "",
     date: "",
