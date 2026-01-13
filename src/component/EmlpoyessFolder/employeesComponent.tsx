@@ -56,7 +56,6 @@ export default function EmployeesComponent() {
         setNewEmployeeForm={setNewEmployeeForm}
         showEmployeesUpdate={loadEmployees}
         setUpdateEmployeeForm={setUpdateEmployeeForm}
-        failInMail={failInMail}
         setFailInMail={setFailInMail}
       />
     </section>

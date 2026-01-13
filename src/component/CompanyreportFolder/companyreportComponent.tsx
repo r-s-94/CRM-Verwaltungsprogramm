@@ -152,15 +152,15 @@ export default function CompanyreportComponent() {
     //console.log(supabaseOrderArray);
   }, [supabaseOrderArray]);
 
-  const [totalYearBilanz, setTotalYearBilanz] = useState<boolean>(false);
-  const [monthSum, setMonthSum] = useState<boolean>(false);
+  const [, setTotalYearBilanz] = useState<boolean>(false);
+  const [, setMonthSum] = useState<boolean>(false);
   const totalYearSum: number = companyreportStorageObject.salesVolume || 0;
   const currentYear = new Date().getFullYear();
 
-  function showTotalYearBilanz() {
+  /*function showTotalYearBilanz() {
     setTotalYearBilanz(true);
     setMonthSum(false);
-  }
+  }*/
 
   function showMonthBilanz() {
     setTotalYearBilanz(false);

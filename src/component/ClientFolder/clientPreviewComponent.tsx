@@ -14,13 +14,11 @@ export default function ClientPreviewComponent({
   setNewClientForm,
   showClientsUpdate,
   setUpdateClientForm,
-  failInMail,
   setFailInMail,
 }: {
   setNewClientForm: (value: boolean) => void;
   showClientsUpdate: () => void;
   setUpdateClientForm: (value: boolean) => void;
-  failInMail: number;
   setFailInMail: (failInMail: number) => void;
 }) {
   const {

@@ -40,7 +40,6 @@ export default function ClientsComponent() {
         setNewClientForm={setNewClientForm}
         showClientsUpdate={loadClients}
         setUpdateClientForm={setUpdateClientForm}
-        failInMail={failInMail}
         setFailInMail={setFailInMail}
       />
     </div>

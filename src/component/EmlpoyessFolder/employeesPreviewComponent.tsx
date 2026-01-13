@@ -17,13 +17,11 @@ export default function EmployeesPreviewComponent({
   setNewEmployeeForm,
   showEmployeesUpdate,
   setUpdateEmployeeForm,
-  failInMail,
   setFailInMail,
 }: {
   setNewEmployeeForm: (value: boolean) => void;
   showEmployeesUpdate: () => void;
   setUpdateEmployeeForm: (value: boolean) => void;
-  failInMail: number;
   setFailInMail: (failInMail: number) => void;
 }) {
   /*
