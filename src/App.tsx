@@ -21,7 +21,6 @@ import {
 import { toastyContent, ToastyObject } from "./toastyContext";
 
 //import Error from "./component/error/error";
-//
 
 export default function App() {
   //const [authorizedUser, setAuthorizedUser] = useState<boolean | null>(false);
