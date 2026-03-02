@@ -54,10 +54,22 @@ export default function PreviewComponent() {
   }
 
   async function signIn() {
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email: userMail,
       password: userPassword,
     });
+
+    console.log(data);
+
+    if (data.session === null) {
+      setToastyObject({
+        ...toastyObject,
+        area: "login",
+        message: "Login fehlgeschlagen? Bitte beim Entwickler melden.",
+        status: -1,
+        z_index: 0,
+      });
+    }
 
     if (error?.status !== 400 || error?.code !== "invalid_credentials") {
       fetchSession();
