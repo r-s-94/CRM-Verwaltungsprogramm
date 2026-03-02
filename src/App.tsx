@@ -99,6 +99,7 @@ export default function App() {
   const timeControlToasty = useRef(0);
 
   //cd ".\react-vite-crm-managment-program\"
+  //
 
   const router = createBrowserRouter(
     [
@@ -138,7 +139,7 @@ export default function App() {
     ],
     {
       basename: "/CRM-Verwaltungsprogramm/",
-    }
+    },
   );
 
   useEffect(() => {
