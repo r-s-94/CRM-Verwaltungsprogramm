@@ -4,7 +4,7 @@ import "../../index.scss";
 import "./updateEmployee.scss";
 import { employeesContext } from "./employeesContext";
 import "./employees.scss";
-import PopUpComponent from "../pop-up/popUp";
+import PopUp from "../pop-up/popUp";
 import "../pop-up/popUp.scss";
 import { toastyContent } from ".././toasty/toastyContext";
 import { popUpWidthHeightContent } from "../pop-up/popUpPaddingContent";
@@ -187,7 +187,7 @@ export default function UpdateEmployee({
   return (
     <div className="update-employee">
       {updateEmployeeForm && (
-        <PopUpComponent>
+        <PopUp>
           <div className="update-employee__form">
             <svg
               onClick={closeUpdateEmployeeForm}
@@ -510,7 +510,7 @@ export default function UpdateEmployee({
               </button>
             </div>
           </div>
-        </PopUpComponent>
+        </PopUp>
       )}
     </div>
   );

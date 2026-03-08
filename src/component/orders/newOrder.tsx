@@ -4,7 +4,7 @@ import { employeesContext } from "../emlpoyees/employeesContext";
 import { supabase } from "../../supabase";
 import "./newOrder.scss";
 import { ordersContext } from "./ordersContext";
-import PopUpComponent from "../pop-up/popUp";
+import PopUp from "../pop-up/popUp";
 import "../pop-up/popUp.scss";
 import { serviceArray } from "./orders";
 import { toastyContent } from ".././toasty/toastyContext";
@@ -196,7 +196,7 @@ export default function NewOrder({
   return (
     <div className="new-order">
       {newOrderForm && (
-        <PopUpComponent>
+        <PopUp>
           <div className="new-order__form">
             <svg
               onClick={closeNewOrderForm}
@@ -547,7 +547,7 @@ export default function NewOrder({
               </button>
             </div>
           </div>
-        </PopUpComponent>
+        </PopUp>
       )}
     </div>
   );

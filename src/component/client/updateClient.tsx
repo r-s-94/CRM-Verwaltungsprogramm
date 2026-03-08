@@ -3,7 +3,7 @@ import { supabase } from "../../supabase";
 import "../../index.scss";
 import "./updateClient.scss";
 import { clientsContext } from "./clientContext";
-import PopUpComponent from "../pop-up/popUp";
+import PopUp from "../pop-up/popUp";
 import "../pop-up/popUp.scss";
 import { toastyContent } from ".././toasty/toastyContext";
 import { popUpWidthHeightContent } from "../pop-up/popUpPaddingContent";
@@ -178,7 +178,7 @@ export default function UpdateClient({
   return (
     <div className="update-client">
       {updateClientForm && (
-        <PopUpComponent>
+        <PopUp>
           <div className="update-client__form">
             <svg
               onClick={closeUpdateClientForm}
@@ -479,7 +479,7 @@ export default function UpdateClient({
               </button>
             </div>
           </div>
-        </PopUpComponent>
+        </PopUp>
       )}
     </div>
   );

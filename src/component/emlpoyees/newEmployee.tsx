@@ -3,7 +3,7 @@ import "../../index.scss";
 import "./newEmployee.scss";
 import { supabase } from "../../supabase";
 import { employeesContext } from "./employeesContext";
-import PopUpComponent from "../pop-up/popUp";
+import PopUp from "../pop-up/popUp";
 import "../pop-up/popUp.scss";
 import { toastyContent } from ".././toasty/toastyContext";
 import { popUpWidthHeightContent } from "../pop-up/popUpPaddingContent";
@@ -149,7 +149,7 @@ export default function NewEmployee({
   return (
     <div className="new-employee">
       {newEmployeeForm && (
-        <PopUpComponent>
+        <PopUp>
           <div className="new-employee__form">
             <svg
               onClick={closeNewEmployeeForm}
@@ -470,7 +470,7 @@ export default function NewEmployee({
               </button>
             </div>
           </div>
-        </PopUpComponent>
+        </PopUp>
       )}
     </div>
   );

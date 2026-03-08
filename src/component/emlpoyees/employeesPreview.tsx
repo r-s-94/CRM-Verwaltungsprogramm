@@ -3,7 +3,7 @@ import "../../index.scss";
 import "./employeesPreview.scss";
 import { EmployeePopUpDatatype, employeesContext } from "./employeesContext";
 import { supabase } from "../../supabase";
-import PopUpComponent from "../pop-up/popUp";
+import PopUp from "../pop-up/popUp";
 import ToolTip from ".././tool-tip/toolTip";
 import Toasty from ".././toasty/toasty";
 import { toastyContent } from ".././toasty/toastyContext";
@@ -306,7 +306,7 @@ export default function EmployeesPreview({
     <div className="employees-preview">
       {" "}
       {deleteEmployeePopUp && (
-        <PopUpComponent>
+        <PopUp>
           <div className="employees-preview__question">
             <svg
               onClick={closeDeleteEmployeePopUp}
@@ -375,10 +375,10 @@ export default function EmployeesPreview({
               </button>
             </div>
           </div>
-        </PopUpComponent>
+        </PopUp>
       )}
       {singleEmployeePopUp && (
-        <PopUpComponent>
+        <PopUp>
           <div className="employees-preview__single-employee">
             {" "}
             <svg
@@ -479,7 +479,7 @@ export default function EmployeesPreview({
               </div>
             </div>
           </div>
-        </PopUpComponent>
+        </PopUp>
       )}
       <div className="employees-preview__table center-content-column">
         <button

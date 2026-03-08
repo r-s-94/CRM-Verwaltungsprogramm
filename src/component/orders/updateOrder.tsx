@@ -5,7 +5,7 @@ import { employeesContext } from "../emlpoyees/employeesContext";
 import { clientsContext } from "../client/clientContext";
 import "../../index.scss";
 import "./updateOrder.scss";
-import PopUpComponent from "../pop-up/popUp";
+import PopUp from "../pop-up/popUp";
 import "../../index.scss";
 import { serviceArray } from "./orders";
 import { toastyContent } from ".././toasty/toastyContext";
@@ -241,7 +241,7 @@ export default function UpdateOrderComponent({
   return (
     <div className="update-order">
       {updateOrderForm && (
-        <PopUpComponent>
+        <PopUp>
           <div className="update-order__form">
             <svg
               onClick={closeUpdateOrderForm}
@@ -618,7 +618,7 @@ export default function UpdateOrderComponent({
               </button>
             </div>
           </div>
-        </PopUpComponent>
+        </PopUp>
       )}
     </div>
   );

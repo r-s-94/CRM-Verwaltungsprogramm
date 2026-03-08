@@ -5,7 +5,7 @@ import "../../index.scss";
 import "./ordersPreview.scss";
 import { clientsContext } from "../client/clientContext";
 import { employeesContext } from "../emlpoyees/employeesContext";
-import PopUpComponent from "../pop-up/popUp";
+import PopUp from "../pop-up/popUp";
 import "../pop-up/popUp.scss";
 import ToolTip from ".././tool-tip/toolTip";
 import Toasty from ".././toasty/toasty";
@@ -422,7 +422,7 @@ export default function OrdersPreviewComponent({
   return (
     <div className="orders-preview">
       {deleteOrdePopUp && (
-        <PopUpComponent>
+        <PopUp>
           <div className="orders-preview__delete-order-form">
             <svg
               onClick={closedeleteOrdePopUp}
@@ -488,10 +488,10 @@ export default function OrdersPreviewComponent({
               </button>
             </div>
           </div>
-        </PopUpComponent>
+        </PopUp>
       )}
       {deleteSingleOrderPopUp && (
-        <PopUpComponent>
+        <PopUp>
           <div className="orders-preview__delete-single-order-form">
             <svg
               onClick={closedeleteSingleOrderPopUp}
@@ -557,10 +557,10 @@ export default function OrdersPreviewComponent({
               </button>
             </div>
           </div>
-        </PopUpComponent>
+        </PopUp>
       )}
       {singleOrderPreview && (
-        <PopUpComponent>
+        <PopUp>
           <div className="orders-preview__single-order-div ">
             <svg
               onClick={closeSingleOrderPreview}
@@ -905,7 +905,7 @@ export default function OrdersPreviewComponent({
               </div>
             </div>
           </div>
-        </PopUpComponent>
+        </PopUp>
       )}
       <div className="orders-preview__table-div">
         <button

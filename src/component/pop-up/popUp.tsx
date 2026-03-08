@@ -1,13 +1,9 @@
 import React, { useContext } from "react";
 import "../../index.scss";
-import "./PopUp.scss";
+import "./popUp.scss";
 import { popUpWidthHeightContent } from "./popUpPaddingContent";
 
-export default function PopUpComponent({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function PopUp({ children }: { children: React.ReactNode }) {
   const { popUpWidthHeightObject } = useContext(popUpWidthHeightContent);
   return (
     <div className="popup-window-div center-content">

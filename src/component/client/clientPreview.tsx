@@ -3,7 +3,7 @@ import { ClientPopUpDatatype, clientsContext } from "./clientContext";
 import { supabase } from "../../supabase";
 import "../../index.scss";
 import "./clientPreview.scss";
-import PopUpComponent from "../pop-up/popUp";
+import PopUp from "../pop-up/popUp";
 import ToolTip from ".././tool-tip/toolTip";
 import Toasty from ".././toasty/toasty";
 import { toastyContent } from ".././toasty/toastyContext";
@@ -289,7 +289,7 @@ export default function ClientPreview({
   return (
     <div className="clients-preview">
       {deleteClientPopUp && (
-        <PopUpComponent>
+        <PopUp>
           <div className="clients-preview__question">
             <svg
               onClick={closeshowDeleteClientPopUp}
@@ -355,10 +355,10 @@ export default function ClientPreview({
               </button>
             </div>
           </div>
-        </PopUpComponent>
+        </PopUp>
       )}{" "}
       {singleClientPopUp && (
-        <PopUpComponent>
+        <PopUp>
           <div className="clients-preview__single-client ">
             <svg
               onClick={closeSingleClientPreview}
@@ -457,7 +457,7 @@ export default function ClientPreview({
               </div>
             </div>
           </div>
-        </PopUpComponent>
+        </PopUp>
       )}
       <div className="clients-preview__table center-content-column">
         <button
