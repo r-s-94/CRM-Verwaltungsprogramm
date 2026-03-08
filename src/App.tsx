@@ -1,24 +1,24 @@
 import "./App.scss";
-import PreviewComponent from "./previewComponent";
-import EmployeesComponent from "./component/EmlpoyessFolder/employeesComponent";
-import ClientsComponent from "./component/ClientFolder/clientComponent";
+import PreviewComponent from "./preview";
+import EmployeesComponent from "./component/emlpoyees/employees";
+import ClientsComponent from "./component/client/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import OrdersComponent from "./component/OrdersFolder/ordersComponent";
-import CompanyreportComponent from "./component/CompanyreportFolder/companyreportComponent";
+import OrdersComponent from "./component/orders/orders";
+import CompanyreportComponent from "./component/companyreport/companyreport";
 import { Tables } from "./database.types";
-import { clientsContext } from "./clientContext";
+import { clientsContext } from "./component/client/clientContext";
 import { supabase } from "./supabase";
-import { employeesContext } from "./employeesContext";
-import { EmployeePopUpDatatype } from "./employeesContext";
-import { ClientPopUpDatatype } from "./clientContext";
-import { OrderPopUpDatatype } from "./ordersContext";
-import { ordersContext } from "./ordersContext";
+import { employeesContext } from "./component/emlpoyees/employeesContext";
+import { EmployeePopUpDatatype } from "./component/emlpoyees/employeesContext";
+import { ClientPopUpDatatype } from "./component/client/clientContext";
+import { OrderPopUpDatatype } from "./component/orders/ordersContext";
+import { ordersContext } from "./component/orders/ordersContext";
 import {
   popUpWidthHeightContent,
   PopUpWidthHeightObjectDatatype,
-} from "./popUpPaddingContent";
-import { toastyContent, ToastyObject } from "./toastyContext";
+} from "./component/pop-up/popUpPaddingContent";
+import { toastyContent, ToastyObject } from "./component/toasty/toastyContext";
 
 //import Error from "./component/error/error";
 
@@ -173,7 +173,8 @@ export default function App() {
 
     if (data) {
       //console.log(data);
-      setOrdersStorageArray(data);
+      const sortedArray = data.sort((current, next) => next.id - current.id);
+      setOrdersStorageArray(sortedArray);
     }
   }
 

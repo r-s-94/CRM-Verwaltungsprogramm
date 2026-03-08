@@ -1,0 +1,51 @@
+$crm-color-white: white;
+
+.company-report {
+  &__headline {
+    margin: 1.5rem 0 0 3rem;
+    font-size: 2rem;
+  }
+
+  &__table-div {
+    width: 95%;
+    height: 90vh;
+    margin: 1.5rem auto 0 auto;
+    row-gap: 1rem;
+    background-color: $crm-color-white;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 0.2rem;
+  }
+
+  &__preview {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__short-table-div {
+    margin-top: 2rem;
+  }
+
+  &__chart-div {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+  }
+
+  &__short-headline,
+  &__chart-headline {
+    font-size: 1.5rem;
+  }
+
+  &__short-text {
+    font-size: 1.5rem;
+    margin-top: 1.7rem;
+    text-align: center;
+    border-bottom: 3px solid #e0e0e0;
+    border-bottom-style: double;
+  }
+
+  &__chart {
+    width: 1000px;
+  }
+}
